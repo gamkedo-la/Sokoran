@@ -1,0 +1,76 @@
+[gd_resource type="SpatialMaterial" load_steps=10 format=2]
+
+[sub_resource type="Gradient" id=15]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0, 6.64215e-43, 0.5, 1 )
+colors = PoolColorArray( 0.976471, 0.301961, 0.796078, 1, 0.886275, 0.133333, 0.133333, 1, 0, 0, 0, 1, 0.737255, 0.164706, 0.941176, 1, 0.133333, 0, 0.12549, 1 )
+
+[sub_resource type="GradientTexture" id=16]
+gradient = SubResource( 15 )
+
+[sub_resource type="OpenSimplexNoise" id=11]
+seed = 785
+octaves = 9
+period = 30.9
+persistence = 0.512
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=12]
+seamless = true
+bump_strength = 30.8
+noise = SubResource( 11 )
+
+[sub_resource type="OpenSimplexNoise" id=9]
+period = 239.6
+persistence = 1.0
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=10]
+flags = 127
+seamless = true
+as_normalmap = true
+noise = SubResource( 9 )
+
+[sub_resource type="OpenSimplexNoise" id=13]
+period = 256.0
+persistence = 0.195
+lacunarity = 0.4
+
+[sub_resource type="NoiseTexture" id=14]
+seamless = true
+noise = SubResource( 13 )
+
+[sub_resource type="SpatialMaterial" id=8]
+render_priority = -22
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 0.556863, 0.917647, 0.0235294, 1 )
+albedo_texture = SubResource( 10 )
+depth_enabled = true
+depth_scale = 15.487
+depth_deep_parallax = true
+depth_min_layers = 8
+depth_max_layers = 32
+depth_flip_tangent = false
+depth_flip_binormal = false
+depth_texture = SubResource( 14 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[resource]
+render_priority = 3
+next_pass = SubResource( 8 )
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 0.376471, 0.0941176, 0.443137, 1 )
+albedo_texture = SubResource( 16 )
+depth_enabled = true
+depth_scale = 0.634
+depth_deep_parallax = true
+depth_min_layers = 64
+depth_max_layers = 64
+depth_flip_tangent = false
+depth_flip_binormal = true
+depth_texture = SubResource( 12 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.5
