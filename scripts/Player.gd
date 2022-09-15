@@ -35,7 +35,7 @@ func movement(vec:Vector3) -> void:
 		is_moving = false
 		player_moves -= 1
 	
-func _movelimit(delta: float) -> void:
+func _movelimit(_delta: float) -> void:
 	dir = Vector3.ZERO
 	if Input.is_action_just_pressed("ui_up"): dir = Vector3.BACK
 	if Input.is_action_just_pressed("ui_down"): dir = Vector3.FORWARD

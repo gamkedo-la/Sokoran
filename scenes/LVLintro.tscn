@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
+[ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
+[ext_resource path="res://scripts/DemoScene.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Box.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/BlueDice.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
+
+[sub_resource type="PlaneMesh" id=2]
+material = ExtResource( 2 )
+size = Vector2( 200, 200 )
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 3, 1, 2 )
+
+[sub_resource type="BoxShape" id=3]
+
+[node name="LVLintro" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Level" type="Spatial" parent="."]
+
+[node name="GridMap" type="GridMap" parent="Level" groups=["wall"]]
+mesh_library = ExtResource( 1 )
+collision_layer = 4
+data = {
+"cells": PoolIntArray( 5, 0, 0, 8, 0, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 6, 1, 0, 7, 1, 0, 1, 2, 0, 2, 2, 1, 3, 2, 0, 4, 2, 0, 5, 2, 1, 6, 2, 0, 7, 2, 0, 1, 3, 0, 2, 3, 1, 3, 3, 0, 4, 3, 0, 6, 3, 0, 7, 3, 0, 1, 4, 0, 3, 4, 0, 4, 4, 0, 5, 4, 0, 6, 4, 0, 7, 4, 0, 1, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 6, 5, 0, 7, 5, 0, 0, 6, 0, 5, 6, 0, 8, 6, 0, 2, 8, 1, 7, 8, 1, 3, 65534, 1 )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Box" parent="Level/GridMap" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 9 )
+
+[node name="BackGround" type="StaticBody" parent="."]
+
+[node name="Plane" type="MeshInstance" parent="BackGround"]
+mesh = SubResource( 2 )
+skeleton = NodePath("")
+
+[node name="Plane2" type="MeshInstance" parent="BackGround"]
+transform = Transform( 0.654, -0.066, 0.753, -0.407, 0.809, 0.424, -0.638, -0.584, 0.502, 1.801, 2.21, 13.376 )
+mesh = SubResource( 2 )
+skeleton = NodePath("")
+
+[node name="DiceCollision" type="CollisionShape" parent="BackGround"]
+transform = Transform( 6, 0, 0, 0, 3, 0, 0, 0, 11, 9, -1, 7 )
+shape = SubResource( 1 )
+
+[node name="Camera" type="Spatial" parent="."]
+
+[node name="Camera" type="Camera" parent="Camera"]
+transform = Transform( -0.939693, 0.241845, -0.241845, 0, 0.707107, 0.707107, 0.34202, 0.664463, -0.664463, 3, 20, -10 )
+projection = 1
+size = 20.0
+
+[node name="StaticBody" type="StaticBody" parent="Camera/Camera"]
+collision_layer = 16
+
+[node name="CollisionShape" type="CollisionShape" parent="Camera/Camera/StaticBody"]
+transform = Transform( 1, 7.45058e-08, 8.9407e-08, 1.49012e-08, 1, -2.98023e-08, -1.49012e-08, -2.08616e-07, 1, -1.90735e-06, 1.90735e-06, -3 )
+shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 8.0
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 3 )
+
+[node name="BlueDice" parent="." instance=ExtResource( 6 )]
+visible = false
+
+[node name="EndGoal" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3, 3 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]

@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Sokoran"
-run/main_scene="res://scenes/DemoScene.tscn"
+run/main_scene="res://scenes/LVLintro.tscn"
 config/icon="res://icon.png"
 
 [gui]
@@ -25,6 +25,12 @@ mouse_click={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="player"
+3d_physics/layer_2="dice"
+3d_physics/layer_3="floor"
 
 [physics]
 

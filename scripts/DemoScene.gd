@@ -32,7 +32,7 @@ func plop():
 	add_child(plop_inst)
 	
 
-func _input(event):
+func _input(_event):
 	
 	if !ignore_controls and !release_controls and Input.is_action_just_pressed("mouse_click"):
 		click_timer = 0.1 # Reset the click timer
@@ -88,7 +88,7 @@ func _input(event):
 #		add_child(obj)
 #		plop()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$BackGround/Plane.translation.y = lerp($BackGround/Plane.translation.y, water_height,0.1)
 	$BackGround/Plane2.translation.y = lerp($BackGround/Plane2.translation.y, water_height,0.1)
 	$Camera/Camera.rotation_degrees.z = lerp($Camera/Camera.rotation_degrees.z, 0.0, 0.15)
