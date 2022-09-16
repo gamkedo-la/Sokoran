@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/BlueDice.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
+[ext_resource path="res://resources/StarShader.tres" type="Material" id=8]
 
 [sub_resource type="PlaneMesh" id=2]
 material = ExtResource( 2 )
@@ -16,6 +17,9 @@ size = Vector2( 200, 200 )
 extents = Vector3( 3, 1, 2 )
 
 [sub_resource type="BoxShape" id=3]
+
+[sub_resource type="QuadMesh" id=4]
+material = ExtResource( 8 )
 
 [node name="LVLintro" type="Spatial"]
 script = ExtResource( 3 )
@@ -36,6 +40,7 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 9 )
 
 [node name="BackGround" type="StaticBody" parent="."]
+collision_layer = 5
 
 [node name="Plane" type="MeshInstance" parent="BackGround"]
 mesh = SubResource( 2 )
@@ -79,6 +84,10 @@ visible = false
 
 [node name="EndGoal" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3, 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 96.7089, 0, 0, 0, 96.7089, 0, 0, 0, 96.7089, 0, 0, 0 )
+mesh = SubResource( 4 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
