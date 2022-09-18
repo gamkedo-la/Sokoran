@@ -29,7 +29,7 @@ tracks/0/keys = {
 } ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:scale")
+tracks/1/path = NodePath("MeshInstance:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -39,6 +39,30 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector3( 1, 1, 1 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("NumLabel:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("NumLabel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -54,6 +78,66 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector3( 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("NumLabel:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("NumLabel:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MeshInstance:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("NumLabel:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("NumLabel:transform")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
 }
 
 [node name="BlueDice" type="RigidBody"]
@@ -98,6 +182,52 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
 
 [node name="Pos6" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00559807, -0.0371721, 0.961948 )
+
+[node name="FaceRays" type="Spatial" parent="."]
+unique_name_in_owner = true
+
+[node name="1" type="RayCast" parent="FaceRays"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
+enabled = true
+cast_to = Vector3( 0, 1, 0 )
+debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
+
+[node name="2" type="RayCast" parent="FaceRays"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9 )
+enabled = true
+cast_to = Vector3( 0, 0, -1 )
+debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
+
+[node name="3" type="RayCast" parent="FaceRays"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0, 0 )
+enabled = true
+cast_to = Vector3( 1, 0, 0 )
+debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
+
+[node name="4" type="RayCast" parent="FaceRays"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0, 0 )
+enabled = true
+cast_to = Vector3( -1, 0, 0 )
+debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
+
+[node name="5" type="RayCast" parent="FaceRays"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.9 )
+enabled = true
+cast_to = Vector3( 0, 0, 1 )
+debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
+
+[node name="6" type="RayCast" parent="FaceRays"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0 )
+enabled = true
+debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
+
+[node name="NumLabel" type="Label3D" parent="."]
+pixel_size = 0.2
+billboard = 1
+double_sided = false
+alpha_cut = 1
+modulate = Color( 0.407843, 0.839216, 1, 1 )
+text = "6"
 
 [connection signal="body_entered" from="." to="." method="_on_BlueDice_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

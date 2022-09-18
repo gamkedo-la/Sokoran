@@ -15,13 +15,13 @@ var is_push3 := false
 var rota_y := 0
 var old_rota_Y := 0
 
-var player_moves := 2288
+#var player_moves := 2288
 
 func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta: float) -> void:
-	if player_moves >= 1:
+	if PlayerVars.moves_left >= 1:
 		_movelimit(delta)
 
 func movement(vec:Vector3) -> void:
@@ -33,7 +33,7 @@ func movement(vec:Vector3) -> void:
 		$tw_m.start()
 		yield($tw_m,"tween_all_completed")
 		is_moving = false
-		player_moves -= 1
+		PlayerVars.moves_left -= 1
 	
 func _movelimit(_delta: float) -> void:
 	dir = Vector3.ZERO

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/BlueDice.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/mesh/D6blue.material" type="Material" id=8]
+[ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
 
 [sub_resource type="PlaneMesh" id=2]
 material = ExtResource( 2 )
@@ -23,6 +24,8 @@ material = ExtResource( 8 )
 
 [node name="LVLintro" type="Spatial"]
 script = ExtResource( 3 )
+
+[node name="HUD" parent="." instance=ExtResource( 9 )]
 
 [node name="Level" type="Spatial" parent="."]
 
