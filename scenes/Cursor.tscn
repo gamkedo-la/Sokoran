@@ -30,7 +30,7 @@
 [ext_resource path="res://assets/cursore/0019.png" type="Texture" id=28]
 [ext_resource path="res://assets/cursore/0004.png" type="Texture" id=29]
 [ext_resource path="res://assets/cursore/0006.png" type="Texture" id=30]
-[ext_resource path="res://scripts/Cursore.gd" type="Script" id=31]
+[ext_resource path="res://scripts/Cursor.gd" type="Script" id=31]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -46,5 +46,5 @@ script = ExtResource( 31 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.05, 0.05 )
 frames = SubResource( 1 )
-frame = 2
+frame = 10
 playing = true
