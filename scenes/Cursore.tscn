@@ -1,0 +1,50 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://assets/cursore/0007.png" type="Texture" id=1]
+[ext_resource path="res://assets/cursore/0008.png" type="Texture" id=2]
+[ext_resource path="res://assets/cursore/0010.png" type="Texture" id=3]
+[ext_resource path="res://assets/cursore/0011.png" type="Texture" id=4]
+[ext_resource path="res://assets/cursore/0020.png" type="Texture" id=5]
+[ext_resource path="res://assets/cursore/0005.png" type="Texture" id=6]
+[ext_resource path="res://assets/cursore/0021.png" type="Texture" id=7]
+[ext_resource path="res://assets/cursore/0016.png" type="Texture" id=8]
+[ext_resource path="res://assets/cursore/0022.png" type="Texture" id=9]
+[ext_resource path="res://assets/cursore/0023.png" type="Texture" id=10]
+[ext_resource path="res://assets/cursore/0024.png" type="Texture" id=11]
+[ext_resource path="res://assets/cursore/0002.png" type="Texture" id=12]
+[ext_resource path="res://assets/cursore/0025.png" type="Texture" id=13]
+[ext_resource path="res://assets/cursore/0026.png" type="Texture" id=14]
+[ext_resource path="res://assets/cursore/0028.png" type="Texture" id=15]
+[ext_resource path="res://assets/cursore/0018.png" type="Texture" id=16]
+[ext_resource path="res://assets/cursore/0001.png" type="Texture" id=17]
+[ext_resource path="res://assets/cursore/0012.png" type="Texture" id=18]
+[ext_resource path="res://assets/cursore/0030.png" type="Texture" id=19]
+[ext_resource path="res://assets/cursore/0027.png" type="Texture" id=20]
+[ext_resource path="res://assets/cursore/0029.png" type="Texture" id=21]
+[ext_resource path="res://assets/cursore/0015.png" type="Texture" id=22]
+[ext_resource path="res://assets/cursore/0009.png" type="Texture" id=23]
+[ext_resource path="res://assets/cursore/0003.png" type="Texture" id=24]
+[ext_resource path="res://assets/cursore/0014.png" type="Texture" id=25]
+[ext_resource path="res://assets/cursore/0017.png" type="Texture" id=26]
+[ext_resource path="res://assets/cursore/0013.png" type="Texture" id=27]
+[ext_resource path="res://assets/cursore/0019.png" type="Texture" id=28]
+[ext_resource path="res://assets/cursore/0004.png" type="Texture" id=29]
+[ext_resource path="res://assets/cursore/0006.png" type="Texture" id=30]
+[ext_resource path="res://scripts/Cursore.gd" type="Script" id=31]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 17 ), ExtResource( 12 ), ExtResource( 24 ), ExtResource( 29 ), ExtResource( 6 ), ExtResource( 30 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 23 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 18 ), ExtResource( 27 ), ExtResource( 25 ), ExtResource( 22 ), ExtResource( 8 ), ExtResource( 26 ), ExtResource( 16 ), ExtResource( 28 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 20 ), ExtResource( 15 ), ExtResource( 21 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "default",
+"speed": 30.0
+} ]
+
+[node name="Cursore" type="Node2D"]
+script = ExtResource( 31 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.05, 0.05 )
+frames = SubResource( 1 )
+frame = 2
+playing = true
