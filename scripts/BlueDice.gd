@@ -4,6 +4,7 @@ extends RigidBody
 var prv_pos := Vector3.ZERO
 var done_roll := false
 var time_elapsed := 0.0
+var roll_factor = 3
 #randomize dice at spawn through axis/angular velocity
 func _ready():
 	#randomize dice throw
@@ -40,3 +41,12 @@ func _on_Timer_timeout():
 	
 #	$Timer.connect("timeout", self, "queue_free")
 	
+
+
+func _on_BlueDice_body_entered(body):
+	if abs(self.linear_velocity.x)>roll_factor or abs(self.linear_velocity.y)>roll_factor or abs(self.linear_velocity.z)>roll_factor:
+		$AudioStreamPlayer.play()
+
+
+func _on_AudioStreamPlayer_finished():
+	pass # Replace with function body.
