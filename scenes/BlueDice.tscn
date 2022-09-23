@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/mesh/D6dicered.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://scripts/BlueDice.gd" type="Script" id=2]
 [ext_resource path="res://assets/audio/roll1.ogg" type="AudioStream" id=3]
 
@@ -165,24 +165,6 @@ bus = "SFX"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 2 )
 anims/RESET = SubResource( 5 )
-
-[node name="Pos1" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-
-[node name="Pos2" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
-
-[node name="Pos3" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
-
-[node name="Pos4" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-
-[node name="Pos5" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
-
-[node name="Pos6" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00559807, -0.0371721, 0.961948 )
 
 [node name="FaceRays" type="Spatial" parent="."]
 unique_name_in_owner = true
