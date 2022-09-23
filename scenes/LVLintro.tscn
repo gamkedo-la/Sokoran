@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -7,7 +7,7 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/BlueDice.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/mesh/D6blue.material" type="Material" id=8]
+[ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=8]
 [ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
 
 [sub_resource type="PlaneMesh" id=2]
@@ -17,10 +17,8 @@ size = Vector2( 200, 200 )
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 3, 1, 2 )
 
-[sub_resource type="BoxShape" id=3]
-
-[sub_resource type="QuadMesh" id=4]
-material = ExtResource( 8 )
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( 17.8, 1.6, 21.8, -2, 2, 2, 18, 2, 22, 17.8, 1.6, 21.8, -1.8, 1.6, 1.8, -2, 2, 2, -1.8, 1.6, 1.8, -2, 2, -2, -2, 2, 2, -1.8, 1.6, 1.8, -1.8, 1.6, -1.8, -2, 2, -2, -1, 0, -1, 17, 0, 21, 1, 0, -1, -1, 0, -1, -1, 0, 1, 17, 0, 21, 1.8, 1.6, -1.8, 18, 2, 22, 2, 2, -2, 1.8, 1.6, -1.8, 17.8, 1.6, 21.8, 18, 2, 22, -1.8, 1.6, -1.8, 2, 2, -2, -2, 2, -2, -1.8, 1.6, -1.8, 1.8, 1.6, -1.8, 2, 2, -2, -1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, -1, 0, -1, 1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, -1.2, 0.4, -1.2, 1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, -1.4, 0.8, -1.4, 1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, 1.8, 1.6, -1.8, -1.8, 1.6, -1.8, -1.6, 1.2, -1.6, 1.6, 1.2, -1.6, 1.8, 1.6, -1.8, 1, 0, -1, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 1, 0, -1, 17, 0, 21, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 1.2, 0.4, -1.2, 17.2, 0.4, 21.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 1.4, 0.8, -1.4, 17.4, 0.8, 21.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 17.8, 1.6, 21.8, 1.8, 1.6, -1.8, 1.6, 1.2, -1.6, 17.6, 1.2, 21.6, 17.8, 1.6, 21.8, -1, 0, 1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1, 0, 1, -1, 0, -1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.2, 0.4, 1.2, -1.2, 0.4, -1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.4, 0.8, 1.4, -1.4, 0.8, -1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.8, 1.6, -1.8, -1.8, 1.6, 1.8, -1.6, 1.2, 1.6, -1.6, 1.2, -1.6, -1.8, 1.6, -1.8, 17, 0, 21, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, 17, 0, 21, -1, 0, 1, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, 17.2, 0.4, 21.2, -1.2, 0.4, 1.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, 17.4, 0.8, 21.4, -1.4, 0.8, 1.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, -1.8, 1.6, 1.8, 17.8, 1.6, 21.8, 17.6, 1.2, 21.6, -1.6, 1.2, 1.6, -1.8, 1.6, 1.8 )
 
 [node name="LVLintro" type="Spatial"]
 script = ExtResource( 3 )
@@ -54,9 +52,11 @@ transform = Transform( 0.654, -0.066, 0.753, -0.407, 0.809, 0.424, -0.638, -0.58
 mesh = SubResource( 2 )
 skeleton = NodePath("")
 
-[node name="DiceCollision" type="CollisionShape" parent="BackGround"]
+[node name="OldDiceCollision_disabled" type="CollisionShape" parent="BackGround"]
 transform = Transform( 6, 0, 0, 0, 3, 0, 0, 0, 11, 9, -1, 7 )
+visible = false
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Camera" type="Spatial" parent="."]
 
@@ -65,11 +65,16 @@ transform = Transform( -0.939693, 0.241845, -0.241845, 0, 0.707107, 0.707107, 0.
 projection = 1
 size = 20.0
 
-[node name="StaticBody" type="StaticBody" parent="Camera/Camera"]
-collision_layer = 16
+[node name="DiceCollisionWall" type="MeshInstance" parent="Camera/Camera"]
+transform = Transform( 14.3937, 1.2734e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 2.4867, -5.83224, -22.4911 )
+mesh = ExtResource( 8 )
+skeleton = NodePath("../../..")
 
-[node name="CollisionShape" type="CollisionShape" parent="Camera/Camera/StaticBody"]
-transform = Transform( 1, 7.45058e-08, 8.9407e-08, 1.49012e-08, 1, -2.98023e-08, -1.49012e-08, -2.08616e-07, 1, -1.90735e-06, 1.90735e-06, -3 )
+[node name="StaticBody" type="StaticBody" parent="Camera/Camera/DiceCollisionWall"]
+transform = Transform( 1, 1.17239e-15, -1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0, 0 )
+collision_layer = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
 shape = SubResource( 3 )
 
 [node name="Timer" type="Timer" parent="."]
@@ -88,11 +93,6 @@ visible = false
 
 [node name="EndGoal" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3, 3 )
-
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 96.7089, 0, 0, 0, 96.7089, 0, 0, 0, 96.7089, 0, 0, 18.8515 )
-visible = false
-mesh = SubResource( 4 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
