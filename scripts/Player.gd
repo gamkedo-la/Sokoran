@@ -32,6 +32,14 @@ func movement(vec:Vector3) -> void:
 		$tw_m.interpolate_property(self, "translation", a, b, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
 		$tw_m.start()
 		yield($tw_m,"tween_all_completed")
+		if $ray_down.is_colliding() == false:
+			var c= b + Vector3.DOWN * 2
+			$AnimationPlayer.play("fall")
+			$tw_m.interpolate_property(self, "translation", b, c, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
+			$tw_m.start()
+			yield(get_tree().create_timer(1.5), "timeout")
+			var _err = get_tree().reload_current_scene()
+		
 		is_moving = false
 		PlayerVars.moves_left -= 1
 	
