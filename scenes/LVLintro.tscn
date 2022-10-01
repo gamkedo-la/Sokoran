@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=8]
 [ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/PauseController.tscn" type="PackedScene" id=10]
 
 [sub_resource type="PlaneMesh" id=2]
 material = ExtResource( 2 )
@@ -22,6 +23,8 @@ data = PoolVector3Array( 17.8, 1.6, 21.8, -2, 2, 2, 18, 2, 22, 17.8, 1.6, 21.8, 
 
 [node name="LVLintro" type="Spatial"]
 script = ExtResource( 3 )
+
+[node name="PauseController" parent="." instance=ExtResource( 10 )]
 
 [node name="HUD" parent="." instance=ExtResource( 9 )]
 
