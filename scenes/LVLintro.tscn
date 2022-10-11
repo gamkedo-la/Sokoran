@@ -26,6 +26,9 @@ data = PoolVector3Array( 17.8, 1.6, 21.8, -2, 2, 2, 18, 2, 22, 17.8, 1.6, 21.8, 
 [sub_resource type="SpatialMaterial" id=4]
 flags_transparent = true
 flags_unshaded = true
+flags_no_depth_test = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
 albedo_texture = ExtResource( 11 )
 
 [node name="LVLintro" type="Spatial"]
@@ -105,11 +108,14 @@ visible = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3, 3 )
 
 [node name="vortex" type="MeshInstance" parent="EndGoal"]
-transform = Transform( -8.74228e-11, 0.002, 0, -0.002, -8.74228e-11, 0, 0, 0, 0.002, 0, 1, 0 )
+transform = Transform( -4.37114e-11, 0.002, 0, -0.001, -8.74228e-11, 0, 0, 0, 0.002, 0, 0.625154, 0 )
 generate_lightmap = false
 mesh = ExtResource( 12 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 4 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
