@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=8]
 [ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/PauseController.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/texture/vortex_streak.png" type="Texture" id=11]
+[ext_resource path="res://assets/mesh/vortex.obj" type="ArrayMesh" id=12]
 
 [sub_resource type="PlaneMesh" id=2]
 material = ExtResource( 2 )
@@ -20,6 +22,11 @@ extents = Vector3( 3, 1, 2 )
 
 [sub_resource type="ConcavePolygonShape" id=3]
 data = PoolVector3Array( 17.8, 1.6, 21.8, -2, 2, 2, 18, 2, 22, 17.8, 1.6, 21.8, -1.8, 1.6, 1.8, -2, 2, 2, -1.8, 1.6, 1.8, -2, 2, -2, -2, 2, 2, -1.8, 1.6, 1.8, -1.8, 1.6, -1.8, -2, 2, -2, -1, 0, -1, 17, 0, 21, 1, 0, -1, -1, 0, -1, -1, 0, 1, 17, 0, 21, 1.8, 1.6, -1.8, 18, 2, 22, 2, 2, -2, 1.8, 1.6, -1.8, 17.8, 1.6, 21.8, 18, 2, 22, -1.8, 1.6, -1.8, 2, 2, -2, -2, 2, -2, -1.8, 1.6, -1.8, 1.8, 1.6, -1.8, 2, 2, -2, -1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, -1, 0, -1, 1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, -1.2, 0.4, -1.2, 1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, -1.4, 0.8, -1.4, 1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, 1.8, 1.6, -1.8, -1.8, 1.6, -1.8, -1.6, 1.2, -1.6, 1.6, 1.2, -1.6, 1.8, 1.6, -1.8, 1, 0, -1, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 1, 0, -1, 17, 0, 21, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 1.2, 0.4, -1.2, 17.2, 0.4, 21.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 1.4, 0.8, -1.4, 17.4, 0.8, 21.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 17.8, 1.6, 21.8, 1.8, 1.6, -1.8, 1.6, 1.2, -1.6, 17.6, 1.2, 21.6, 17.8, 1.6, 21.8, -1, 0, 1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1, 0, 1, -1, 0, -1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.2, 0.4, 1.2, -1.2, 0.4, -1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.4, 0.8, 1.4, -1.4, 0.8, -1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.8, 1.6, -1.8, -1.8, 1.6, 1.8, -1.6, 1.2, 1.6, -1.6, 1.2, -1.6, -1.8, 1.6, -1.8, 17, 0, 21, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, 17, 0, 21, -1, 0, 1, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, 17.2, 0.4, 21.2, -1.2, 0.4, 1.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, 17.4, 0.8, 21.4, -1.4, 0.8, 1.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, -1.8, 1.6, 1.8, 17.8, 1.6, 21.8, 17.6, 1.2, 21.6, -1.6, 1.2, 1.6, -1.8, 1.6, 1.8 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = ExtResource( 11 )
 
 [node name="LVLintro" type="Spatial"]
 script = ExtResource( 3 )
@@ -96,6 +103,13 @@ visible = false
 
 [node name="EndGoal" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3, 3 )
+
+[node name="vortex" type="MeshInstance" parent="EndGoal"]
+transform = Transform( -8.74228e-11, 0.002, 0, -0.002, -8.74228e-11, 0, 0, 0, 0.002, 0, 1, 0 )
+generate_lightmap = false
+mesh = ExtResource( 12 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 4 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
