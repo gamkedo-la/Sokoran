@@ -7,7 +7,6 @@ func _process(_delta:float)-> void:
 	if dir!=Vector3.ZERO:
 		movement(dir)
 
-
 func set_dir(vec:Vector3)-> void:
 	dir=vec
 

@@ -135,7 +135,7 @@ color = Color( 1, 1, 1, 1 )
 
 [node name="Line2D" type="Line2D" parent="Dash1"]
 self_modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, 5 )
+position = Vector2( 0, 30 )
 scale = Vector2( 1.2, 1.2 )
 points = PoolVector2Array( 0, 0, 0, 15 )
 default_color = Color( 0.913725, 0.611765, 0.341176, 1 )
@@ -145,7 +145,7 @@ rotation = 1.25664
 
 [node name="Line2D" type="Line2D" parent="Dash2"]
 self_modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, 5 )
+position = Vector2( 0, 30 )
 points = PoolVector2Array( 0, 0, 0, 15 )
 default_color = Color( 0.913725, 0.611765, 0.341176, 1 )
 
@@ -154,7 +154,7 @@ rotation = 2.51327
 
 [node name="Line2D" type="Line2D" parent="Dash3"]
 self_modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, 5 )
+position = Vector2( 0, 30 )
 points = PoolVector2Array( 0, 0, 0, 15 )
 default_color = Color( 0.913725, 0.611765, 0.341176, 1 )
 
@@ -163,7 +163,7 @@ rotation = 3.76991
 
 [node name="Line2D" type="Line2D" parent="Dash4"]
 self_modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, 5 )
+position = Vector2( 0, 30 )
 points = PoolVector2Array( 0, 0, 0, 15 )
 default_color = Color( 0.913725, 0.611765, 0.341176, 1 )
 
@@ -172,7 +172,7 @@ rotation = 5.02655
 
 [node name="Line2D" type="Line2D" parent="Dash5"]
 self_modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, 5 )
+position = Vector2( 0, 30 )
 points = PoolVector2Array( 0, 0, 0, 15 )
 default_color = Color( 0.913725, 0.611765, 0.341176, 1 )
 

@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/mesh/box satellite.glb" type="PackedScene" id=1]
+[ext_resource path="res://scripts/box satellite.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "screen loop"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:mesh:surface_1/material:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 4.022, 0, 0 ) ]
+}
+
+[node name="box satellite" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="screen" index="0"]
+autoplay = "screen loop"
+"anims/screen loop" = SubResource( 1 )
