@@ -1,15 +1,93 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
-[ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
-[ext_resource path="res://scripts/DemoScene.gd" type="Script" id=3]
+[ext_resource path="res://scripts/UI/MenuScene.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Box.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/BlueDice.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/mesh/box satellite.glb" type="PackedScene" id=7]
+[ext_resource path="res://assets/font/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=8]
+
+[sub_resource type="Gradient" id=15]
+resource_local_to_scene = true
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0, 6.64215e-43, 0.00310559, 0.5, 1 )
+colors = PoolColorArray( 0.910737, 0.167206, 0.487418, 1, 0.886275, 0.133333, 0.133333, 1, 0, 0, 0, 1, 0.4375, 0.0478516, 0.0478516, 1, 0.953125, 0.383368, 0.0744629, 1, 0.2362, 0.083601, 0.403809, 1 )
+
+[sub_resource type="GradientTexture" id=16]
+resource_local_to_scene = true
+gradient = SubResource( 15 )
+
+[sub_resource type="OpenSimplexNoise" id=11]
+seed = 785
+octaves = 9
+period = 30.9
+persistence = 0.512
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=12]
+seamless = true
+bump_strength = 30.8
+noise = SubResource( 11 )
+
+[sub_resource type="OpenSimplexNoise" id=9]
+period = 239.6
+persistence = 1.0
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=10]
+flags = 127
+seamless = true
+as_normalmap = true
+noise = SubResource( 9 )
+
+[sub_resource type="OpenSimplexNoise" id=13]
+period = 256.0
+persistence = 0.195
+lacunarity = 0.4
+
+[sub_resource type="NoiseTexture" id=14]
+seamless = true
+noise = SubResource( 13 )
+
+[sub_resource type="SpatialMaterial" id=8]
+resource_local_to_scene = true
+render_priority = -22
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 0.976471, 0.419608, 0, 1 )
+albedo_texture = SubResource( 10 )
+depth_enabled = true
+depth_scale = 15.487
+depth_deep_parallax = true
+depth_min_layers = 8
+depth_max_layers = 32
+depth_flip_tangent = false
+depth_flip_binormal = false
+depth_texture = SubResource( 14 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="SpatialMaterial" id=17]
+resource_local_to_scene = true
+render_priority = 3
+next_pass = SubResource( 8 )
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 0.894118, 0.709804, 0.215686, 1 )
+albedo_texture = SubResource( 16 )
+depth_enabled = true
+depth_scale = 0.634
+depth_deep_parallax = true
+depth_min_layers = 64
+depth_max_layers = 64
+depth_flip_tangent = false
+depth_flip_binormal = true
+depth_texture = SubResource( 12 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.5
 
 [sub_resource type="PlaneMesh" id=2]
-material = ExtResource( 2 )
+material = SubResource( 17 )
 size = Vector2( 200, 200 )
 
 [sub_resource type="BoxShape" id=1]
@@ -17,7 +95,27 @@ extents = Vector3( 3, 1, 2 )
 
 [sub_resource type="BoxShape" id=3]
 
-[node name="DemoSene" type="Spatial"]
+[sub_resource type="DynamicFont" id=4]
+size = 80
+outline_size = 3
+use_filter = true
+extra_spacing_char = 15
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 22
+use_filter = true
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 11
+border_width_top = 11
+border_width_right = 11
+border_width_bottom = 11
+border_color = Color( 0.8, 0.8, 0.8, 0 )
+
+[node name="MenuScene" type="Spatial"]
 script = ExtResource( 3 )
 
 [node name="Level" type="Spatial" parent="."]
@@ -25,14 +123,16 @@ script = ExtResource( 3 )
 [node name="GridMap" type="GridMap" parent="Level" groups=["wall"]]
 mesh_library = ExtResource( 1 )
 data = {
-"cells": PoolIntArray( 5, 0, 0, 8, 0, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 6, 1, 0, 7, 1, 0, 1, 2, 0, 2, 2, 1, 3, 2, 0, 4, 2, 0, 5, 2, 1, 6, 2, 0, 7, 2, 0, 1, 3, 0, 2, 3, 1, 3, 3, 0, 4, 3, 0, 6, 3, 0, 7, 3, 0, 1, 4, 0, 3, 4, 0, 4, 4, 0, 5, 4, 0, 6, 4, 0, 7, 4, 0, 1, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 6, 5, 0, 7, 5, 0, 0, 6, 0, 5, 6, 0, 8, 6, 0, 2, 8, 1, 7, 8, 1, 3, 65534, 1 )
+"cells": PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 65534, 1, 0, 65535, 1, 0, 4, 2, 0, 65534, 2, 0, 0, 3, 0, 2, 3, 0, 4, 3, 0, 65534, 3, 0, 4, 4, 0, 65534, 4, 0, 0, 5, 0, 2, 5, 0, 4, 5, 0, 65534, 5, 0, 4, 6, 0, 65534, 6, 0, 0, 7, 0, 1, 7, 0, 2, 7, 0, 3, 7, 0, 4, 7, 0, 65534, 7, 0, 65535, 7, 0, 0, 8, 1, 2, 8, 1, 0, 10, 1, 2, 10, 1, 0, 12, 1, 2, 12, 1, 0, 14, 1, 2, 14, 1, 0, 16, 1, 2, 16, 1, 0, 18, 1, 2, 18, 1, 0, 20, 1, 2, 20, 1, 0, 22, 1, 2, 22, 1, 0, 24, 1, 2, 24, 1, 0, 26, 1, 2, 26, 1 )
 }
 __meta__ = {
-"_editor_clip_": 0
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 0, 0 )
 }
 
 [node name="Box" parent="Level/GridMap" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 9 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 12 )
+visible = false
 
 [node name="BackGround" type="StaticBody" parent="."]
 
@@ -52,7 +152,7 @@ shape = SubResource( 1 )
 [node name="Camera" type="Spatial" parent="."]
 
 [node name="Camera" type="Camera" parent="Camera"]
-transform = Transform( -0.939693, 0.241845, -0.241845, 0, 0.707107, 0.707107, 0.34202, 0.664463, -0.664463, 3, 20, -10 )
+transform = Transform( -0.939693, 0.241845, -0.241845, 0, 0.707107, 0.707107, 0.34202, 0.664463, -0.664463, 15, 20, -10 )
 projection = 1
 size = 20.0
 
@@ -73,12 +173,57 @@ wait_time = 8.0
 [node name="Player" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 3 )
 
-[node name="BlueDice" parent="." instance=ExtResource( 6 )]
-visible = false
-collision_layer = 17
+[node name="box satellite" parent="." instance=ExtResource( 7 )]
+transform = Transform( -0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 3, 1, 9 )
 
-[node name="EndGoal" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3, 3 )
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchor_right = 1.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 4 )
+text = " S  KORAN"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchor_bottom = 1.0
+margin_right = 230.0
+
+[node name="btn_new" type="Button" parent="CanvasLayer/VBoxContainer"]
+margin_right = 230.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 6 )
+text = "NEW"
+
+[node name="btn_resume" type="Button" parent="CanvasLayer/VBoxContainer"]
+margin_top = 53.0
+margin_right = 230.0
+margin_bottom = 102.0
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 6 )
+text = "RESUME"
+
+[node name="btn_quit" type="Button" parent="CanvasLayer/VBoxContainer"]
+margin_top = 106.0
+margin_right = 230.0
+margin_bottom = 155.0
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 6 )
+text = "QUIT"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/btn_new" to="." method="_on_btn_new_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/btn_quit" to="." method="_on_btn_quit_pressed"]
