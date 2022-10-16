@@ -63,6 +63,18 @@ text = "6"
 align = 1
 valign = 1
 
+[node name="hb" type="HBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="home" type="TextureButton" parent="hb"]
+margin_bottom = 40.0
+
+[node name="retry" type="TextureButton" parent="hb"]
+margin_left = 4.0
+margin_right = 4.0
+margin_bottom = 40.0
+
 [node name="MoveCount" type="AudioStreamPlayer" parent="."]
 stream = SubResource( 6 )
 volume_db = -5.0

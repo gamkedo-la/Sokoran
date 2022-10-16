@@ -14,7 +14,9 @@ var release_controls = Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+#	$ColorRect.visible = true
+#	$ColorRect/anim.play("to_zero")
+	pass
 
 func spawn_dice(position):
 	var dice_inst = dice.instance()

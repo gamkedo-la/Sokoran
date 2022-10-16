@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -21,75 +21,6 @@ extents = Vector3( 3, 1, 2 )
 [sub_resource type="ConcavePolygonShape" id=3]
 data = PoolVector3Array( 17.8, 1.6, 21.8, -2, 2, 2, 18, 2, 22, 17.8, 1.6, 21.8, -1.8, 1.6, 1.8, -2, 2, 2, -1.8, 1.6, 1.8, -2, 2, -2, -2, 2, 2, -1.8, 1.6, 1.8, -1.8, 1.6, -1.8, -2, 2, -2, -1, 0, -1, 17, 0, 21, 1, 0, -1, -1, 0, -1, -1, 0, 1, 17, 0, 21, 1.8, 1.6, -1.8, 18, 2, 22, 2, 2, -2, 1.8, 1.6, -1.8, 17.8, 1.6, 21.8, 18, 2, 22, -1.8, 1.6, -1.8, 2, 2, -2, -2, 2, -2, -1.8, 1.6, -1.8, 1.8, 1.6, -1.8, 2, 2, -2, -1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, -1, 0, -1, 1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, -1.2, 0.4, -1.2, 1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, -1.4, 0.8, -1.4, 1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, 1.8, 1.6, -1.8, -1.8, 1.6, -1.8, -1.6, 1.2, -1.6, 1.6, 1.2, -1.6, 1.8, 1.6, -1.8, 1, 0, -1, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 1, 0, -1, 17, 0, 21, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 1.2, 0.4, -1.2, 17.2, 0.4, 21.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 1.4, 0.8, -1.4, 17.4, 0.8, 21.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 17.8, 1.6, 21.8, 1.8, 1.6, -1.8, 1.6, 1.2, -1.6, 17.6, 1.2, 21.6, 17.8, 1.6, 21.8, -1, 0, 1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1, 0, 1, -1, 0, -1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.2, 0.4, 1.2, -1.2, 0.4, -1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.4, 0.8, 1.4, -1.4, 0.8, -1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.8, 1.6, -1.8, -1.8, 1.6, 1.8, -1.6, 1.2, 1.6, -1.6, 1.2, -1.6, -1.8, 1.6, -1.8, 17, 0, 21, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, 17, 0, 21, -1, 0, 1, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, 17.2, 0.4, 21.2, -1.2, 0.4, 1.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, 17.4, 0.8, 21.4, -1.4, 0.8, 1.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, -1.8, 1.6, 1.8, 17.8, 1.6, 21.8, 17.6, 1.2, 21.6, -1.6, 1.2, 1.6, -1.8, 1.6, 1.8 )
 
-[sub_resource type="Shader" id=24]
-code = "shader_type canvas_item;
-uniform float factor=0.5;
-uniform float aspect_ratio = 1.7;
-uniform vec4 fade_color:hint_color;
-
-void fragment(){
-	vec2 uv_mod = UV;
-	uv_mod.x = mix(0.5, uv_mod.x, aspect_ratio);
-	vec4 color;
-	float d = length(UV- 0.5);
-	float c = d;
-	if(d< factor) color= vec4(0.); else color = fade_color;
-	COLOR = color;
-}"
-
-[sub_resource type="ShaderMaterial" id=25]
-shader = SubResource( 24 )
-shader_param/factor = 1.0
-shader_param/aspect_ratio = 1.7
-shader_param/fade_color = null
-
-[sub_resource type="Animation" id=26]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:material:shader_param/factor")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-
-[sub_resource type="Animation" id=27]
-resource_name = "fade"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:material:shader_param/factor")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 1.0, 0.0 ]
-}
-
-[sub_resource type="Animation" id=28]
-resource_name = "to_zero"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:material:shader_param/factor")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-
 [node name="LVLintro" type="Spatial"]
 script = ExtResource( 3 )
 
@@ -103,7 +34,7 @@ script = ExtResource( 3 )
 mesh_library = ExtResource( 1 )
 collision_layer = 5
 data = {
-"cells": PoolIntArray( 5, 0, 0, 8, 0, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 6, 1, 0, 7, 1, 0, 1, 2, 0, 2, 2, 1, 3, 2, 0, 4, 2, 0, 5, 2, 1, 6, 2, 0, 7, 2, 0, 1, 3, 0, 2, 3, 1, 3, 3, 0, 4, 3, 0, 6, 3, 0, 7, 3, 0, 1, 4, 0, 3, 4, 0, 4, 4, 0, 5, 4, 0, 6, 4, 0, 7, 4, 0, 1, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 6, 5, 0, 7, 5, 0, 0, 6, 0, 5, 6, 0, 8, 6, 0, 2, 8, 1, 7, 8, 1, 3, 65534, 1 )
+"cells": PoolIntArray( 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 4, 2, 0, 5, 2, 0, 6, 2, 0, 7, 2, 0, 8, 2, 0, 1, 3, 0, 2, 3, 1, 3, 3, 0, 4, 3, 1, 5, 3, 0, 6, 3, 1, 7, 3, 0, 8, 3, 0, 1, 4, 0, 2, 4, 1, 3, 4, 0, 4, 4, 1, 5, 4, 0, 6, 4, 1, 7, 4, 0, 8, 4, 0, 1, 5, 0, 2, 5, 1, 3, 5, 0, 4, 5, 1, 5, 5, 0, 6, 5, 1, 7, 5, 0, 8, 5, 0, 1, 6, 0, 2, 6, 0, 3, 6, 0, 4, 6, 0, 5, 6, 0, 6, 6, 0, 7, 6, 0, 8, 6, 0, 7, 7, 0, 8, 7, 0 )
 }
 __meta__ = {
 "_editor_clip_": 0
@@ -165,19 +96,6 @@ visible = false
 
 [node name="EndGoal" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3, 3 )
-
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-material = SubResource( 25 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-color = Color( 1, 1, 1, 0 )
-
-[node name="anim" type="AnimationPlayer" parent="ColorRect"]
-anims/RESET = SubResource( 26 )
-anims/fade = SubResource( 27 )
-anims/to_zero = SubResource( 28 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
