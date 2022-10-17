@@ -3,7 +3,7 @@ extends Node
 signal moves_changed
 
 var moves_left :int = 0 setget _set_moves_left
-var moves_left_max: int = 100
+var moves_left_max: int = 6
 
 
 # Called when the node enters the scene tree for the first time.
