@@ -9,7 +9,7 @@
 [ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=8]
 [ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/PauseController.tscn" type="PackedScene" id=10]
+[ext_resource path="res://music/space-chillout-penguinmusic_pixabay.mp3" type="AudioStream" id=10]
 
 [sub_resource type="PlaneMesh" id=2]
 material = ExtResource( 2 )
@@ -92,8 +92,6 @@ tracks/0/keys = {
 
 [node name="LVLintro" type="Spatial"]
 script = ExtResource( 3 )
-
-[node name="PauseController" parent="." instance=ExtResource( 10 )]
 
 [node name="HUD" parent="." instance=ExtResource( 9 )]
 
@@ -178,6 +176,10 @@ color = Color( 1, 1, 1, 0 )
 anims/RESET = SubResource( 26 )
 anims/fade = SubResource( 27 )
 anims/to_zero = SubResource( 28 )
+
+[node name="bg_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+autoplay = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]

@@ -1,9 +1,7 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=66 format=2]
 
-[ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://assets/mesh/D4reddice.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://scripts/UI/MenuScene.gd" type="Script" id=3]
-[ext_resource path="res://scenes/Box.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/texture/Untitled_000017.png" type="Texture" id=5]
 [ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=6]
 [ext_resource path="res://assets/mesh/box satellite.glb" type="PackedScene" id=7]
@@ -38,6 +36,7 @@
 [ext_resource path="res://assets/texture/Untitled_000015.png" type="Texture" id=36]
 [ext_resource path="res://assets/texture/Untitled_000016.png" type="Texture" id=37]
 [ext_resource path="res://assets/texture/Untitled_000005.png" type="Texture" id=38]
+[ext_resource path="res://music/space-chillout-penguinmusic_pixabay.mp3" type="AudioStream" id=39]
 
 [sub_resource type="Gradient" id=15]
 resource_local_to_scene = true
@@ -142,12 +141,12 @@ animations = [ {
 "speed": 30.0
 } ]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=30]
 size = 50
 use_filter = true
 font_data = ExtResource( 8 )
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=31]
 bg_color = Color( 0.996078, 0.988235, 0.988235, 0 )
 border_width_left = 11
 border_width_top = 11
@@ -155,7 +154,7 @@ border_width_right = 11
 border_width_bottom = 11
 border_color = Color( 0.8, 0.8, 0.8, 0 )
 
-[sub_resource type="Shader" id=24]
+[sub_resource type="Shader" id=32]
 code = "shader_type canvas_item;
 uniform float factor=0.5;
 uniform float aspect_ratio = 1.7;
@@ -163,16 +162,21 @@ uniform vec4 fade_color:hint_color;
 
 void fragment(){
 	vec2 uv_mod = UV;
-	uv_mod.x = mix(0.5, uv_mod.x, aspect_ratio);
+//	uv_mod.x *= 1.706666667;
+//	uv_mod.x = mix(0.5, uv_mod.x, aspect_ratio);
 	vec4 color;
 	float d = length(UV- 0.5);
 	float c = d;
 	if(d< factor) color= vec4(0.); else color = fade_color;
+	
+	float a = 0.0;
+	a = smoothstep(c,c-0.01,d);
+	
 	COLOR = color;
 }"
 
-[sub_resource type="ShaderMaterial" id=25]
-shader = SubResource( 24 )
+[sub_resource type="ShaderMaterial" id=33]
+shader = SubResource( 32 )
 shader_param/factor = 1.0
 shader_param/aspect_ratio = 1.7
 shader_param/fade_color = null
@@ -317,23 +321,6 @@ tracks/0/keys = {
 [node name="MenuScene" type="Spatial"]
 script = ExtResource( 3 )
 
-[node name="Level" type="Spatial" parent="."]
-visible = false
-
-[node name="GridMap" type="GridMap" parent="Level" groups=["wall"]]
-mesh_library = ExtResource( 1 )
-data = {
-"cells": PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 65534, 1, 0, 65535, 1, 0, 4, 2, 0, 65534, 2, 0, 0, 3, 0, 2, 3, 0, 4, 3, 0, 65534, 3, 0, 4, 4, 0, 65534, 4, 0, 0, 5, 0, 2, 5, 0, 4, 5, 0, 65534, 5, 0, 4, 6, 0, 65534, 6, 0, 0, 7, 0, 1, 7, 0, 2, 7, 0, 3, 7, 0, 4, 7, 0, 65534, 7, 0, 65535, 7, 0, 0, 8, 1, 2, 8, 1, 0, 10, 1, 2, 10, 1, 0, 12, 1, 2, 12, 1, 0, 14, 1, 2, 14, 1, 0, 16, 1, 2, 16, 1, 0, 18, 1, 2, 18, 1, 0, 20, 1, 2, 20, 1, 0, 22, 1, 2, 22, 1, 0, 24, 1, 2, 24, 1, 0, 26, 1, 2, 26, 1 )
-}
-__meta__ = {
-"_editor_clip_": 0,
-"_editor_floor_": Vector3( 0, 0, 0 )
-}
-
-[node name="Box" parent="Level/GridMap" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 12 )
-visible = false
-
 [node name="BackGround" type="StaticBody" parent="."]
 
 [node name="Plane" type="MeshInstance" parent="BackGround"]
@@ -385,6 +372,7 @@ align = 1
 position = Vector2( -45, -125 )
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 29 )
+frame = 20
 playing = true
 offset = Vector2( 960, 540 )
 
@@ -401,12 +389,12 @@ size_flags_vertical = 3
 margin_top = 216.0
 margin_right = 217.0
 margin_bottom = 298.0
-custom_fonts/font = SubResource( 5 )
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/disabled = SubResource( 6 )
-custom_styles/normal = SubResource( 6 )
+custom_fonts/font = SubResource( 30 )
+custom_styles/hover = SubResource( 31 )
+custom_styles/pressed = SubResource( 31 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/disabled = SubResource( 31 )
+custom_styles/normal = SubResource( 31 )
 text = "NEW"
 
 [node name="btn_resume" type="Button" parent="CanvasLayer/VBoxContainer"]
@@ -414,24 +402,24 @@ visible = false
 margin_top = 259.0
 margin_right = 217.0
 margin_bottom = 341.0
-custom_fonts/font = SubResource( 5 )
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/disabled = SubResource( 6 )
-custom_styles/normal = SubResource( 6 )
+custom_fonts/font = SubResource( 30 )
+custom_styles/hover = SubResource( 31 )
+custom_styles/pressed = SubResource( 31 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/disabled = SubResource( 31 )
+custom_styles/normal = SubResource( 31 )
 text = "RESUME"
 
 [node name="btn_quit" type="Button" parent="CanvasLayer/VBoxContainer"]
 margin_top = 302.0
 margin_right = 217.0
 margin_bottom = 384.0
-custom_fonts/font = SubResource( 5 )
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/disabled = SubResource( 6 )
-custom_styles/normal = SubResource( 6 )
+custom_fonts/font = SubResource( 30 )
+custom_styles/hover = SubResource( 31 )
+custom_styles/pressed = SubResource( 31 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/disabled = SubResource( 31 )
+custom_styles/normal = SubResource( 31 )
 text = "QUIT"
 
 [node name="Control2" type="Control" parent="CanvasLayer/VBoxContainer"]
@@ -441,8 +429,7 @@ margin_bottom = 600.0
 size_flags_vertical = 3
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-visible = false
-material = SubResource( 25 )
+material = SubResource( 33 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -464,7 +451,7 @@ anims/RESET = SubResource( 19 )
 anims/roll = SubResource( 18 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( -0.687552, -0.723514, 0.0616287, 0.541675, -0.454519, 0.707107, -0.483591, 0.519555, 0.704416, -2.81331, 15.1019, 1.64262 )
+transform = Transform( -0.687552, -0.723515, 0.0616284, 0.541675, -0.454519, 0.707107, -0.483591, 0.519554, 0.704416, -2.81331, 15.1019, 1.64262 )
 visible = false
 mesh = ExtResource( 6 )
 
@@ -482,6 +469,10 @@ mesh = ExtResource( 9 )
 autoplay = "roll"
 anims/RESET = SubResource( 22 )
 anims/roll = SubResource( 23 )
+
+[node name="bg_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 39 )
+autoplay = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]

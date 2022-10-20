@@ -10,6 +10,7 @@ var count_moves : int = 0
 var count_time: float = 0.2
 var time_elapsed: float = 0.0
 
+var master_bus = AudioServer.get_bus_index("Master")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var check_label = is_instance_valid(moves_label)
@@ -42,3 +43,16 @@ func _update_moves() -> void:
 		count_moves = 0 
 	
 	pass
+
+
+func _on_HSlider_value_changed(value):
+	AudioServer.set_bus_volume_db(master_bus, value)
+	
+	if value == -30:
+		AudioServer.set_bus_mute(master_bus, true)
+	else:
+		AudioServer.set_bus_mute(master_bus, false)
+
+
+func _on_retry_pressed():
+	var _err = get_tree().reload_current_scene()
