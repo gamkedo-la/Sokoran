@@ -114,7 +114,7 @@ shape = SubResource( 3 )
 anchor_right = 1.0
 
 [node name="MeshInstance" type="MeshInstance" parent="Camera/Control"]
-transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332232, -0.332231, 7.93714, 23.681, -1.88451 )
+transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332231, -0.332231, 7.93714, 23.681, -1.88451 )
 mesh = ExtResource( 11 )
 skeleton = NodePath("../../Camera")
 
