@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=8]
 [ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/PauseController.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=11]
 
 [sub_resource type="PlaneMesh" id=2]
 material = ExtResource( 2 )
@@ -20,6 +21,37 @@ extents = Vector3( 3, 1, 2 )
 
 [sub_resource type="ConcavePolygonShape" id=3]
 data = PoolVector3Array( 17.8, 1.6, 21.8, -2, 2, 2, 18, 2, 22, 17.8, 1.6, 21.8, -1.8, 1.6, 1.8, -2, 2, 2, -1.8, 1.6, 1.8, -2, 2, -2, -2, 2, 2, -1.8, 1.6, 1.8, -1.8, 1.6, -1.8, -2, 2, -2, -1, 0, -1, 17, 0, 21, 1, 0, -1, -1, 0, -1, -1, 0, 1, 17, 0, 21, 1.8, 1.6, -1.8, 18, 2, 22, 2, 2, -2, 1.8, 1.6, -1.8, 17.8, 1.6, 21.8, 18, 2, 22, -1.8, 1.6, -1.8, 2, 2, -2, -2, 2, -2, -1.8, 1.6, -1.8, 1.8, 1.6, -1.8, 2, 2, -2, -1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, -1, 0, -1, 1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, -1.2, 0.4, -1.2, 1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, -1.4, 0.8, -1.4, 1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, 1.8, 1.6, -1.8, -1.8, 1.6, -1.8, -1.6, 1.2, -1.6, 1.6, 1.2, -1.6, 1.8, 1.6, -1.8, 1, 0, -1, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 1, 0, -1, 17, 0, 21, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 1.2, 0.4, -1.2, 17.2, 0.4, 21.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 1.4, 0.8, -1.4, 17.4, 0.8, 21.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 17.8, 1.6, 21.8, 1.8, 1.6, -1.8, 1.6, 1.2, -1.6, 17.6, 1.2, 21.6, 17.8, 1.6, 21.8, -1, 0, 1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1, 0, 1, -1, 0, -1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.2, 0.4, 1.2, -1.2, 0.4, -1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.4, 0.8, 1.4, -1.4, 0.8, -1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.8, 1.6, -1.8, -1.8, 1.6, 1.8, -1.6, 1.2, 1.6, -1.6, 1.2, -1.6, -1.8, 1.6, -1.8, 17, 0, 21, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, 17, 0, 21, -1, 0, 1, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, 17.2, 0.4, 21.2, -1.2, 0.4, 1.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, 17.4, 0.8, 21.4, -1.4, 0.8, 1.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, -1.8, 1.6, 1.8, 17.8, 1.6, 21.8, 17.6, 1.2, 21.6, -1.6, 1.2, 1.6, -1.8, 1.6, 1.8 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -45, -160, 2.87871e-13 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "loop"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -62, 107, -38 ), Vector3( -62, 467, -38 ) ]
+}
 
 [node name="LVLintro" type="Spatial"]
 script = ExtResource( 3 )
@@ -79,6 +111,19 @@ collision_layer = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
 shape = SubResource( 3 )
+
+[node name="Control" type="Control" parent="Camera"]
+anchor_right = 1.0
+
+[node name="MeshInstance" type="MeshInstance" parent="Camera/Control"]
+transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332232, -0.332231, 7.93714, 23.681, -1.88451 )
+mesh = ExtResource( 11 )
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/Control/MeshInstance"]
+autoplay = "loop"
+anims/RESET = SubResource( 4 )
+anims/loop = SubResource( 5 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5

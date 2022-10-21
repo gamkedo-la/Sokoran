@@ -16,6 +16,7 @@ var release_controls = Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 func _ready():
 #	$ColorRect.visible = true
 #	$ColorRect/anim.play("to_zero")
+	$Camera/Control/MeshInstance/AnimationPlayer.play("loop")
 	pass
 
 func spawn_dice(position):
@@ -36,18 +37,18 @@ func plop():
 
 func _input(_event):
 	
-	if !ignore_controls and !release_controls and Input.is_action_just_pressed("mouse_click"):
+	if !ignore_controls and !release_controls and PlayerVars.moves_left > 0 and Input.is_action_just_pressed("mouse_click"):
 		click_timer = 0.1 # Reset the click timer
-	if !ignore_controls and !release_controls and Input.is_action_just_released("mouse_click"):
+	if !ignore_controls and !release_controls and PlayerVars.moves_left == 0 and Input.is_action_just_released("mouse_click"):
 		if click_timer < mouse_click_delay: # If within click delay threshold
 			click_timer += mouse_click_delay
 			var position2D = get_viewport().get_mouse_position()
 			var dropPlane  = Plane(Vector3(0, 1, 0), z)
 			var position3D = dropPlane.intersects_ray(camera.project_ray_origin(position2D),camera.project_ray_normal(position2D))
 			print(position3D)
-			print("true")
 			plop()
 			spawn_dice(position3D)
+#			PlayerVars.moves_left = 0
 			ignore_controls = true #disable mouse and the start timer (next line) to ensable it again... all this so we can spawn one dice and wait until it disappear to throw a new on
 			$Timer2.start()  #the next line timer
 #
