@@ -1,8 +1,9 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://assets/vortex_cube2.png" type="Texture" id=1]
 [ext_resource path="res://assets/mesh/D4reddice.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://scripts/UI/MenuScene.gd" type="Script" id=3]
+[ext_resource path="res://assets/audio/ui.mp3" type="AudioStream" id=4]
 [ext_resource path="res://assets/texture/Untitled_000017.png" type="Texture" id=5]
 [ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=6]
 [ext_resource path="res://assets/mesh/box satellite.glb" type="PackedScene" id=7]
@@ -415,7 +416,7 @@ align = 1
 position = Vector2( -45, -125 )
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 29 )
-frame = 19
+frame = 8
 playing = true
 offset = Vector2( 960, 540 )
 
@@ -471,6 +472,9 @@ margin_right = 217.0
 margin_bottom = 600.0
 size_flags_vertical = 3
 
+[node name="ui_sound" type="AudioStreamPlayer" parent="CanvasLayer/VBoxContainer"]
+stream = ExtResource( 4 )
+
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource( 33 )
 anchor_right = 1.0
@@ -525,5 +529,7 @@ bus = "Background"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/btn_new" to="." method="_on_btn_new_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/btn_new" to="." method="_on_btn_new_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/btn_quit" to="." method="_on_btn_quit_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/btn_quit" to="." method="_on_btn_quit_pressed"]

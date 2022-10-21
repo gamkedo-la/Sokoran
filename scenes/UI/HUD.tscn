@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/UI/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/audio/move_count.wav" type="AudioStream" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/ui/audio_b.png" type="Texture" id=8]
 [ext_resource path="res://assets/font/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://assets/font/Roboto/Roboto-Bold.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://assets/audio/ui.mp3" type="AudioStream" id=11]
 
 [sub_resource type="DynamicFont" id=32]
 size = 42
@@ -214,8 +215,13 @@ margin_right = 347.0
 margin_bottom = 600.0
 size_flags_vertical = 3
 
+[node name="ui_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
 [connection signal="pressed" from="hb/home" to="pause" method="_on_home_pressed"]
 [connection signal="pressed" from="hb/retry" to="." method="_on_retry_pressed"]
 [connection signal="value_changed" from="pause/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="mouse_entered" from="pause/VBoxContainer/btn_resume" to="." method="_on_btn_resume_mouse_entered"]
 [connection signal="pressed" from="pause/VBoxContainer/btn_resume" to="pause" method="_on_btn_resume_pressed"]
+[connection signal="mouse_entered" from="pause/VBoxContainer/btn_title" to="." method="_on_btn_title_mouse_entered"]
 [connection signal="pressed" from="pause/VBoxContainer/btn_title" to="pause" method="_on_btn_title_pressed"]

@@ -39,3 +39,11 @@ func _on_btn_new_pressed():
 
 func _on_btn_quit_pressed():
 	get_tree().quit()
+
+
+func _on_btn_new_mouse_entered():
+	$CanvasLayer/VBoxContainer/ui_sound.play(0.0)
+
+
+func _on_btn_quit_mouse_entered():
+	$CanvasLayer/VBoxContainer/ui_sound.play(0.0)
