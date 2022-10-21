@@ -37,7 +37,7 @@ func plop():
 
 func _input(_event):
 	
-	if !ignore_controls and !release_controls and PlayerVars.moves_left > 0 and Input.is_action_just_pressed("mouse_click"):
+	if !ignore_controls and !release_controls and Input.is_action_just_pressed("mouse_click"):
 		click_timer = 0.1 # Reset the click timer
 	if !ignore_controls and !release_controls and PlayerVars.moves_left == 0 and Input.is_action_just_released("mouse_click"):
 		if click_timer < mouse_click_delay: # If within click delay threshold
