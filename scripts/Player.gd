@@ -31,6 +31,9 @@ func movement(vec:Vector3) -> void:
 		var b := a + vec * 2
 		$tw_m.interpolate_property(self, "translation", a, b, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
 		$tw_m.start()
+		print("move")
+		$AudioStreamPlayer.play(0.0)
+		
 		yield($tw_m,"tween_all_completed")
 		if $ray_down.is_colliding() == false:
 			var c= b + Vector3.DOWN * 2

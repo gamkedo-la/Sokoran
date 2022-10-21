@@ -521,6 +521,7 @@ anims/roll = SubResource( 23 )
 [node name="bg_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 39 )
 autoplay = true
+bus = "Background"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
