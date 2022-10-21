@@ -48,8 +48,7 @@ func _input(_event):
 			print("true")
 			plop()
 			spawn_dice(position3D)
-			ignore_controls = true #disable mouse and the start timer (next line) to ensable it again... all this so we can spawn one dice and wait until it disappear to throw a new one
-			ignore_controls = true #disable mouse and the start timer (next line) to ensable it again... all this so we can spawn one dice and wait until it disappear to throw a new one
+			ignore_controls = true #disable mouse and the start timer (next line) to ensable it again... all this so we can spawn one dice and wait until it disappear to throw a new on
 			$Timer2.start()  #the next line timer
 #
 #		

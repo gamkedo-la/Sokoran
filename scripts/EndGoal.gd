@@ -2,7 +2,7 @@ extends Area
 
 func _ready():
 	$ColorRect.visible = true
-	$ColorRect/anim.play("to_zero")
+	$ColorRect/anim2.play("trans01")
 	
 func _process(delta):
 	# spin around
@@ -11,6 +11,6 @@ func _process(delta):
 
 func _on_EndGoal_body_entered(body: Node) -> void:
 	if body.is_in_group("box"):
-		$ColorRect/anim.play("fade")
-		yield($ColorRect/anim,"animation_finished")
+		$ColorRect/anim2.play("trans2")
+		yield($ColorRect/anim2,"animation_finished")
 		get_tree().change_scene("res://scenes/LVLone.tscn")

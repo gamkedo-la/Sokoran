@@ -9,7 +9,7 @@ func _ready():
 	var shader = $CanvasLayer/ColorRect.material
 	shader.set_shader_param("aspect_ratio", ratio)
 	$CanvasLayer/ColorRect.visible = true
-	$CanvasLayer/ColorRect/anim.play("to_zero")
+	$CanvasLayer/ColorRect/anim2.play("trans01")
 
 func _process(_delta: float) -> void:
 	$MeshInstance/AnimationPlayer.play("roll")
@@ -32,8 +32,8 @@ func shake()-> void: #camera shake when you go against a wall/unmoveable ob
 
 
 func _on_btn_new_pressed():
-	$CanvasLayer/ColorRect/anim.play("fade")
-	yield($CanvasLayer/ColorRect/anim,"animation_finished")
+	$CanvasLayer/ColorRect/anim2.play("trans2")
+	yield($CanvasLayer/ColorRect/anim2,"animation_finished")
 	var _err = get_tree().change_scene("res://scenes/LVLintro.tscn")
 
 

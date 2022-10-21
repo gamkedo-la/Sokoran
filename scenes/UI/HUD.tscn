@@ -104,6 +104,8 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "[color=aqua][wave][center]MOVES
 REMAINING[/center][/wave][/color]"
+text = "MOVES
+REMAINING"
 fit_content_height = true
 scroll_active = false
 

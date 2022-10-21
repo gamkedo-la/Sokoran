@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/EndGoal.gd" type="Script" id=1]
 [ext_resource path="res://resources/PortalRingEffect.tres" type="Material" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/mesh/vortex.obj" type="ArrayMesh" id=5]
 [ext_resource path="res://assets/mesh/playerplanet.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://assets/texture/blackhole_ring.tres" type="Material" id=7]
+[ext_resource path="res://assets/vortex_cube2.png" type="Texture" id=8]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -19,32 +20,31 @@ flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 albedo_texture = ExtResource( 3 )
 
-[sub_resource type="Shader" id=24]
+[sub_resource type="Shader" id=32]
 code = "shader_type canvas_item;
-uniform float factor=0.5;
-uniform float aspect_ratio = 1.7;
-uniform vec4 fade_color:hint_color;
+render_mode unshaded;
 
-void fragment(){
-	vec2 uv_mod = UV;
-	uv_mod.x = mix(0.5, uv_mod.x, aspect_ratio);
-	vec4 color;
-	float d = length(UV- 0.5);
-	float c = d;
-	if(d< factor) color= vec4(0.); else color = fade_color;
-	COLOR = color;
+uniform float cutoff : hint_range(0.0, 1.0);
+uniform float smooth_size : hint_range(0.0, 1.0);
+uniform sampler2D mask : hint_albedo;
+
+void fragment()
+{
+	float value = texture(mask, UV).r;
+	float alpha = smoothstep(cutoff, cutoff + smooth_size, value);
+	COLOR = vec4(COLOR.rgb, alpha);
 }"
 
-[sub_resource type="ShaderMaterial" id=25]
-shader = SubResource( 24 )
-shader_param/factor = 1.0
-shader_param/aspect_ratio = 1.7
-shader_param/fade_color = null
+[sub_resource type="ShaderMaterial" id=33]
+shader = SubResource( 32 )
+shader_param/cutoff = 0.0
+shader_param/smooth_size = 0.25
+shader_param/mask = ExtResource( 8 )
 
-[sub_resource type="Animation" id=26]
+[sub_resource type="Animation" id=34]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:material:shader_param/factor")
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -53,39 +53,40 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 1.0 ]
+"values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=27]
-resource_name = "fade"
-length = 0.6
+[sub_resource type="Animation" id=35]
+resource_name = "trans01"
+length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:material:shader_param/factor")
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 1.0, 0.0 ]
-}
-
-[sub_resource type="Animation" id=28]
-resource_name = "to_zero"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:material:shader_param/factor")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=36]
+resource_name = "trans2"
+length = 0.5
+step = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.401 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
 }
 
 [node name="EndGoal" type="Area"]
@@ -131,15 +132,15 @@ __meta__ = {
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
-material = SubResource( 25 )
+material = SubResource( 33 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 1, 1, 1, 0 )
+color = Color( 0, 0, 0, 1 )
 
-[node name="anim" type="AnimationPlayer" parent="ColorRect"]
-anims/RESET = SubResource( 26 )
-anims/fade = SubResource( 27 )
-anims/to_zero = SubResource( 28 )
+[node name="anim2" type="AnimationPlayer" parent="ColorRect"]
+anims/RESET = SubResource( 34 )
+anims/trans01 = SubResource( 35 )
+anims/trans2 = SubResource( 36 )
 
 [connection signal="body_entered" from="." to="." method="_on_EndGoal_body_entered"]
