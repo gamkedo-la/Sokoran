@@ -69,6 +69,7 @@ func _on_Timer_timeout():
 #	$Timer.connect("timeout", self, "queue_free")
 
 
+# warning-ignore:unused_argument
 func _on_BlueDice_body_entered(body):
 	if abs(self.linear_velocity.x)>roll_factor or abs(self.linear_velocity.y)>roll_factor or abs(self.linear_velocity.z)>roll_factor:
 		$AudioStreamPlayer.play()

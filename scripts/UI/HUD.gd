@@ -56,7 +56,7 @@ func _on_HSlider_value_changed(value):
 
 func _on_retry_pressed():
 	var _err = get_tree().reload_current_scene()
-
+	
 
 func _on_btn_resume_mouse_entered():
 	$ui_sound.play(0.0)

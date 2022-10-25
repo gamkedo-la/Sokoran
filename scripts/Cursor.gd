@@ -12,5 +12,6 @@ func _ready():
 
 
 
+# warning-ignore:unused_argument
 func _process(delta):
 	self.position = self.get_global_mouse_position()
