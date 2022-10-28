@@ -24,6 +24,10 @@ Global="*res://scripts/AutoLoad/Global.gd"
 
 settings/stdout/verbose_stdout=true
 
+[global]
+
+shader=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

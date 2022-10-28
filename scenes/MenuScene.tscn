@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/audio/ui.mp3" type="AudioStream" id=4]
 [ext_resource path="res://assets/texture/Untitled_000017.png" type="Texture" id=5]
 [ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=6]
-[ext_resource path="res://assets/mesh/box satellite.glb" type="PackedScene" id=7]
+[ext_resource path="res://assets/mesh/box_sat/box satellite.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/font/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://assets/mesh/D6dicered.mesh" type="ArrayMesh" id=9]
 [ext_resource path="res://assets/texture/Untitled_000019.png" type="Texture" id=10]
@@ -402,7 +402,10 @@ autostart = true
 wait_time = 8.0
 
 [node name="box satellite" parent="." instance=ExtResource( 7 )]
-transform = Transform( -1.1721, 0.053082, -5.88416, -0.804745, 5.94194, 0.213904, 5.82912, 0.830995, -1.15363, 6.09055, 3.27684, 3.49078 )
+transform = Transform( -1.1721, 0.0530822, -5.88416, -0.804745, 5.94194, 0.213905, 5.82912, 0.830994, -1.15364, 6.09055, 3.27684, 3.49078 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -416,7 +419,7 @@ align = 1
 position = Vector2( -45, -125 )
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 29 )
-frame = 29
+frame = 16
 playing = true
 offset = Vector2( 960, 540 )
 
@@ -493,7 +496,7 @@ anims/trans01 = SubResource( 35 )
 anims/trans2 = SubResource( 36 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( -0.687552, -0.723515, 0.0616287, 0.541675, -0.454519, 0.707107, -0.483591, 0.519555, 0.704416, 10.6122, 5.00531, -6.30706 )
+transform = Transform( -0.687552, -0.723515, 0.0616284, 0.541675, -0.454519, 0.707107, -0.483591, 0.519555, 0.704416, 10.6122, 5.00531, -6.30706 )
 visible = false
 mesh = ExtResource( 2 )
 

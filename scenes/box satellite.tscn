@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/mesh/box satellite.glb" type="PackedScene" id=1]
+[ext_resource path="res://assets/mesh/box_sat/box satellite.glb" type="PackedScene" id=1]
 [ext_resource path="res://scripts/box satellite.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]

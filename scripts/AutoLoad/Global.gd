@@ -3,7 +3,7 @@ extends Node
 
 export var max_load_time = 100000000
 var show_bar = false
-var show_bar_time = 100
+var show_bar_time = 10
 var running_scene = null
 
 var levels = [
