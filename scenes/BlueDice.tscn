@@ -142,7 +142,6 @@ tracks/5/keys = {
 }
 
 [sub_resource type="DynamicFont" id=6]
-size = 20
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 4 )
@@ -216,7 +215,6 @@ pixel_size = 0.2
 billboard = 1
 double_sided = false
 alpha_cut = 1
-modulate = Color( 0.407843, 0.839216, 1, 1 )
 text = "6"
 font = SubResource( 6 )
 
