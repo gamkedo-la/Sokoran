@@ -13,4 +13,5 @@ func _on_EndGoal_body_entered(body: Node) -> void:
 	if body.is_in_group("box"):
 		$ColorRect/anim2.play("trans2")
 		yield($ColorRect/anim2,"animation_finished")
-		get_tree().change_scene("res://scenes/LVLone.tscn")
+		Global.current_level += 1
+		Global.goto_scene(Global.levels[Global.current_level],get_parent())

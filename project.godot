@@ -11,13 +11,14 @@ config_version=4
 [application]
 
 config/name="Sokoran"
-run/main_scene="res://scenes/MenuScene.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Cursore="*res://scenes/Cursor.tscn"
 PlayerVars="*res://scripts/AutoLoad/PlayerVars.gd"
+Global="*res://scripts/AutoLoad/Global.gd"
 
 [gui]
 
