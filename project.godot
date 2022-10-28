@@ -20,6 +20,10 @@ Cursore="*res://scenes/Cursor.tscn"
 PlayerVars="*res://scripts/AutoLoad/PlayerVars.gd"
 Global="*res://scripts/AutoLoad/Global.gd"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
