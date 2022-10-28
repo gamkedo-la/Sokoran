@@ -17,12 +17,14 @@ var loading_bar_inst
 
 var current_level = 0
 
+var current_scene = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	pass # Replace with function body.
 
-func goto_scene(path, current_scene):
+func goto_scene(path):
 	print_debug("Loading ", path, " and leaving ", current_scene)
 	var loader = ResourceLoader.load_interactive(path)
 	
@@ -41,10 +43,12 @@ func goto_scene(path, current_scene):
 		var err = loader.poll()
 		if err == ERR_FILE_EOF:
 			#Loading Complete
-			var resource = loader.get_resource()
-			get_tree().get_root().call_deferred('add_child',resource.instance())
+			var old_scene = current_scene
+			current_scene = loader.get_resource().instance()
+			get_tree().get_root().call_deferred('add_child',current_scene)
 			
-			current_scene.queue_free()
+			old_scene.queue_free()
+
 			if show_bar:
 				loading_bar = null
 				loading_bar_inst.queue_free()

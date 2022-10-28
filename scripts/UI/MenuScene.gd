@@ -35,7 +35,7 @@ func _on_btn_new_pressed():
 	$CanvasLayer/ColorRect/anim2.play("trans2")
 	yield($CanvasLayer/ColorRect/anim2,"animation_finished")
 #	var _err = get_tree().change_scene("res://scenes/LVLintro.tscn")
-	var _err = Global.goto_scene(Global.levels[Global.current_level], self)
+	var _err = Global.goto_scene(Global.levels[Global.current_level])
 
 
 func _on_btn_quit_pressed():

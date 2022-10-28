@@ -14,4 +14,4 @@ func _on_EndGoal_body_entered(body: Node) -> void:
 		$ColorRect/anim2.play("trans2")
 		yield($ColorRect/anim2,"animation_finished")
 		Global.current_level += 1
-		Global.goto_scene(Global.levels[Global.current_level],get_parent())
+		Global.goto_scene(Global.levels[Global.current_level])
