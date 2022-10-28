@@ -14,11 +14,11 @@ func _ready():
 	#randomize dice throw
 	randomize()
 	var x = rand_range(-22,22)
-	var y = rand_range(-22,22)
-	var z = rand_range(-22,22)
-	var a = rand_range(-2,2)
-	var b = rand_range(-2,2)
-	var c = rand_range(-2,2)
+	var y = rand_range(-11,11)
+	var z = rand_range(-33,33)
+	var a = rand_range(-6,6)
+	var b = rand_range(-6,6)
+	var c = rand_range(-6,6)
 	set_angular_velocity(Vector3(x,y,z))
 	set_axis_velocity(Vector3(a,b,c))
 	

@@ -416,7 +416,7 @@ align = 1
 position = Vector2( -45, -125 )
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 29 )
-frame = 10
+frame = 3
 playing = true
 offset = Vector2( 960, 540 )
 

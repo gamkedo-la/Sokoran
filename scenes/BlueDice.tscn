@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://scripts/BlueDice.gd" type="Script" id=2]
 [ext_resource path="res://assets/audio/roll1.ogg" type="AudioStream" id=3]
+[ext_resource path="res://assets/font/Roboto/Roboto-Medium.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="PhysicsMaterial" id=4]
 rough = true
@@ -140,8 +141,14 @@ tracks/5/keys = {
 "values": [ Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
 }
 
+[sub_resource type="DynamicFont" id=6]
+size = 20
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
 [node name="BlueDice" type="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1, 0 )
 collision_layer = 2
 collision_mask = 4
 mass = 10.0
@@ -211,6 +218,7 @@ double_sided = false
 alpha_cut = 1
 modulate = Color( 0.407843, 0.839216, 1, 1 )
 text = "6"
+font = SubResource( 6 )
 
 [connection signal="body_entered" from="." to="." method="_on_BlueDice_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
