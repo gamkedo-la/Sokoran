@@ -19,7 +19,7 @@ func _on_home_pressed():
 
 
 func _on_btn_title_pressed():
-	get_tree().change_scene("res://scenes/MenuScene.tscn")
+	Global.goto_scene("res://scenes/MenuScene.tscn")
 	get_tree().paused = false
 
 

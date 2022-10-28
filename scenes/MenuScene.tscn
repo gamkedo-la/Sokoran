@@ -416,7 +416,7 @@ align = 1
 position = Vector2( -45, -125 )
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 29 )
-frame = 15
+frame = 23
 playing = true
 offset = Vector2( 960, 540 )
 
@@ -493,7 +493,7 @@ anims/trans01 = SubResource( 35 )
 anims/trans2 = SubResource( 36 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( -0.687552, -0.723515, 0.0616284, 0.541675, -0.454519, 0.707107, -0.483591, 0.519555, 0.704416, 10.6122, 5.00531, -6.30706 )
+transform = Transform( -0.687552, -0.723515, 0.0616287, 0.541675, -0.454519, 0.707107, -0.483591, 0.519555, 0.704416, 10.6122, 5.00531, -6.30706 )
 visible = false
 mesh = ExtResource( 2 )
 
