@@ -10,6 +10,9 @@ var count_moves : int = 0
 var count_time: float = 0.2
 var time_elapsed: float = 0.0
 
+var count_removes : int = 0
+var prev_removes : int = 0
+
 var master_bus = AudioServer.get_bus_index("Master")
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,6 +21,11 @@ func _ready():
 	if not PlayerVars.is_connected("moves_changed", self, "_update_moves"):
 		var con_res = PlayerVars.connect("moves_changed", self, "_update_moves")
 		assert(con_res == OK)
+		
+	if not PlayerVars.is_connected("removes_changed", self, "_update_removes"):
+		var con_res = PlayerVars.connect("removes_changed", self, "_update_removes")
+		assert(con_res == OK)
+		
 	prev_moves = PlayerVars.moves_left
 	moves_label.text = str(PlayerVars.moves_left)
 	pass # Replace with function body.
@@ -44,6 +52,10 @@ func _update_moves() -> void:
 	
 	pass
 
+func _update_removes() -> void:
+	count_removes = PlayerVars.removes_left - prev_removes
+	prev_removes = PlayerVars.removes_left 
+	pass
 
 func _on_HSlider_value_changed(value):
 	AudioServer.set_bus_volume_db(master_bus, value)

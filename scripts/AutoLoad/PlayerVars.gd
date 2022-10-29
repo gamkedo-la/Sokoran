@@ -1,6 +1,7 @@
 extends Node
 
 signal moves_changed
+signal removes_changed
 
 var moves_left :int = 0 setget _set_moves_left
 var moves_left_max: int = 6
