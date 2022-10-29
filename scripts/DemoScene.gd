@@ -9,7 +9,8 @@ onready var plop_scene = preload("res://scenes/Plop.tscn")
 onready var dice = preload("res://scenes/BlueDice.tscn")
 onready var camera = $Camera/Camera
 onready var grid_map = get_node_or_null("%GridMap")
-onready var ray_cast = $Camera/Camera/RayCast
+onready var ray_cast: RayCast = $Camera/Camera/RayCast
+onready var indicator: CSGSphere = $Camera/Camera/Indicator
 
 var ignore_controls = Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 var release_controls = Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -54,16 +55,22 @@ func _input(_event):
 			ignore_controls = true #disable mouse and the start timer (next line) to ensable it again... all this so we can spawn one dice and wait until it disappear to throw a new on
 			$Timer2.start()  #the next line timer
 			
-	if  Input.is_action_just_released("mouse_right"):
-		
+	if  Input.is_action_pressed("mouse_right"):
+		var ray_length = 1000
 		var position2D = get_viewport().get_mouse_position()
-		var dropPlane  = Plane(Vector3(0, 0, 1), z)
-		var position3D = dropPlane.intersects_ray(camera.project_ray_origin(position2D),camera.project_ray_normal(position2D))
-		print(position3D)
-		var map_loc = grid_map.world_to_map(position3D)
+
+		var from = camera.project_ray_origin(position2D)
+		var to = from + camera.project_ray_normal(position2D) * ray_length
+		var space_state = get_world().get_direct_space_state()
+		
+		var result = space_state.intersect_ray(from, to)
+		
+		var map_loc = grid_map.world_to_map(result["position"])
 		print (map_loc)
 		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
-		ray_cast.cast_to = map_loc
+		if indicator:
+			indicator.global_transform.origin = result["position"]
+
 		grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
 
 func _process(_delta: float) -> void:
