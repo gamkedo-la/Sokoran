@@ -41,6 +41,7 @@ animations = [ {
 } ]
 
 [node name="Cursore" type="Node2D"]
+pause_mode = 2
 script = ExtResource( 31 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
