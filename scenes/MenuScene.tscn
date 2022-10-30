@@ -38,7 +38,7 @@
 [ext_resource path="res://assets/texture/Untitled_000015.png" type="Texture" id=36]
 [ext_resource path="res://assets/texture/Untitled_000016.png" type="Texture" id=37]
 [ext_resource path="res://assets/texture/Untitled_000005.png" type="Texture" id=38]
-[ext_resource path="res://music/happy_song_narwal.wav" type="AudioStream" id=39]
+[ext_resource path="res://music/space-chillout-penguinmusic_pixabay.mp3" type="AudioStream" id=39]
 
 [sub_resource type="Gradient" id=15]
 resource_local_to_scene = true
@@ -419,7 +419,7 @@ align = 1
 position = Vector2( -45, -125 )
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 29 )
-frame = 5
+frame = 16
 playing = true
 offset = Vector2( 960, 540 )
 

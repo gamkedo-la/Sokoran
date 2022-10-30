@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/space-chillout-penguinmusic_pixabay.mp3-9210c27418230c928f829eb412352019.mp3str"
+
+[deps]
+
+source_file="res://music/space-chillout-penguinmusic_pixabay.mp3"
+dest_files=[ "res://.import/space-chillout-penguinmusic_pixabay.mp3-9210c27418230c928f829eb412352019.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

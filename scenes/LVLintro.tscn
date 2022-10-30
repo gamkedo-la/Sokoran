@@ -9,7 +9,7 @@
 [ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=8]
 [ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
-[ext_resource path="res://music/happy_song_narwal.wav" type="AudioStream" id=10]
+[ext_resource path="res://music/space-chillout-penguinmusic_pixabay.mp3" type="AudioStream" id=10]
 [ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=11]
 [ext_resource path="res://scripts/GridMap.gd" type="Script" id=12]
 
