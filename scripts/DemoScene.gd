@@ -68,10 +68,16 @@ func _input(_event):
 		var map_loc = grid_map.world_to_map(result["position"])
 		print (map_loc)
 		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
+		if grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) == -1:
+			map_loc.y -= 1
+			if grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) > -1:
+				grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
+		elif grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) > -1:
+			grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
+			
 		if indicator:
-			indicator.global_transform.origin = result["position"]
+			indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
 
-		grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
 
 func _process(_delta: float) -> void:
 	$BackGround/Plane.translation.y = lerp($BackGround/Plane.translation.y, water_height,0.1)
