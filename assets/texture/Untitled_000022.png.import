@@ -14,8 +14,8 @@ dest_files=[ "res://.import/Untitled_000022.png-c15c4aba4e30b759e3a1c2cf68cc34d3
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.7
+compress/mode=1
+compress/lossy_quality=0.5
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

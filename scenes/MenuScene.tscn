@@ -1,43 +1,14 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://assets/vortex_cube2.png" type="Texture" id=1]
 [ext_resource path="res://assets/mesh/D4reddice.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://scripts/UI/MenuScene.gd" type="Script" id=3]
 [ext_resource path="res://assets/audio/ui.mp3" type="AudioStream" id=4]
-[ext_resource path="res://assets/texture/Untitled_000017.png" type="Texture" id=5]
+[ext_resource path="res://scenes/UI/AnimatedMenuLogo.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=6]
 [ext_resource path="res://assets/mesh/box_sat/box satellite.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/font/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://assets/mesh/D6dicered.mesh" type="ArrayMesh" id=9]
-[ext_resource path="res://assets/texture/Untitled_000019.png" type="Texture" id=10]
-[ext_resource path="res://assets/texture/Untitled_000021.png" type="Texture" id=11]
-[ext_resource path="res://assets/texture/Untitled_000022.png" type="Texture" id=12]
-[ext_resource path="res://assets/texture/Untitled_000024.png" type="Texture" id=13]
-[ext_resource path="res://assets/texture/Untitled_000025.png" type="Texture" id=14]
-[ext_resource path="res://assets/texture/Untitled_000018.png" type="Texture" id=15]
-[ext_resource path="res://assets/texture/Untitled_000020.png" type="Texture" id=16]
-[ext_resource path="res://assets/texture/Untitled_000023.png" type="Texture" id=17]
-[ext_resource path="res://assets/texture/Untitled_000028.png" type="Texture" id=18]
-[ext_resource path="res://assets/texture/Untitled_000029.png" type="Texture" id=19]
-[ext_resource path="res://assets/texture/Untitled_000026.png" type="Texture" id=20]
-[ext_resource path="res://assets/texture/Untitled_000027.png" type="Texture" id=21]
-[ext_resource path="res://assets/texture/Untitled_000004.png" type="Texture" id=22]
-[ext_resource path="res://assets/texture/Untitled_000010.png" type="Texture" id=23]
-[ext_resource path="res://assets/texture/Untitled_000008.png" type="Texture" id=24]
-[ext_resource path="res://assets/texture/Untitled_000013.png" type="Texture" id=25]
-[ext_resource path="res://assets/texture/Untitled_000001.png" type="Texture" id=26]
-[ext_resource path="res://assets/texture/Untitled_000002.png" type="Texture" id=27]
-[ext_resource path="res://assets/texture/Untitled_000006.png" type="Texture" id=28]
-[ext_resource path="res://assets/texture/Untitled_000007.png" type="Texture" id=29]
-[ext_resource path="res://assets/texture/Untitled_000011.png" type="Texture" id=30]
-[ext_resource path="res://assets/texture/Untitled_000000.png" type="Texture" id=31]
-[ext_resource path="res://assets/texture/Untitled_000003.png" type="Texture" id=32]
-[ext_resource path="res://assets/texture/Untitled_000012.png" type="Texture" id=33]
-[ext_resource path="res://assets/texture/Untitled_000014.png" type="Texture" id=34]
-[ext_resource path="res://assets/texture/Untitled_000009.png" type="Texture" id=35]
-[ext_resource path="res://assets/texture/Untitled_000015.png" type="Texture" id=36]
-[ext_resource path="res://assets/texture/Untitled_000016.png" type="Texture" id=37]
-[ext_resource path="res://assets/texture/Untitled_000005.png" type="Texture" id=38]
 [ext_resource path="res://music/happy_song_narwal.wav" type="AudioStream" id=39]
 
 [sub_resource type="Gradient" id=15]
@@ -134,14 +105,6 @@ outline_size = 1
 use_filter = true
 extra_spacing_char = 15
 font_data = ExtResource( 8 )
-
-[sub_resource type="SpriteFrames" id=29]
-animations = [ {
-"frames": [ ExtResource( 31 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 32 ), ExtResource( 22 ), ExtResource( 38 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 24 ), ExtResource( 35 ), ExtResource( 23 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 25 ), ExtResource( 34 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 5 ), ExtResource( 15 ), ExtResource( 10 ), ExtResource( 16 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 17 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 18 ), ExtResource( 19 ) ],
-"loop": true,
-"name": "default",
-"speed": 30.0
-} ]
 
 [sub_resource type="DynamicFont" id=30]
 size = 50
@@ -415,13 +378,8 @@ margin_bottom = 95.0
 custom_fonts/font = SubResource( 4 )
 align = 1
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="CanvasLayer/Label"]
-position = Vector2( -45, -125 )
-scale = Vector2( 0.4, 0.4 )
-frames = SubResource( 29 )
-frame = 5
-playing = true
-offset = Vector2( 960, 540 )
+[node name="AnimatedMenuLogo" parent="CanvasLayer/Label" instance=ExtResource( 5 )]
+frame = 22
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchor_bottom = 1.0

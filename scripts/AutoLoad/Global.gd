@@ -59,7 +59,7 @@ func goto_scene(path):
 			if show_bar:
 				var progress = float(loader.get_stage())/loader.get_stage_count()
 				loading_bar.value = progress * 100
-				print(progress)
+				print(OS.get_ticks_msec() - t)
 		else:
 			print("Error while loading file")
 			break
