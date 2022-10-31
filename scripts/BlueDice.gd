@@ -9,6 +9,8 @@ var roll_factor = 2
 onready var face_rays: Spatial = get_node_or_null("%FaceRays")
 onready var num_label: Label3D = $NumLabel
 
+var tot_time_elapsed = 0.0
+
 #randomize dice at spawn through axis/angular velocity
 func _ready():
 	#randomize dice throw
@@ -31,22 +33,28 @@ func _ready():
 	
 #	yield($AnimationPlayer, "animation_finished")
 
-func _process(delta):
+func _physics_process(delta):
 	time_elapsed += delta
+	tot_time_elapsed += delta
 	if time_elapsed > 0.1:
 		time_elapsed = 0.0
 		
-		if (prv_pos == global_transform.origin) && !done_roll:
+		if (global_transform.origin.is_equal_approx(prv_pos)) && !done_roll:
 			done_roll = true
+			$Timer.set_wait_time(2)
 			$Timer.start()
-			$Timer.set_wait_time(5)
 			#determine dice roll
 			_read_face()
+		else:
+			print_debug("PrevPos: ", prv_pos, " CurPos: ", global_transform.origin)
+		if tot_time_elapsed > 5.0:
+			mode = RigidBody.MODE_STATIC
 		
 	prv_pos = global_transform.origin 
 
 
 func _read_face() -> void:
+	print_debug("Reading Die Face after ", tot_time_elapsed)
 	var die_sides = face_rays.get_children()
 	
 	for side in die_sides:

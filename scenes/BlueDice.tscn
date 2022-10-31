@@ -14,7 +14,7 @@ absorbent = true
 
 [sub_resource type="Animation" id=2]
 resource_name = "Death"
-length = 0.6
+length = 0.7
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 1
@@ -178,36 +178,37 @@ unique_name_in_owner = true
 [node name="1" type="RayCast" parent="FaceRays"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
 enabled = true
-cast_to = Vector3( 0, 1, 0 )
+cast_to = Vector3( 0, 10, 0 )
 debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
 
 [node name="2" type="RayCast" parent="FaceRays"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9 )
 enabled = true
-cast_to = Vector3( 0, 0, -1 )
+cast_to = Vector3( 0, 0, -10 )
 debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
 
 [node name="3" type="RayCast" parent="FaceRays"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0, 0 )
 enabled = true
-cast_to = Vector3( 1, 0, 0 )
+cast_to = Vector3( 10, 0, 0 )
 debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
 
 [node name="4" type="RayCast" parent="FaceRays"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0, 0 )
 enabled = true
-cast_to = Vector3( -1, 0, 0 )
+cast_to = Vector3( -10, 0, 0 )
 debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
 
 [node name="5" type="RayCast" parent="FaceRays"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.9 )
 enabled = true
-cast_to = Vector3( 0, 0, 1 )
+cast_to = Vector3( 0, 0, 10 )
 debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
 
 [node name="6" type="RayCast" parent="FaceRays"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0 )
 enabled = true
+cast_to = Vector3( 0, -10, 0 )
 debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
 
 [node name="NumLabel" type="Label3D" parent="."]
