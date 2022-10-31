@@ -41,5 +41,5 @@ animations = [ {
 
 [node name="AnimatedMenuLogo" type="AnimatedSprite"]
 frames = SubResource( 29 )
-frame = 10
+frame = 3
 playing = true

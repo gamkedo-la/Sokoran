@@ -7,6 +7,15 @@ var mouse_click_delay = 0.2 # Mouse up and down within this time will count as c
 var z = 10  #
 onready var plop_scene = preload("res://scenes/Plop.tscn")
 onready var dice = preload("res://scenes/BlueDice.tscn")
+
+# Blocks used for animating gridmap actions
+var grass_block = preload("res://scenes/GridObjects/GrassBlock.tscn")
+var obstacle_block = preload("res://scenes/GridObjects/Obstacle.tscn")
+var grid_blocks = [
+	grass_block,
+	obstacle_block
+	]
+
 onready var camera = $Camera/Camera
 onready var grid_map = get_node_or_null("%GridMap")
 onready var ray_cast: RayCast = $Camera/Camera/RayCast
@@ -17,6 +26,7 @@ var release_controls = Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
 #	$ColorRect.visible = true
 #	$ColorRect/anim.play("to_zero")
 	$Camera/Control/MeshInstance/AnimationPlayer.play("loop")
@@ -70,16 +80,37 @@ func _input(event):
 			ignore_controls = true #disable mouse and the start timer (next line) to ensable it again... all this so we can spawn one dice and wait until it disappear to throw a new on
 			$Timer2.start()  #the next line timer
 			
-	if  Input.is_action_pressed("mouse_right"):
+	if  Input.is_action_just_pressed("mouse_right"):
 		var map_loc = mouse_to_grid()
 #		print (map_loc)
 #		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
-		if grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) == -1:
+		var spawn_block = false
+		var cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
+		if cell_content == -1:
 			map_loc.y -= 1
-			if grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) > -1:
+			cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
+			if cell_content > -1:
 				grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
-		elif grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) > -1:
+				spawn_block = true
+		elif cell_content > -1:
 			grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
+			spawn_block = true
+			
+		if spawn_block && (cell_content < grid_blocks.size()):
+			var temp_block = grid_blocks[cell_content].instance()
+			temp_block.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
+			call_deferred("add_child", temp_block)
+			
+			
+			var tween = get_tree().create_tween()
+			tween.set_trans(Tween.TRANS_BOUNCE)			
+			tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
+			tween.tween_callback(temp_block, "queue_free").set_delay(2)
+			
+
+			
+			
+			
 			
 		if indicator:
 			indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
