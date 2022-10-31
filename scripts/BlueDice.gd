@@ -42,8 +42,8 @@ func _process(delta):
 			$Timer.set_wait_time(5)
 			#determine dice roll
 			_read_face()
-		else:
-			prv_pos = global_transform.origin 
+		
+	prv_pos = global_transform.origin 
 
 
 func _read_face() -> void:

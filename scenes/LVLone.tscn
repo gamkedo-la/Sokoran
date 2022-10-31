@@ -64,6 +64,7 @@ script = ExtResource( 3 )
 [node name="Level" type="Spatial" parent="."]
 
 [node name="GridMap" type="GridMap" parent="Level" groups=["wall"]]
+unique_name_in_owner = true
 mesh_library = ExtResource( 1 )
 collision_layer = 5
 data = {
