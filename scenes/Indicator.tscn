@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_unshaded = true
+albedo_color = Color( 1, 0.101961, 0, 1 )
+refraction_enabled = true
+refraction_scale = 0.05
+refraction_texture_channel = 0
+
+[sub_resource type="Animation" id=7]
+resource_name = "Bob and Spin"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.8, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+
+[node name="Indicator" type="Spatial"]
+
+[node name="Indicator" type="CSGSphere" parent="."]
+transform = Transform( -0.939693, 0.330963, -0.241845, 0, 0.967672, 0.707107, 0.34202, 0.909314, -0.664463, 0, -0.00929737, 0 )
+radius = 0.2
+material = SubResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Indicator"]
+autoplay = "Bob and Spin"
+"anims/Bob and Spin" = SubResource( 7 )
+anims/RESET = SubResource( 8 )

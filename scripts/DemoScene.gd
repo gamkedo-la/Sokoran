@@ -10,7 +10,7 @@ onready var dice = preload("res://scenes/BlueDice.tscn")
 onready var camera = $Camera/Camera
 onready var grid_map = get_node_or_null("%GridMap")
 onready var ray_cast: RayCast = $Camera/Camera/RayCast
-onready var indicator: CSGSphere = $Camera/Camera/Indicator
+onready var indicator: Spatial = $Camera/Camera/Indicator
 
 var ignore_controls = Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 var release_controls = Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -38,7 +38,22 @@ func plop():
 	add_child(plop_inst)
 	
 
-func _input(_event):
+func _input(event):
+	
+	if event is InputEventMouseMotion:
+		var hit = false
+		var map_loc = mouse_to_grid()
+		if grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) == -1:
+			map_loc.y -= 1
+			if grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) > -1:
+				hit = true
+		elif grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) > -1:
+			hit = true
+		if indicator && hit:
+			indicator.visible = true
+			indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y+1, map_loc.z)
+		else:
+			indicator.visible = false
 	
 	if !ignore_controls and !release_controls and Input.is_action_just_pressed("mouse_click"):
 		click_timer = 0.1 # Reset the click timer
@@ -56,18 +71,9 @@ func _input(_event):
 			$Timer2.start()  #the next line timer
 			
 	if  Input.is_action_pressed("mouse_right"):
-		var ray_length = 1000
-		var position2D = get_viewport().get_mouse_position()
-
-		var from = camera.project_ray_origin(position2D)
-		var to = from + camera.project_ray_normal(position2D) * ray_length
-		var space_state = get_world().get_direct_space_state()
-		
-		var result = space_state.intersect_ray(from, to)
-		
-		var map_loc = grid_map.world_to_map(result["position"])
-		print (map_loc)
-		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
+		var map_loc = mouse_to_grid()
+#		print (map_loc)
+#		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
 		if grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) == -1:
 			map_loc.y -= 1
 			if grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z) > -1:
@@ -78,7 +84,18 @@ func _input(_event):
 		if indicator:
 			indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
 
-
+func mouse_to_grid() -> Vector3:
+	var ray_length = 1000
+	var position2D = get_viewport().get_mouse_position()
+	var from = camera.project_ray_origin(position2D)
+	var to = from + camera.project_ray_normal(position2D) * ray_length
+	var space_state = get_world().get_direct_space_state()		
+	var result = space_state.intersect_ray(from, to)		
+	var map_loc = grid_map.world_to_map(result["position"])
+	
+	return map_loc
+		
+		
 func _process(_delta: float) -> void:
 	$BackGround/Plane.translation.y = lerp($BackGround/Plane.translation.y, water_height,0.1)
 	$BackGround/Plane2.translation.y = lerp($BackGround/Plane2.translation.y, water_height,0.1)

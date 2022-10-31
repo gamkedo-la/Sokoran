@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/PauseController.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=11]
+[ext_resource path="res://scenes/Indicator.tscn" type="PackedScene" id=12]
 
 [sub_resource type="PlaneMesh" id=2]
 material = ExtResource( 2 )
@@ -111,6 +112,8 @@ collision_layer = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
 shape = SubResource( 3 )
+
+[node name="Indicator" parent="Camera/Camera" instance=ExtResource( 12 )]
 
 [node name="Control" type="Control" parent="Camera"]
 anchor_right = 1.0
