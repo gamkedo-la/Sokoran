@@ -7,6 +7,7 @@ var mouse_click_delay = 0.2 # Mouse up and down within this time will count as c
 var z = 10  #
 onready var plop_scene = preload("res://scenes/Plop.tscn")
 onready var dice = preload("res://scenes/BlueDice.tscn")
+onready var dice1 = preload("res://scenes/RedDice.tscn")
 
 # Blocks used for animating gridmap actions
 var grass_block = preload("res://scenes/GridObjects/GrassBlock.tscn")
@@ -24,7 +25,6 @@ onready var indicator: Spatial = $Camera/Camera/Indicator
 var ignore_controls = Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 var release_controls = Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 
 #	$ColorRect.visible = true
@@ -33,14 +33,15 @@ func _ready():
 	pass
 
 func spawn_dice(position):
+	#blue dice
 	var dice_inst = dice.instance()
 	dice_inst.translation = position
 	add_child(dice_inst)
-	
-#	func despawn_dice():
-#	$Timer2.connect("timeout", self, "queue_free")
-#	$Timer2.set_wait_time(2)
-#	$Timer2.start()
+	#red dice
+	var dice1_inst = dice1.instance()
+	dice1_inst.translation = position
+	add_child(dice1_inst)
+
 	
 func plop():
 	var plop_inst = plop_scene.instance()
@@ -64,6 +65,8 @@ func _input(event):
 			indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y+1, map_loc.z)
 		else:
 			indicator.visible = false
+	
+	
 	
 	if !ignore_controls and !release_controls and Input.is_action_just_pressed("mouse_click"):
 		click_timer = 0.1 # Reset the click timer
