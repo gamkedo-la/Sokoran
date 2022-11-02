@@ -89,9 +89,8 @@ func _input(event):
 			ignore_controls = true #disable mouse and the start timer (next line) to ensable it again... all this so we can spawn one dice and wait until it disappear to throw a new on
 			$Timer2.start()  #the next line timer
 			
-	if tile_removed == false:
-		tile_removed = true		
-		if  Input.is_action_just_pressed("mouse_right"):
+	if  Input.is_action_just_pressed("mouse_right"):
+		if PlayerVars.removes_changed > 0:
 			var map_loc = mouse_to_grid()
 	#		print (map_loc)
 	#		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
@@ -120,7 +119,7 @@ func _input(event):
 				
 			if indicator:
 				indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
-		tile_removed = false
+		
 		
 func mouse_to_grid() -> Vector3:
 	var ray_length = 1000
