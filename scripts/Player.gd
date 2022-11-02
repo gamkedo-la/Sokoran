@@ -15,7 +15,7 @@ var is_push3 := false
 var rota_y := 0
 var old_rota_Y := 0
 
-#var player_moves := 2288
+export var demoscene : NodePath
 
 func _ready():
 	pass # Replace with function body.
@@ -31,6 +31,7 @@ func movement(vec:Vector3) -> void:
 		var b := a + vec * 2
 		$tw_m.interpolate_property(self, "translation", a, b, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
 		$tw_m.start()
+		get_node(demoscene).remove_prev_tile()
 		print("move")
 		$AudioStreamPlayer.play(0.0)
 		
@@ -46,7 +47,7 @@ func movement(vec:Vector3) -> void:
 		
 		is_moving = false
 		PlayerVars.moves_left -= 1
-	
+		
 func _movelimit(_delta: float) -> void:
 	dir = Vector3.ZERO
 	if Input.is_action_just_pressed("ui_up"): dir = Vector3.BACK

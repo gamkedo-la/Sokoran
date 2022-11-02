@@ -381,7 +381,7 @@ align = 1
 [node name="AnimatedMenuLogo" parent="CanvasLayer/Label" instance=ExtResource( 5 )]
 position = Vector2( 216, 55 )
 scale = Vector2( 0.5, 0.5 )
-frame = 17
+frame = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchor_bottom = 1.0
@@ -402,7 +402,7 @@ custom_styles/pressed = SubResource( 31 )
 custom_styles/focus = SubResource( 31 )
 custom_styles/disabled = SubResource( 31 )
 custom_styles/normal = SubResource( 31 )
-text = "NEW"
+text = "PLAY"
 
 [node name="btn_resume" type="Button" parent="CanvasLayer/VBoxContainer"]
 visible = false
