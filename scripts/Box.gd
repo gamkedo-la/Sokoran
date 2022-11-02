@@ -7,10 +7,10 @@ func _process(_delta:float)-> void:
 	if dir!=Vector3.ZERO:
 		movement(dir)
 		
-	if $ray_down.is_colliding() == false :
-			$AnimationPlayer.play("fall1")
-			yield(get_tree().create_timer(1.5), "timeout")
-			var _err = Global.goto_scene(Global.levels[Global.current_level])
+#	if $ray_down.is_colliding() == false :
+#			$AnimationPlayer.play("fall1")
+#			yield(get_tree().create_timer(1.5), "timeout")
+#			var _err = Global.goto_scene(Global.levels[Global.current_level])
 
 func set_dir(vec:Vector3)-> void:
 	dir=vec

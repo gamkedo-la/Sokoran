@@ -5,6 +5,8 @@ var click_timer = 0.0
 var mouse_ray_length = 10000 # Ray length for mouse input detection
 var mouse_click_delay = 0.2 # Mouse up and down within this time will count as click
 var z = 10  #
+var tile_removed:= false
+
 onready var plop_scene = preload("res://scenes/Plop.tscn")
 onready var dice = preload("res://scenes/BlueDice.tscn")
 onready var dice1 = preload("res://scenes/RedDice.tscn")
@@ -33,14 +35,18 @@ func _ready():
 	pass
 
 func spawn_dice(position):
-	#blue dice
-	var dice_inst = dice.instance()
-	dice_inst.translation = position
-	add_child(dice_inst)
-	#red dice
-	var dice1_inst = dice1.instance()
-	dice1_inst.translation = position
-	add_child(dice1_inst)
+	if PlayerVars.removes_changed == 0:
+		#blue dice
+		var dice_inst = dice.instance()
+		dice_inst.translation = position
+		add_child(dice_inst)
+		#red dice
+		var dice1_inst = dice1.instance()
+		dice1_inst.translation = position
+		add_child(dice1_inst)
+		
+		PlayerVars.moves_left = 0
+		PlayerVars.removes_changed = 0
 
 	
 func plop():
@@ -83,41 +89,39 @@ func _input(event):
 			ignore_controls = true #disable mouse and the start timer (next line) to ensable it again... all this so we can spawn one dice and wait until it disappear to throw a new on
 			$Timer2.start()  #the next line timer
 			
-	if  Input.is_action_just_pressed("mouse_right"):
-		var map_loc = mouse_to_grid()
-#		print (map_loc)
-#		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
-		var spawn_block = false
-		var cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
-		if cell_content == -1:
-			map_loc.y -= 1
-			cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
-			if cell_content > -1:
+	if tile_removed == false:
+		tile_removed = true		
+		if  Input.is_action_just_pressed("mouse_right"):
+			var map_loc = mouse_to_grid()
+	#		print (map_loc)
+	#		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
+			var spawn_block = false
+			var cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
+			if cell_content == -1:
+				map_loc.y -= 1
+				cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
+				if cell_content > -1:
+					grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
+					spawn_block = true
+			elif cell_content > -1:
 				grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
 				spawn_block = true
-		elif cell_content > -1:
-			grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
-			spawn_block = true
-			
-		if spawn_block && (cell_content < grid_blocks.size()):
-			var temp_block = grid_blocks[cell_content].instance()
-			temp_block.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
-			call_deferred("add_child", temp_block)
-			
-			
-			var tween = get_tree().create_tween()
-			tween.set_trans(Tween.TRANS_BOUNCE)			
-			tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
-			tween.tween_callback(temp_block, "queue_free").set_delay(2)
-			
-
-			
-			
-			
-			
-		if indicator:
-			indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
-
+				
+			if spawn_block && (cell_content < grid_blocks.size()):
+				var temp_block = grid_blocks[cell_content].instance()
+				temp_block.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
+				call_deferred("add_child", temp_block)
+				
+				var tween = get_tree().create_tween()
+				tween.set_trans(Tween.TRANS_BOUNCE)			
+				tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
+				tween.tween_callback(temp_block, "queue_free").set_delay(2)
+				PlayerVars.removes_changed -= 1
+				
+			if indicator:
+				indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
+		tile_removed = false
+		
 func mouse_to_grid() -> Vector3:
 	var ray_length = 1000
 	var position2D = get_viewport().get_mouse_position()
