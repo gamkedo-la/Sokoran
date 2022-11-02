@@ -42,6 +42,7 @@ func movement(vec:Vector3) -> void:
 			$tw_m.start()
 			yield(get_tree().create_timer(1.5), "timeout")
 			var _err = Global.goto_scene(Global.levels[Global.current_level])
+			PlayerVars.moves_left = 0
 		
 		is_moving = false
 		PlayerVars.moves_left -= 1

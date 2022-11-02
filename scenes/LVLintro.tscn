@@ -120,13 +120,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.03893, 9 )
 collision_layer = 5
 
 [node name="Plane" type="MeshInstance" parent="BackGround"]
-visible = false
 mesh = SubResource( 2 )
 skeleton = NodePath("")
 
 [node name="Plane2" type="MeshInstance" parent="BackGround"]
 transform = Transform( 0.654, -0.066, 0.753, -0.407, 0.809, 0.424, -0.638, -0.584, 0.502, 1.801, 2.21, 13.376 )
-visible = false
 mesh = SubResource( 2 )
 skeleton = NodePath("")
 
