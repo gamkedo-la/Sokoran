@@ -21,7 +21,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta: float) -> void:
-	if PlayerVars.moves_left >= 1:
+	if PlayerVars.moves_left >= 1 and PlayerVars.removes_changed == 0 :
 		_movelimit(delta)
 
 func movement(vec:Vector3) -> void:
