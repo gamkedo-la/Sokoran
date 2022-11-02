@@ -82,7 +82,7 @@ func _update_removes() -> void:
 	prev_removes = PlayerVars.removes_changed 
 	
 	if count_removes < 0:
-		moves_label1.text = str(PlayerVars.moves_changed)
+		moves_label1.text = str(PlayerVars.removes_changed)
 		count_removes = 0 
 		
 func _on_HSlider_value_changed(value):

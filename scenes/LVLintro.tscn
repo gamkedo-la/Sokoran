@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scripts/GridMap.gd" type="Script" id=12]
 [ext_resource path="res://scenes/Indicator.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/RedDice.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/mesh/D6dicered.mesh" type="ArrayMesh" id=15]
 
 [sub_resource type="PlaneMesh" id=2]
 material = ExtResource( 2 )
@@ -56,6 +57,37 @@ tracks/0/keys = {
 "values": [ Vector3( -62, 107, -38 ), Vector3( -62, 467, -38 ) ]
 }
 
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -45, -160, 2.87871e-13 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "loop"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -62, 107, -38 ), Vector3( -62, 467, -38 ) ]
+}
+
 [sub_resource type="PhysicsMaterial" id=6]
 rough = true
 bounce = 0.01
@@ -82,7 +114,7 @@ __meta__ = {
 }
 
 [node name="Box" parent="Level/GridMap" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 9 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.03893, 9 )
 
 [node name="BackGround" type="StaticBody" parent="."]
 collision_layer = 5
@@ -141,6 +173,16 @@ skeleton = NodePath("../../Camera")
 autoplay = "loop"
 anims/RESET = SubResource( 4 )
 anims/loop = SubResource( 5 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Camera/Control"]
+transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332231, -0.332231, 4.17837, 23.681, -0.51643 )
+mesh = ExtResource( 15 )
+skeleton = NodePath("../../Camera")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/Control/MeshInstance2"]
+autoplay = "loop"
+anims/RESET = SubResource( 7 )
+anims/loop = SubResource( 8 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
