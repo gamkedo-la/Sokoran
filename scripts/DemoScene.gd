@@ -131,9 +131,12 @@ func mouse_to_grid() -> Vector3:
 	var to = from + camera.project_ray_normal(position2D) * ray_length
 	var space_state = get_world().get_direct_space_state()		
 	var result = space_state.intersect_ray(from, to)		
-	var map_loc = grid_map.world_to_map(result["position"])
+	if (result.size() > 0): # ray didnt intersect
+		var map_loc = grid_map.world_to_map(result["position"])
 	
-	return map_loc
+		return map_loc
+	else:
+		return Vector3() # What should default be if no intersection?
 		
 func player_to_grid() -> Vector3:
 	var ray_length = 1000
