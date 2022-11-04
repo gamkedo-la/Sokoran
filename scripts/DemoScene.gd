@@ -94,35 +94,47 @@ func _input(event):
 			var map_loc = mouse_to_grid()
 	#		print (map_loc)
 	#		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
-			var spawn_block = false
+ 
 			var cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
-			if cell_content == -1:
-				map_loc.y -= 1
-				cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
-				if cell_content > -1:
-					grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
-					spawn_block = true
-			elif cell_content > -1:
-				grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
-				spawn_block = true
-				
+			var spawn_block = remove_tile(cell_content, map_loc)
 			if spawn_block && (cell_content < grid_blocks.size()):
-				var temp_block = grid_blocks[cell_content].instance()
-				temp_block.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
-				call_deferred("add_child", temp_block)
-				
-				var tween = get_tree().create_tween()
-				tween.set_trans(Tween.TRANS_BOUNCE)			
-				tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
-				tween.tween_callback(temp_block, "queue_free").set_delay(2)
+				create_remove_tile_animation(cell_content, map_loc)
 				PlayerVars.removes_changed -= 1
 				
 			if indicator:
 				indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
+				
+func remove_tile(cell_content, map_loc):
+	var spawn_block = false
+	
+	if cell_content == -1:
+		map_loc.y -= 1
+		cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
+		if cell_content > -1:
+			grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
+			spawn_block = true
+	elif cell_content > -1:
+		grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
+		spawn_block = true
+	
+	return spawn_block
 		
+func create_remove_tile_animation(cell_content, map_loc):
+	var temp_block = grid_blocks[cell_content].instance()
+	temp_block.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
+	call_deferred("add_child", temp_block)
+	
+	var tween = get_tree().create_tween()
+	tween.set_trans(Tween.TRANS_BOUNCE)			
+	tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
+	tween.tween_callback(temp_block, "queue_free").set_delay(2)
+	
 func remove_prev_tile():
 	var player_map_loc = player_to_grid()
-	player_map_loc.set_cell_item(player_map_loc.x, player_map_loc.y, player_map_loc.z, -1)
+	var cell_content = grid_map.get_cell_item(player_map_loc.x, player_map_loc.y, player_map_loc.z)
+	#player_map_loc.set_cell_item(player_map_loc.x, player_map_loc.y, player_map_loc.z, -1)
+	remove_tile(cell_content, player_map_loc)
+	create_remove_tile_animation(cell_content, player_map_loc)
 	
 func mouse_to_grid() -> Vector3:
 	var ray_length = 1000
