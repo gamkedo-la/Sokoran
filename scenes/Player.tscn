@@ -103,3 +103,5 @@ anims/fall = SubResource( 2 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 bus = "SFX"
+
+[node name="ray_tile" type="RayCast" parent="."]

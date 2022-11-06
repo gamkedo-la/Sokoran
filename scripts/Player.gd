@@ -31,7 +31,6 @@ func movement(vec:Vector3) -> void:
 		var b := a + vec * 2
 		$tw_m.interpolate_property(self, "translation", a, b, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
 		$tw_m.start()
-		get_node(demoscene).remove_prev_tile()
 		print("move")
 		$AudioStreamPlayer.play(0.0)
 		
@@ -47,6 +46,7 @@ func movement(vec:Vector3) -> void:
 		
 		is_moving = false
 		PlayerVars.moves_left -= 1
+		
 		
 func _movelimit(_delta: float) -> void:
 	dir = Vector3.ZERO
