@@ -120,9 +120,9 @@ func _input(event):
 			if indicator:
 				indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
 		
-func remove_prev_tile():
-	var player_map_loc = player_to_grid()
-	player_map_loc.set_cell_item(player_map_loc.x, player_map_loc.y, player_map_loc.z, -1)
+#func remove_prev_tile():
+#	var player_map_loc = player_to_grid()
+#	player_map_loc.set_cell_item(player_map_loc.x, player_map_loc.y, player_map_loc.z, -1)
 	
 func mouse_to_grid() -> Vector3:
 	var ray_length = 1000
@@ -138,17 +138,17 @@ func mouse_to_grid() -> Vector3:
 	else:
 		return Vector3() # What should default be if no intersection?
 		
-func player_to_grid() -> Vector3:
-	var ray_length = 1000
-	var position2D = get_viewport().get_mouse_position()
-	var from = camera.project_ray_origin(position2D)
-	var to = from + camera.project_ray_normal(position2D) * ray_length
-	var space_state = get_world().get_direct_space_state()		
-	var result = space_state.intersect_ray(from, to)		
-
-	var player_map_loc = grid_map.world_to_map(result["position"])
-
-	return player_map_loc
+#func player_to_grid() -> Vector3:
+#	var ray_length = 1000
+#	var position2D = get_viewport().get_mouse_position()
+#	var from = camera.project_ray_origin(position2D)
+#	var to = from + camera.project_ray_normal(position2D) * ray_length
+#	var space_state = get_world().get_direct_space_state()		
+#	var result = space_state.intersect_ray(from, to)		
+#
+#	var player_map_loc = grid_map.world_to_map(result["position"])
+#
+#	return player_map_loc
 		
 func _process(_delta: float) -> void:
 	$BackGround/Plane.translation.y = lerp($BackGround/Plane.translation.y, water_height,0.1)
