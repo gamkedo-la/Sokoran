@@ -2,6 +2,7 @@ extends Node
 
 signal moves_changed
 signal removes_changed
+signal player_moved_tiles
 
 var moves_left :int = 0 setget _set_moves_left
 var moves_left_max: int = 6
@@ -9,6 +10,8 @@ var moves_left_max: int = 6
 var removes_changed :int = 0 setget _set_removes_changed
 var removes_changed_max: int = 6
 
+var cur_tile
+var prev_tile
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

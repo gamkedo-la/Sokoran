@@ -135,13 +135,37 @@ func mouse_to_grid() -> Vector3:
 	else:
 		return Vector3() # What should default be if no intersection?
 		
-		
+#func player_to_grid() -> Vector3:
+#	var ray_length = 1000
+#	var position2D = get_viewport().get_mouse_position()
+#	var from = camera.project_ray_origin(position2D)
+#	var to = from + camera.project_ray_normal(position2D) * ray_length
+#	var space_state = get_world().get_direct_space_state()		
+#	var result = space_state.intersect_ray(from, to)		
+#	if (result.size() > 0): # ray didnt intersect
+#		var player_loc = grid_map.world_to_map(result["position"])
+#
+#		return player_loc
+#	else:
+#		return Vector3() # What should default be if no intersection?
+
 func _process(_delta: float) -> void:
+	
 	$BackGround/Plane.translation.y = lerp($BackGround/Plane.translation.y, water_height,0.1)
 	$BackGround/Plane2.translation.y = lerp($BackGround/Plane2.translation.y, water_height,0.1)
 	$Camera/Camera.rotation_degrees.z = lerp($Camera/Camera.rotation_degrees.z, 0.0, 0.15)
+#
+#func remove_poi_tile():
+#	var player_loc = _poi()
+#	grid_map.set_cell_item(player_loc.x, player_loc.y, player_loc.z, -1)
+#
+#func _poi():
+#
+#	var result = $Player/ray_move.get_collision_point()
+#	var poi = grid_map.world_to_map(result)
+#	print(poi)
+#	return poi
 	
-
 func _on_Timer_timeout():
 	randomize()
 	water_height = rand_range(1,1.5)
