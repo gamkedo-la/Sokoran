@@ -110,7 +110,7 @@ data = {
 script = ExtResource( 12 )
 __meta__ = {
 "_editor_clip_": 0,
-"_editor_floor_": Vector3( 0, 0, 0 )
+"_editor_floor_": Vector3( 0, -1, 0 )
 }
 
 [node name="Box" parent="Level/GridMap" instance=ExtResource( 4 )]
@@ -138,7 +138,7 @@ disabled = true
 [node name="Camera" type="Camera" parent="Camera"]
 transform = Transform( -0.939693, 0.241845, -0.241845, 0, 0.707107, 0.707107, 0.34202, 0.664463, -0.664463, 3, 20, -10 )
 projection = 1
-size = 5.43
+size = 20.0
 
 [node name="DiceCollisionWall" type="MeshInstance" parent="Camera/Camera"]
 transform = Transform( 14.3937, 1.40519e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.38341, -4.09015, -24.2332 )

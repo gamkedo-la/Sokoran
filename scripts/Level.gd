@@ -28,8 +28,11 @@ var ignore_controls = Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 var release_controls = Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _ready():
-
-#	$ColorRect.visible = true
+	if not PlayerVars.is_connected("player_moved_tiles", self, "_react_to_player_move"):
+		var con_res = PlayerVars.connect("player_moved_tiles", self, "_react_to_player_move")
+		assert(con_res == OK)
+	
+	#	$ColorRect.visible = true
 #	$ColorRect/anim.play("to_zero")
 	$Camera/Control/MeshInstance/AnimationPlayer.play("loop")
 	pass
@@ -101,6 +104,7 @@ func _input(event):
 				cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
 				if cell_content > -1:
 					grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
+					print(map_loc)
 					spawn_block = true
 			elif cell_content > -1:
 				grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
@@ -150,33 +154,33 @@ func mouse_to_grid() -> Vector3:
 #		return Vector3() # What should default be if no intersection?
 
 func _process(_delta: float) -> void:
-	
 	$BackGround/Plane.translation.y = lerp($BackGround/Plane.translation.y, water_height,0.1)
 	$BackGround/Plane2.translation.y = lerp($BackGround/Plane2.translation.y, water_height,0.1)
 	$Camera/Camera.rotation_degrees.z = lerp($Camera/Camera.rotation_degrees.z, 0.0, 0.15)
-#
+	
 #func remove_poi_tile():
 #	var player_loc = _poi()
 #	grid_map.set_cell_item(player_loc.x, player_loc.y, player_loc.z, -1)
 #
 #func _poi():
-#
 #	var result = $Player/ray_move.get_collision_point()
 #	var poi = grid_map.world_to_map(result)
 #	print(poi)
 #	return poi
 	
+func _react_to_player_move() -> void:
+	var prev_tile_cord  = grid_map.world_to_map(PlayerVars.cur_tile)
+	print("3d point", prev_tile_cord)
+	grid_map.set_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z, -1)
+	
 func _on_Timer_timeout():
 	randomize()
 	water_height = rand_range(1,1.5)
 	$Timer.wait_time = rand_range(0.1,0.6)
-
-
-
+	
 func shake()-> void: #camera shake when you go against a wall/unmoveable ob
 	$Camera/Camera.rotation_degrees.z = -1
-
-
+	
 func _on_Timer2_timeout(): #enabling the mouse click by turning true ignore_controls
 	ignore_controls=false
-
+	

@@ -15,7 +15,7 @@ var is_push3 := false
 var rota_y := 0
 var old_rota_Y := 0
 
-#export var demoscene : NodePath
+export var demoscene : NodePath
 
 func _ready():
 	pass # Replace with function body.
@@ -31,6 +31,13 @@ func movement(vec:Vector3) -> void:
 		var b := a + vec * 2
 		$tw_m.interpolate_property(self, "translation", a, b, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
 		$tw_m.start()
+		
+		PlayerVars.prev_tile = PlayerVars.cur_tile
+		if $ray_tile.is_colliding():
+			$ray_tile.force_raycast_update()
+			PlayerVars.cur_tile = $ray_tile.get_collision_point()
+		print("origi", PlayerVars.cur_tile)
+		PlayerVars.emit_signal("player_moved_tiles")
 #		get_node(demoscene).remove_poi_tile()
 		print("move")
 		$AudioStreamPlayer.play(0.0)

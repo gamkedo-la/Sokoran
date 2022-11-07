@@ -105,3 +105,5 @@ stream = ExtResource( 5 )
 bus = "SFX"
 
 [node name="ray_tile" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509428, 0 )
+enabled = true
