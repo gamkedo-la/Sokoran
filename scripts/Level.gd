@@ -11,6 +11,7 @@ onready var plop_scene = preload("res://scenes/Plop.tscn")
 onready var dice = preload("res://scenes/BlueDice.tscn")
 onready var dice1 = preload("res://scenes/RedDice.tscn")
 
+onready var meshlib = preload("res://resources/Tileset.tres")
 # Blocks used for animating gridmap actions
 var grass_block = preload("res://scenes/GridObjects/GrassBlock.tscn")
 var obstacle_block = preload("res://scenes/GridObjects/Obstacle.tscn")
@@ -139,39 +140,29 @@ func mouse_to_grid() -> Vector3:
 	else:
 		return Vector3() # What should default be if no intersection?
 		
-#func player_to_grid() -> Vector3:
-#	var ray_length = 1000
-#	var position2D = get_viewport().get_mouse_position()
-#	var from = camera.project_ray_origin(position2D)
-#	var to = from + camera.project_ray_normal(position2D) * ray_length
-#	var space_state = get_world().get_direct_space_state()		
-#	var result = space_state.intersect_ray(from, to)		
-#	if (result.size() > 0): # ray didnt intersect
-#		var player_loc = grid_map.world_to_map(result["position"])
-#
-#		return player_loc
-#	else:
-#		return Vector3() # What should default be if no intersection?
-
 func _process(_delta: float) -> void:
 	$BackGround/Plane.translation.y = lerp($BackGround/Plane.translation.y, water_height,0.1)
 	$BackGround/Plane2.translation.y = lerp($BackGround/Plane2.translation.y, water_height,0.1)
 	$Camera/Camera.rotation_degrees.z = lerp($Camera/Camera.rotation_degrees.z, 0.0, 0.15)
 	
-#func remove_poi_tile():
-#	var player_loc = _poi()
-#	grid_map.set_cell_item(player_loc.x, player_loc.y, player_loc.z, -1)
-#
-#func _poi():
-#	var result = $Player/ray_move.get_collision_point()
-#	var poi = grid_map.world_to_map(result)
-#	print(poi)
-#	return poi
-	
 func _react_to_player_move() -> void:
-	var prev_tile_cord  = grid_map.world_to_map(PlayerVars.cur_tile)
+	
+	var prev_tile_cord = grid_map.world_to_map(PlayerVars.cur_tile)
 	print("3d point", prev_tile_cord)
 	grid_map.set_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z, -1)
+	
+#	var cell_content = grid_map.get_cell_item(prev_tile_cord.x+1, prev_tile_cord.y-1, prev_tile_cord.z)
+	
+	var cell_content = grid_map.get_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z)
+
+	var temp_block = grid_blocks[cell_content].instance()
+	temp_block.global_transform.origin = grid_map.map_to_world(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z)
+	
+	call_deferred("add_child", temp_block)
+	var tween = get_tree().create_tween()
+	tween.set_trans(Tween.TRANS_BOUNCE)			
+	tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
+	tween.tween_callback(temp_block, "queue_free").set_delay(2)
 	
 func _on_Timer_timeout():
 	randomize()
