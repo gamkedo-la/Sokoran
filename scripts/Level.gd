@@ -148,12 +148,9 @@ func _process(_delta: float) -> void:
 func _react_to_player_move() -> void:
 	
 	var prev_tile_cord = grid_map.world_to_map(PlayerVars.cur_tile)
+	var cell_content = grid_map.get_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z)
 	print("3d point", prev_tile_cord)
 	grid_map.set_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z, -1)
-	
-#	var cell_content = grid_map.get_cell_item(prev_tile_cord.x+1, prev_tile_cord.y-1, prev_tile_cord.z)
-	
-	var cell_content = grid_map.get_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z)
 
 	var temp_block = grid_blocks[cell_content].instance()
 	temp_block.global_transform.origin = grid_map.map_to_world(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z)
