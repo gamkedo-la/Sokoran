@@ -96,35 +96,41 @@ func _input(event):
 	if  Input.is_action_just_pressed("mouse_right"):
 		if PlayerVars.removes_changed > 0:
 			var map_loc = mouse_to_grid()
-	#		print (map_loc)
-	#		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
-			var spawn_block = false
-			var cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
-			if cell_content == -1:
-				map_loc.y -= 1
-				cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
-				if cell_content > -1:
+			var player_loc = player_to_grid()
+			print("mos"+str(map_loc))
+			print("pl"+str(player_loc))
+			if map_loc.x != player_loc.x or map_loc.y != player_loc.y: # Check to make sure we don't remove player's block
+		#		print (map_loc)
+		#		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
+				var spawn_block = false
+				var cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
+				if cell_content == -1:
+					map_loc.y -= 1
+					cell_content = grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z)
+					if cell_content > -1:
+						grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
+						print(map_loc)
+						spawn_block = true
+				elif cell_content > -1:
 					grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
-					print(map_loc)
 					spawn_block = true
-			elif cell_content > -1:
-				grid_map.set_cell_item(map_loc.x, map_loc.y, map_loc.z, -1)
-				spawn_block = true
-				
-			if spawn_block && (cell_content < grid_blocks.size()):
-				var temp_block = grid_blocks[cell_content].instance()
-				temp_block.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
-				call_deferred("add_child", temp_block)
-				
-				var tween = get_tree().create_tween()
-				tween.set_trans(Tween.TRANS_BOUNCE)			
-				tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
-				tween.tween_callback(temp_block, "queue_free").set_delay(2)
-				PlayerVars.removes_changed -= 1
-				
-			if indicator:
-				indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
-		
+					
+				if spawn_block && (cell_content < grid_blocks.size()):
+					var temp_block = grid_blocks[cell_content].instance()
+					temp_block.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
+					call_deferred("add_child", temp_block)
+					
+					var tween = get_tree().create_tween()
+					tween.set_trans(Tween.TRANS_BOUNCE)			
+					tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
+					tween.tween_callback(temp_block, "queue_free").set_delay(2)
+					PlayerVars.removes_changed -= 1
+					
+				if indicator:
+					indicator.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
+			else:
+				#skipped
+				print("skipped")
 
 func mouse_to_grid() -> Vector3:
 	var ray_length = 1000
@@ -134,12 +140,19 @@ func mouse_to_grid() -> Vector3:
 	var space_state = get_world().get_direct_space_state()		
 	var result = space_state.intersect_ray(from, to)		
 	if (result.size() > 0): # ray didnt intersect
+		#print(result["position"])
 		var map_loc = grid_map.world_to_map(result["position"])
-	
+		#print(map_loc)
+		#print(player_to_grid())
 		return map_loc
 	else:
 		return Vector3() # What should default be if no intersection?
 		
+func player_to_grid() -> Vector3:
+	var player = get_node("Player") as StaticBody
+	
+	return grid_map.world_to_map(player.global_transform.origin)
+	
 func _process(_delta: float) -> void:
 	$BackGround/Plane.translation.y = lerp($BackGround/Plane.translation.y, water_height,0.1)
 	$BackGround/Plane2.translation.y = lerp($BackGround/Plane2.translation.y, water_height,0.1)
