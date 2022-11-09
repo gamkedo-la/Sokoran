@@ -58,9 +58,7 @@ proximity_fade_enable = true
 proximity_fade_distance = 1.0
 
 [resource]
-render_priority = 3
 next_pass = SubResource( 8 )
-flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 0.376471, 0.0941176, 0.443137, 1 )
 albedo_texture = SubResource( 16 )
