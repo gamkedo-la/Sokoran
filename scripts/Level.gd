@@ -99,7 +99,7 @@ func _input(event):
 			var player_loc = player_to_grid()
 			print("mos"+str(map_loc))
 			print("pl"+str(player_loc))
-			if map_loc.x != player_loc.x or map_loc.y != player_loc.y: # Check to make sure we don't remove player's block
+			if map_loc.x != player_loc.x or map_loc.z != player_loc.z: # Check to make sure we don't remove player's block
 		#		print (map_loc)
 		#		print (grid_map.get_cell_item(map_loc.x, map_loc.y, map_loc.z))
 				var spawn_block = false
