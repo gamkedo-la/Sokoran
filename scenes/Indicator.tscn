@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="Gradient" id=9]
+colors = PoolColorArray( 0.988281, 0.726493, 0.447815, 1, 1, 0.720184, 0.324219, 1 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
 
 [sub_resource type="SpatialMaterial" id=6]
 flags_unshaded = true
-albedo_color = Color( 1, 0.101961, 0, 1 )
+albedo_texture = SubResource( 10 )
 refraction_enabled = true
 refraction_scale = 0.05
 refraction_texture_channel = 0
