@@ -36,6 +36,7 @@ func _ready():
 	#	$ColorRect.visible = true
 #	$ColorRect/anim.play("to_zero")
 	$Camera/Control/MeshInstance/AnimationPlayer.play("loop")
+	$raom/roam_anim.play("roll")
 	pass
 
 func spawn_dice(position):
