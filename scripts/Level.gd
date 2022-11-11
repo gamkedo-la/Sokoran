@@ -37,6 +37,7 @@ func _ready():
 #	$ColorRect/anim.play("to_zero")
 	$Camera/Control/MeshInstance/AnimationPlayer.play("loop")
 	$raom/roam_anim.play("roll")
+	$Level/GridMap/randomasset/tree/AnimationPlayer.play("ArmatureAction")
 	pass
 
 func spawn_dice(position):
