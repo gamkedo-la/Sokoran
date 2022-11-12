@@ -38,6 +38,12 @@ func _ready():
 	$Camera/Control/MeshInstance/AnimationPlayer.play("loop")
 	$raom/roam_anim.play("roll")
 	$Level/GridMap/randomasset/tree/AnimationPlayer.play("ArmatureAction")
+	$Player/pivot/planet/AnimationPlayer2.play("1Action")
+	$Player/pivot/planet/AnimationPlayer3.play("2Action")
+	$Player/pivot/planet/AnimationPlayer4.play("3Action")
+	$Player/pivot/planet/AnimationPlayer5.play("4Action")
+	$Player/pivot/planet/AnimationPlayer6.play("Icosphere001Action")
+	$Player/pivot/planet/AnimationPlayer.play("sputnikAction")
 	pass
 
 func spawn_dice(position):

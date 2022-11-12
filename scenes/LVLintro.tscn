@@ -393,7 +393,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.13893, 9 )
 [node name="randomasset" type="MeshInstance" parent="Level/GridMap"]
 
 [node name="tree" parent="Level/GridMap/randomasset" instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.059, 1.00472, -8.96093 )
+transform = Transform( 0.830557, 0, 0.556934, 0, 1, 0, -0.556934, 0, 0.830557, 18.9329, 1.00472, -9.14894 )
 
 [node name="BackGround" type="StaticBody" parent="."]
 collision_layer = 5

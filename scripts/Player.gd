@@ -18,6 +18,7 @@ var old_rota_Y := 0
 export var demoscene : NodePath
 
 func _ready():
+	
 	pass # Replace with function body.
 
 func _physics_process(delta: float) -> void:
