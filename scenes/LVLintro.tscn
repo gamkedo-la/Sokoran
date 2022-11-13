@@ -399,6 +399,7 @@ transform = Transform( 0.830557, 0, 0.556934, 0, 1, 0, -0.556934, 0, 0.830557, 1
 collision_layer = 5
 
 [node name="Plane" type="MeshInstance" parent="BackGround"]
+visible = false
 mesh = SubResource( 2 )
 skeleton = NodePath("")
 
@@ -435,7 +436,7 @@ projection = 1
 size = 20.0
 
 [node name="DiceCollisionWall" type="MeshInstance" parent="Camera/Camera"]
-transform = Transform( 14.3937, 1.40519e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.38341, -4.09015, -24.2332 )
+transform = Transform( 14.3937, 1.85327e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.38341, -4.09015, -24.2332 )
 mesh = ExtResource( 8 )
 skeleton = NodePath("../../..")
 
@@ -458,6 +459,7 @@ anchor_right = 1.0
 
 [node name="MeshInstance" type="MeshInstance" parent="Camera/Control"]
 transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332231, -0.332231, 7.93714, 23.681, -1.88451 )
+visible = false
 mesh = ExtResource( 11 )
 skeleton = NodePath("../../Camera")
 
@@ -468,6 +470,7 @@ anims/loop = SubResource( 5 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="Camera/Control"]
 transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332231, -0.332231, 4.17837, 23.681, -0.51643 )
+visible = false
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../Camera")
 
