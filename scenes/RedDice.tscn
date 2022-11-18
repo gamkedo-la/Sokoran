@@ -1,19 +1,19 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/mesh/D6dicered.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/mesh/D4 dice.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://scripts/RedDice.gd" type="Script" id=2]
 [ext_resource path="res://assets/audio/roll1.ogg" type="AudioStream" id=3]
 [ext_resource path="res://assets/font/Roboto/Roboto-Medium.ttf" type="DynamicFontData" id=4]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="ConvexPolygonShape" id=7]
+points = PoolVector3Array( 0.0207913, 0.774525, -0.212253, 0.0197721, 0.745365, -0.249345, -0.667937, -0.310771, -0.212253, -0.0387236, -0.0236087, 0.770013, 0.649049, -0.357675, -0.28043, -0.603763, -0.39402, -0.276422, 0.48003, -0.18546, 0.100867, -0.0834267, 0.690907, -0.170548, 0.0370715, 0.0402055, 0.749267, -0.0398321, 0.687867, -0.291215, 0.568649, -0.379106, -0.164864, 0.12514, -0.206423, 0.413766, 0.166984, 0.565711, -0.1914, -0.0569705, 0.0184226, 0.740369, -0.604365, -0.354122, -0.297072, -0.568358, -0.37905, -0.164639, 0.0613471, 0.0876297, -0.3063, -0.4799, -0.18546, 0.100867, 0.647014, -0.268962, -0.1914, 0.0195715, -0.0461898, 0.75761, 0.604281, -0.354047, -0.297103, 0.0604859, 0.634048, -0.298534, 0.625254, -0.395117, -0.257373, 0.0834267, 0.71187, -0.212253, -0.0182273, 0.0609036, 0.740907, -0.521744, -0.0393016, -0.233216, 0.605301, -0.18546, -0.233106, 0.626092, -0.289808, -0.128843, -0.584379, -0.18546, -0.149695, 0.0790958, -0.384355, -0.168546, -0.03908, -0.0841804, 0.677045, -0.0417133, 0.753562, -0.19129, 0.0386077, -0.0236378, 0.770088, 0.0811323, -0.358103, -0.301237, 0.0834267, 0.690907, -0.170548, -0.0834267, 0.71187, -0.212253, -0.594725, -0.266289, -0.288397, 0.0568711, 0.018367, 0.740539, -0.623783, -0.356335, -0.181905, 0.567018, -0.357866, -0.124616, -0.626092, -0.289808, -0.128732, 0.60385, -0.393991, -0.276497, 0.0395034, 0.724865, -0.268642, -0.166984, 0.565711, -0.19129, -0.625155, -0.395138, -0.257293, 0.0415826, 0.753562, -0.19129, 0.0182273, 0.0609038, 0.740906, 0.594643, -0.266227, -0.288428, -0.647014, -0.268962, -0.19129, -0.0396192, 0.72475, -0.268533, 0.584379, -0.18546, -0.149695, -0.566911, -0.35799, -0.124626, 0.0678349, 0.069514, 0.654124, 0.667937, -0.310771, -0.212253, -0.0371757, 0.0402521, 0.7491, -0.0678349, 0.069514, 0.654124, 0.623815, -0.356254, -0.181927, -0.649049, -0.357675, -0.28043, -0.0391622, -0.0652729, 0.717104, -0.0207913, 0.774525, -0.212253, 0.253317, -0.180788, 0.383111, 0.0592385, 0.664191, -0.287183, -0.60517, -0.18546, -0.233216, -0.0580104, -0.00382736, 0.749377 )
 
 [sub_resource type="DynamicFont" id=6]
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 4 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "Death"
+[sub_resource type="Animation" id=10]
 length = 0.7
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -58,7 +58,7 @@ tracks/3/path = NodePath("NumLabel:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -145,10 +145,12 @@ tracks/5/keys = {
 script = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.999387, 0.0350041, 0, -0.0350041, 0.999387, 0, 0, 0 )
 mesh = ExtResource( 1 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+transform = Transform( 2, 0, 0, 0, 1.89175, -0.649057, 0, 0.649057, 1.89175, 0, 0, 0 )
+shape = SubResource( 7 )
 
 [node name="FaceRays" type="Spatial" parent="."]
 unique_name_in_owner = true
@@ -160,33 +162,21 @@ cast_to = Vector3( 0, 10, 0 )
 debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
 
 [node name="2" type="RayCast" parent="FaceRays"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9 )
+transform = Transform( 0.321233, 0.294057, -0.900189, -0.0988304, 0.955788, 0.276951, 0.941829, 0, 0.336093, 0.880753, -0.381386, -0.547835 )
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
 debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
 
 [node name="3" type="RayCast" parent="FaceRays"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0, 0 )
+transform = Transform( -0.862496, -0.282208, 0.420071, -0.253715, 0.959353, 0.12357, -0.437869, 0, -0.899039, -0.948782, -0.408318, -0.584501 )
 enabled = true
 cast_to = Vector3( 10, 0, 0 )
 debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
 
 [node name="4" type="RayCast" parent="FaceRays"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0, 0 )
+transform = Transform( 0.00897093, 0, 0.99996, 0.208142, 0.978097, -0.00186731, -0.978057, 0.208151, 0.00877444, -0.0041908, -0.373583, 1.03677 )
 enabled = true
 cast_to = Vector3( -10, 0, 0 )
-debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
-
-[node name="5" type="RayCast" parent="FaceRays"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.9 )
-enabled = true
-cast_to = Vector3( 0, 0, 10 )
-debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
-
-[node name="6" type="RayCast" parent="FaceRays"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0 )
-enabled = true
-cast_to = Vector3( 0, -10, 0 )
 debug_shape_custom_color = Color( 0.760784, 0.054902, 1, 1 )
 
 [node name="NumLabel" type="Label3D" parent="."]
@@ -204,7 +194,7 @@ bus = "SFX"
 [node name="Timer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Death = SubResource( 2 )
+anims/Death = SubResource( 10 )
 anims/RESET = SubResource( 5 )
 
 [connection signal="body_entered" from="." to="." method="_on_RedDice_body_entered"]

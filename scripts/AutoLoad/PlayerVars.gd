@@ -5,10 +5,10 @@ signal removes_changed
 signal player_moved_tiles
 
 var moves_left :int = 0 setget _set_moves_left
-var moves_left_max: int = 100
+var moves_left_max: int = 6
 
 var removes_changed :int = 0 setget _set_removes_changed
-var removes_changed_max: int = 6
+var removes_changed_max: int = 4
 
 var cur_tile
 var prev_tile
