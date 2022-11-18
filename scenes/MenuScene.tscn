@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://assets/vortex_cube2.png" type="Texture" id=1]
 [ext_resource path="res://assets/mesh/D4reddice.mesh" type="ArrayMesh" id=2]
@@ -340,6 +340,37 @@ font_data = ExtResource( 8 )
 use_filter = true
 font_data = ExtResource( 10 )
 
+[sub_resource type="Animation" id=40]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=41]
+resource_name = "text"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
 [node name="MenuScene" type="Spatial"]
 script = ExtResource( 3 )
 
@@ -396,7 +427,7 @@ align = 1
 [node name="AnimatedMenuLogo" parent="CanvasLayer/Label" instance=ExtResource( 5 )]
 position = Vector2( 216, 55 )
 scale = Vector2( 0.5, 0.5 )
-frame = 17
+frame = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchor_bottom = 1.0
@@ -509,7 +540,6 @@ autoplay = true
 bus = "Background"
 
 [node name="Control" type="Control" parent="."]
-visible = false
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -522,11 +552,11 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -610.0
-margin_top = -336.0
+margin_top = -510.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
 margin_right = 610.0
-margin_bottom = 264.0
+margin_bottom = 516.0
 rect_min_size = Vector2( 480, 0 )
 custom_constants/line_separation = 5
 custom_fonts/mono_font = SubResource( 38 )
@@ -535,20 +565,36 @@ custom_fonts/italics_font = SubResource( 37 )
 custom_fonts/bold_font = SubResource( 37 )
 custom_fonts/normal_font = SubResource( 39 )
 bbcode_enabled = true
-bbcode_text = "[color=aqua]Rohit \"n4rwal\" Kumar:[/color] Project lead, core gameplay, main dice action and movement behavior, tile pushing, roaming object, sky and stars, happy tree, additional planet, detailed box model, UI, menus, lvl background music
-mike dg: Better cursor interaction, assorted bug fixes (red dice behavior, missed click handling, removal at character position)
-[color=aqua]Kyle Black:[/color] Roll count, Remove tile mechanic, sound (tally, dice hookup), additional vortex effect, improved loading, Better code structure & clean up, improved roll
-[color=aqua]Rodrigo Bonzerr Lopez:[/color] Music
-[color=aqua]Fahad Muntaz:[/color] Satellite model
-[color=aqua]Christer \"McFunkypants\" Kaitila:[/color] Black hole vortex effect, tile drop sound
-[color=aqua]Chris DeLeon:[/color] Planet move sound, ringed planet model and texture"
-text = "Rohit \"n4rwal\" Kumar: Project lead, core gameplay, main dice action and movement behavior, tile pushing, roaming object, sky and stars, happy tree, additional planet, detailed box model, UI, menus, lvl background music
-mike dg: Better cursor interaction, assorted bug fixes (red dice behavior, missed click handling, removal at character position)
-Kyle Black: Roll count, Remove tile mechanic, sound (tally, dice hookup), additional vortex effect, improved loading, Better code structure & clean up, improved roll
-Rodrigo Bonzerr Lopez: Music
-Fahad Muntaz: Satellite model
-Christer \"McFunkypants\" Kaitila: Black hole vortex effect, tile drop sound
-Chris DeLeon: Planet move sound, ringed planet model and texture"
+bbcode_text = "[center][b]Rohit \"n4rwal\" Kumar[/b]
+Project lead, core gameplay, main dice action and movement behavior, tile pushing, roaming object, sky and stars, happy tree, additional planet, detailed box model, UI, menus, lvl background music
+[b]Mike DG[/b]
+Better cursor interaction, assorted bug fixes (red dice behavior, missed click handling, removal at character position)
+[b]Kyle Black[/b]
+Roll count, Remove tile mechanic, sound (tally, dice hookup), additional vortex effect, improved loading, Better code structure & clean up, improved roll
+[b]Christer \"McFunkypants\" Kaitila:[/b]
+Black hole vortex effect, tile drop sound
+[b]Chris DeLeon:[/b]
+Planet move sound, ringed planet model and texture
+[b]Rodrigo Bonzerr Lopez:[/b]
+Music
+[b]Fahad Muntaz:[/b]
+Satellite model[/center]"
+visible_characters = 0
+percent_visible = 0.0
+text = "Rohit \"n4rwal\" Kumar
+Project lead, core gameplay, main dice action and movement behavior, tile pushing, roaming object, sky and stars, happy tree, additional planet, detailed box model, UI, menus, lvl background music
+Mike DG
+Better cursor interaction, assorted bug fixes (red dice behavior, missed click handling, removal at character position)
+Kyle Black
+Roll count, Remove tile mechanic, sound (tally, dice hookup), additional vortex effect, improved loading, Better code structure & clean up, improved roll
+Christer \"McFunkypants\" Kaitila:
+Black hole vortex effect, tile drop sound
+Chris DeLeon:
+Planet move sound, ringed planet model and texture
+Rodrigo Bonzerr Lopez:
+Music
+Fahad Muntaz:
+Satellite model"
 fit_content_height = true
 
 [node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/RichTextLabel"]
@@ -560,9 +606,10 @@ grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 2
 color = Color( 0, 0, 0, 0.231373 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/VBoxContainer/RichTextLabel"]
+anims/RESET = SubResource( 40 )
+anims/text = SubResource( 41 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]

@@ -52,7 +52,9 @@ func _on_btn_quit_mouse_entered():
 func _on_btn_resume_mouse_entered():
 	$CanvasLayer/VBoxContainer/ui_sound.play(0.0)
 	$Control.visible = true
+	$Control/VBoxContainer/RichTextLabel/AnimationPlayer.play("text")
 
 
 func _on_btn_resume_mouse_exited():
 	$Control.visible = false
+	$Control/VBoxContainer/RichTextLabel/AnimationPlayer.play("RESET")
