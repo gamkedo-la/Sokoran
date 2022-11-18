@@ -48,3 +48,11 @@ func _on_btn_new_mouse_entered():
 
 func _on_btn_quit_mouse_entered():
 	$CanvasLayer/VBoxContainer/ui_sound.play(0.0)
+
+func _on_btn_resume_mouse_entered():
+	$CanvasLayer/VBoxContainer/ui_sound.play(0.0)
+	$Control.visible = true
+
+
+func _on_btn_resume_mouse_exited():
+	$Control.visible = false

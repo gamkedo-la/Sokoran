@@ -98,7 +98,7 @@ func _input(event):
 			plop()
 			spawn_dice(position3D)
 #			PlayerVars.moves_left = 0
-#			ignore_controls = true #disable mouse and the start timer (next line) to ensable it again... all this so we can spawn one dice and wait until it disappear to throw a new on
+			ignore_controls = true #disable mouse and the start timer (next line) to ensable it again... all this so we can spawn one dice and wait until it disappear to throw a new on
 			$Timer2.start()  #the next line timer
 			
 	if  Input.is_action_just_pressed("mouse_right"):

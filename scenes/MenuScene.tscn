@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://assets/vortex_cube2.png" type="Texture" id=1]
 [ext_resource path="res://assets/mesh/D4reddice.mesh" type="ArrayMesh" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/mesh/box_sat/box satellite.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/font/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://assets/mesh/D6dicered.mesh" type="ArrayMesh" id=9]
+[ext_resource path="res://assets/font/Roboto/Roboto-Regular.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://music/happy_song_narwal.wav" type="AudioStream" id=39]
 
 [sub_resource type="Gradient" id=15]
@@ -235,6 +236,11 @@ tracks/0/keys = {
 "values": [ 1.0, 0.0 ]
 }
 
+[sub_resource type="DynamicFont" id=37]
+size = 25
+use_filter = true
+font_data = ExtResource( 8 )
+
 [sub_resource type="Animation" id=19]
 length = 0.001
 tracks/0/type = "value"
@@ -325,6 +331,15 @@ tracks/0/keys = {
 "values": [ Vector3( -45, 5, 130 ), Vector3( 315, 5, 130 ) ]
 }
 
+[sub_resource type="DynamicFont" id=38]
+size = 25
+use_filter = true
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=39]
+use_filter = true
+font_data = ExtResource( 10 )
+
 [node name="MenuScene" type="Spatial"]
 script = ExtResource( 3 )
 
@@ -381,7 +396,7 @@ align = 1
 [node name="AnimatedMenuLogo" parent="CanvasLayer/Label" instance=ExtResource( 5 )]
 position = Vector2( 216, 55 )
 scale = Vector2( 0.5, 0.5 )
-frame = 5
+frame = 9
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchor_bottom = 1.0
@@ -403,19 +418,6 @@ custom_styles/focus = SubResource( 31 )
 custom_styles/disabled = SubResource( 31 )
 custom_styles/normal = SubResource( 31 )
 text = "PLAY"
-
-[node name="btn_resume" type="Button" parent="CanvasLayer/VBoxContainer"]
-visible = false
-margin_top = 259.0
-margin_right = 217.0
-margin_bottom = 341.0
-custom_fonts/font = SubResource( 30 )
-custom_styles/hover = SubResource( 31 )
-custom_styles/pressed = SubResource( 31 )
-custom_styles/focus = SubResource( 31 )
-custom_styles/disabled = SubResource( 31 )
-custom_styles/normal = SubResource( 31 )
-text = "RESUME"
 
 [node name="btn_quit" type="Button" parent="CanvasLayer/VBoxContainer"]
 margin_top = 302.0
@@ -456,6 +458,21 @@ anims/RESET = SubResource( 34 )
 anims/trans01 = SubResource( 35 )
 anims/trans2 = SubResource( 36 )
 
+[node name="btn_resume" type="Button" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -217.0
+margin_top = -82.0
+custom_fonts/font = SubResource( 37 )
+custom_styles/hover = SubResource( 31 )
+custom_styles/pressed = SubResource( 31 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/disabled = SubResource( 31 )
+custom_styles/normal = SubResource( 31 )
+text = "CREDITS"
+
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -0.687552, -0.723515, 0.0616284, 0.541675, -0.454519, 0.707107, -0.483591, 0.519555, 0.704416, 10.6122, 5.00531, -6.30706 )
 visible = false
@@ -491,9 +508,67 @@ stream = ExtResource( 39 )
 autoplay = true
 bus = "Background"
 
+[node name="Control" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -480.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -610.0
+margin_top = -336.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
+margin_right = 610.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 480, 0 )
+custom_constants/line_separation = 5
+custom_fonts/mono_font = SubResource( 38 )
+custom_fonts/bold_italics_font = SubResource( 37 )
+custom_fonts/italics_font = SubResource( 37 )
+custom_fonts/bold_font = SubResource( 37 )
+custom_fonts/normal_font = SubResource( 39 )
+bbcode_enabled = true
+bbcode_text = "[color=aqua]Rohit \"n4rwal\" Kumar:[/color] Project lead, core gameplay, main dice action and movement behavior, tile pushing, roaming object, sky and stars, happy tree, additional planet, detailed box model, UI, menus, lvl background music
+mike dg: Better cursor interaction, assorted bug fixes (red dice behavior, missed click handling, removal at character position)
+[color=aqua]Kyle Black:[/color] Roll count, Remove tile mechanic, sound (tally, dice hookup), additional vortex effect, improved loading, Better code structure & clean up, improved roll
+[color=aqua]Rodrigo Bonzerr Lopez:[/color] Music
+[color=aqua]Fahad Muntaz:[/color] Satellite model
+[color=aqua]Christer \"McFunkypants\" Kaitila:[/color] Black hole vortex effect, tile drop sound
+[color=aqua]Chris DeLeon:[/color] Planet move sound, ringed planet model and texture"
+text = "Rohit \"n4rwal\" Kumar: Project lead, core gameplay, main dice action and movement behavior, tile pushing, roaming object, sky and stars, happy tree, additional planet, detailed box model, UI, menus, lvl background music
+mike dg: Better cursor interaction, assorted bug fixes (red dice behavior, missed click handling, removal at character position)
+Kyle Black: Roll count, Remove tile mechanic, sound (tally, dice hookup), additional vortex effect, improved loading, Better code structure & clean up, improved roll
+Rodrigo Bonzerr Lopez: Music
+Fahad Muntaz: Satellite model
+Christer \"McFunkypants\" Kaitila: Black hole vortex effect, tile drop sound
+Chris DeLeon: Planet move sound, ringed planet model and texture"
+fit_content_height = true
+
+[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/RichTextLabel"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+color = Color( 0, 0, 0, 0.231373 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/btn_new" to="." method="_on_btn_new_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/btn_new" to="." method="_on_btn_new_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/btn_quit" to="." method="_on_btn_quit_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/btn_quit" to="." method="_on_btn_quit_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/btn_resume" to="." method="_on_btn_resume_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/btn_resume" to="." method="_on_btn_resume_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/btn_resume" to="." method="_on_btn_resume_pressed"]
