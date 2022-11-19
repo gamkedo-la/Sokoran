@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/EndGoal.gd" type="Script" id=1]
 [ext_resource path="res://resources/PortalRingEffect.tres" type="Material" id=2]
 [ext_resource path="res://assets/texture/vortex_streak.png" type="Texture" id=3]
 [ext_resource path="res://assets/mesh/vortex.tres" type="Material" id=4]
 [ext_resource path="res://assets/mesh/vortex.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://assets/bhcore.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/vortex_cube2.png" type="Texture" id=8]
 
 [sub_resource type="SphereMesh" id=37]
@@ -128,6 +129,9 @@ script = ExtResource( 1 )
 transform = Transform( 0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0, 0 )
 mesh = SubResource( 37 )
 material/0 = ExtResource( 4 )
+
+[node name="bhcore" parent="black hole mesh" instance=ExtResource( 6 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 
 [node name="spin" type="AnimationPlayer" parent="black hole mesh"]
 anims/RESET = SubResource( 38 )

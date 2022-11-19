@@ -7,4 +7,5 @@ flags_transparent = true
 flags_unshaded = true
 flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
+params_cull_mode = 1
 albedo_texture = ExtResource( 1 )
