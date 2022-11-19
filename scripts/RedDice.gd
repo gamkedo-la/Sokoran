@@ -61,7 +61,7 @@ func _read_face() -> void:
 	for side in die_sides:
 		if side is RayCast:
 			side.force_raycast_update()
-			if side.is_colliding() && side.get_collision_normal().y > 0.5:
+			if side.is_colliding() && side.get_collision_normal().y > 0.75:
 #				print_debug("Collision Normal: ", side.get_collision_normal())
 				var roll_cnt = int(side.name)
 				PlayerVars.removes_changed += roll_cnt

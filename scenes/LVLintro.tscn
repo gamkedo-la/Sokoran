@@ -454,7 +454,7 @@ projection = 1
 size = 20.0
 
 [node name="DiceCollisionWall" type="MeshInstance" parent="Camera/Camera"]
-transform = Transform( 14.3937, 1.85327e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.38341, -4.09015, -24.2332 )
+transform = Transform( 14.3937, 1.96529e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.383, 1, -22.397 )
 mesh = ExtResource( 8 )
 skeleton = NodePath("../../..")
 
