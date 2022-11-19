@@ -28,6 +28,8 @@ onready var indicator: Spatial = $Camera/Camera/Indicator
 var ignore_controls = Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 var release_controls = Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
+var roamer_anim = get_node_or_null("%roam_anim")
+
 func _ready():
 	if not PlayerVars.is_connected("player_moved_tiles", self, "_react_to_player_move"):
 		var con_res = PlayerVars.connect("player_moved_tiles", self, "_react_to_player_move")
@@ -36,7 +38,8 @@ func _ready():
 	#	$ColorRect.visible = true
 #	$ColorRect/anim.play("to_zero")
 	$Camera/Control/MeshInstance/AnimationPlayer.play("loop")
-	$raom/roam_anim.play("roll")
+	if is_instance_valid(roamer_anim):
+		roamer_anim.play("roll")
 	$Level/GridMap/randomasset/tree/AnimationPlayer.play("ArmatureAction")
 	$Player/pivot/planet/AnimationPlayer2.play("1Action")
 	$Player/pivot/planet/AnimationPlayer3.play("2Action")

@@ -535,13 +535,14 @@ bus = "Background"
 [node name="BoxTile" parent="." instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 3, 3 )
 
-[node name="raom" type="Spatial" parent="."]
+[node name="roam" type="Spatial" parent="."]
 
-[node name="roam_obj" type="MeshInstance" parent="raom"]
+[node name="roam_obj" type="MeshInstance" parent="roam"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.63823, 3.91476, 0 )
 mesh = ExtResource( 18 )
 
-[node name="roam_anim" type="AnimationPlayer" parent="raom"]
+[node name="roam_anim" type="AnimationPlayer" parent="roam"]
+unique_name_in_owner = true
 anims/RESET = SubResource( 18 )
 anims/roll = SubResource( 19 )
 
