@@ -46,7 +46,8 @@ func _physics_process(delta):
 			#determine dice roll
 			_read_face()
 		else:
-			print_debug("PrevPos: ", prv_pos, " CurPos: ", global_transform.origin)
+#			print_debug("PrevPos: ", prv_pos, " CurPos: ", global_transform.origin)
+			pass
 		if tot_time_elapsed > 5.0:
 			mode = RigidBody.MODE_STATIC
 		
@@ -60,7 +61,7 @@ func _read_face() -> void:
 	for side in die_sides:
 		if side is RayCast:
 			side.force_raycast_update()
-			if side.is_colliding() && side.get_collision_normal().y > 0.5:
+			if side.is_colliding() && side.get_collision_normal().y > 0.75:
 #				print_debug("Collision Normal: ", side.get_collision_normal())
 				var roll_cnt = int(side.name)
 				PlayerVars.moves_left += roll_cnt

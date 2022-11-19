@@ -128,8 +128,9 @@ func _input(event):
 					
 				if spawn_block && (cell_content < grid_blocks.size()):
 					var temp_block = grid_blocks[cell_content].instance()
+					add_child(temp_block)
 					temp_block.global_transform.origin = grid_map.map_to_world(map_loc.x, map_loc.y, map_loc.z)
-					call_deferred("add_child", temp_block)
+#					call_deferred("add_child", temp_block)
 					
 					var tween = get_tree().create_tween()
 					tween.set_trans(Tween.TRANS_BOUNCE)			
@@ -177,9 +178,10 @@ func _react_to_player_move() -> void:
 	grid_map.set_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z, -1)
 
 	var temp_block = grid_blocks[cell_content].instance()
+	add_child(temp_block)
 	temp_block.global_transform.origin = grid_map.map_to_world(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z)
 	
-	call_deferred("add_child", temp_block)
+#	call_deferred("add_child", temp_block)
 	var tween = get_tree().create_tween()
 	tween.set_trans(Tween.TRANS_BOUNCE)			
 	tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
