@@ -22,6 +22,7 @@ func _input(_delta):
 			pause()
 		else:
 			resume()
+
  
 func pause(play_sound: bool = true):
 	if play_sound:

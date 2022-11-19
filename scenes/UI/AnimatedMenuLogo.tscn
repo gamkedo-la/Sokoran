@@ -42,5 +42,5 @@ animations = [ {
 [node name="AnimatedMenuLogo" type="AnimatedSprite"]
 position = Vector2( 487, 267 )
 frames = SubResource( 29 )
-frame = 15
+frame = 8
 playing = true

@@ -21,7 +21,6 @@ func _ready():
 	var check_label1 = is_instance_valid(moves_label1)
 	assert(check_label == true)
 	assert(check_label1 == true)
-	
 	#blue
 	if not PlayerVars.is_connected("moves_changed", self, "_update_moves"):
 		var con_res = PlayerVars.connect("moves_changed", self, "_update_moves")
@@ -65,7 +64,16 @@ func _process(delta):
 			count_removes -= 1
 			moves_label1.text = str(PlayerVars.removes_changed - count_removes)
 			move_cnt_sfx.play()
-
+func _input(event):
+	if Input.is_action_just_pressed("reload"):
+		PlayerVars.moves_left = 0
+		PlayerVars.removes_changed = 0
+		var _err = Global.goto_scene(Global.levels[Global.current_level])
+		
+	if Input.is_action_just_pressed("mute"):
+		AudioServer.set_bus_mute(master_bus, true)
+		_on_HSlider_value_changed(-30)
+		
 func _update_moves() -> void:
 	count_moves = PlayerVars.moves_left - prev_moves
 #	print_debug("count_moves: ", count_moves)
