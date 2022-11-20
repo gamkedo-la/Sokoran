@@ -38,8 +38,7 @@ func _ready():
 	#	$ColorRect.visible = true
 #	$ColorRect/anim.play("to_zero")
 	$Camera/Control/MeshInstance/AnimationPlayer.play("loop")
-	if is_instance_valid(roamer_anim):
-		roamer_anim.play("roll")
+	$roam/roam_anim.play("roll")
 	$Level/GridMap/randomasset/tree/AnimationPlayer.play("ArmatureAction")
 	$Player/pivot/planet/AnimationPlayer2.play("1Action")
 	$Player/pivot/planet/AnimationPlayer3.play("2Action")
