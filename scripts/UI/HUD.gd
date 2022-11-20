@@ -106,7 +106,7 @@ func _on_HSlider_value_changed(value):
 func _on_retry_pressed():
 	PlayerVars.moves_left = 0
 	PlayerVars.removes_changed = 0
-	var _err = Global.goto_scene(Global.levels[1])
+	var _err = Global.goto_scene(Global.levels[Global.current_level])
 	
 
 func _on_btn_resume_mouse_entered():
