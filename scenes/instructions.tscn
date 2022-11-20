@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/font/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/ui/mouse-click.png" type="Texture" id=2]
@@ -7,6 +7,20 @@
 [ext_resource path="res://scripts/instructions.gd" type="Script" id=5]
 [ext_resource path="res://scenes/icons.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/icon2.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/audio/ui.mp3" type="AudioStream" id=8]
+
+[sub_resource type="DynamicFont" id=47]
+size = 30
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=31]
+bg_color = Color( 0.996078, 0.988235, 0.988235, 0 )
+border_width_left = 11
+border_width_top = 11
+border_width_right = 11
+border_width_bottom = 11
+border_color = Color( 0.8, 0.8, 0.8, 0 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -22,6 +36,22 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 script = ExtResource( 5 )
+
+[node name="h2p" type="Button" parent="."]
+margin_left = -511.0
+margin_right = -407.0
+margin_bottom = 58.0
+custom_fonts/font = SubResource( 47 )
+custom_styles/hover = SubResource( 31 )
+custom_styles/pressed = SubResource( 31 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/disabled = SubResource( 31 )
+custom_styles/normal = SubResource( 31 )
+text = "BACK"
+align = 0
+
+[node name="ui_sound" type="AudioStreamPlayer" parent="h2p"]
+stream = ExtResource( 8 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.5
@@ -326,3 +356,7 @@ margin_right = 563.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[connection signal="mouse_entered" from="h2p" to="." method="_on_h2p_mouse_entered"]
+[connection signal="mouse_exited" from="h2p" to="." method="_on_h2p_mouse_exited"]
+[connection signal="pressed" from="h2p" to="." method="_on_h2p_pressed"]

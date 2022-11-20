@@ -11,10 +11,12 @@ var levels = [
 	"res://scenes/LVLtutorial.tscn",
 	"res://scenes/LVLintro.tscn",
 	"res://scenes/LVLone.tscn",
+	"res://scenes/instructions.tscn",
 	"res://scenes/LVLtwo.tscn",
 	"res://scenes/LVLthree.tscn",
 	"res://scenes/LVLfour.tscn",
-	"res://scenes/LVLfive.tscn"
+	"res://scenes/LVLfive.tscn",
+	
 ]
 
 var loading_bar

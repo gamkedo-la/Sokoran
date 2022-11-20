@@ -58,3 +58,15 @@ func _on_btn_resume_mouse_entered():
 func _on_btn_resume_mouse_exited():
 	$Control.visible = false
 	$Control/VBoxContainer/RichTextLabel/AnimationPlayer.play("RESET")
+
+
+func _on_h2p_pressed():
+	Global.goto_scene(Global.levels[4])
+
+
+func _on_h2p_mouse_entered():
+	$CanvasLayer/VBoxContainer/ui_sound.play(0.0)
+
+
+func _on_h2p_mouse_exited():
+	$CanvasLayer/VBoxContainer/ui_sound.play(0.0)
