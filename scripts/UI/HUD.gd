@@ -64,11 +64,12 @@ func _process(delta):
 			count_removes -= 1
 			moves_label1.text = str(PlayerVars.removes_changed - count_removes)
 			move_cnt_sfx.play()
+			
 func _input(event):
 	if Input.is_action_just_pressed("reload"):
 		PlayerVars.moves_left = 0
 		PlayerVars.removes_changed = 0
-		var _err = Global.goto_scene(Global.levels[Global.current_level])
+		var _err = Global.goto_scene(Global.levels[1])
 		
 	if Input.is_action_just_pressed("mute"):
 		AudioServer.set_bus_mute(master_bus, true)
@@ -105,7 +106,7 @@ func _on_HSlider_value_changed(value):
 func _on_retry_pressed():
 	PlayerVars.moves_left = 0
 	PlayerVars.removes_changed = 0
-	var _err = Global.goto_scene(Global.levels[Global.current_level])
+	var _err = Global.goto_scene(Global.levels[1])
 	
 
 func _on_btn_resume_mouse_entered():

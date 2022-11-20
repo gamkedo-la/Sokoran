@@ -24,6 +24,6 @@ func _ready():
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	Global.goto_scene(Global.levels[2])
+	Global.goto_scene(Global.levels[1])
 	$ColorRect2/anim2.play("trans2")
 	yield($ColorRect2/anim2,"animation_finished")
