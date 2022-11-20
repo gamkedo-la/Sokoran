@@ -1,14 +1,507 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=1]
+[ext_resource path="res://music/SokoranV1.mp3" type="AudioStream" id=2]
+[ext_resource path="res://assets/vortex_cube2.png" type="Texture" id=3]
+[ext_resource path="res://scripts/LVLtutorial.gd" type="Script" id=4]
+[ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=6]
+[ext_resource path="res://scripts/RedDice.gd" type="Script" id=7]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=8]
+[ext_resource path="res://assets/mesh/CardBox.mesh" type="ArrayMesh" id=9]
+[ext_resource path="res://assets/mesh/D6dicered.mesh" type="ArrayMesh" id=10]
+[ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=11]
+[ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=12]
+[ext_resource path="res://scripts/EndGoal.gd" type="Script" id=13]
+[ext_resource path="res://scripts/GridMap.gd" type="Script" id=14]
+[ext_resource path="res://scripts/BlueDice.gd" type="Script" id=15]
+[ext_resource path="res://scripts/Box.gd" type="Script" id=16]
+[ext_resource path="res://scenes/BlueDice.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/Box.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/Indicator.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/RedDice.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scenes/tree.tscn" type="PackedScene" id=23]
+[ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=24]
+
+[sub_resource type="PlaneMesh" id=2]
+material = ExtResource( 24 )
+size = Vector2( 200, 200 )
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 3, 1, 2 )
+
+[sub_resource type="Shader" id=54]
+code = "shader_type spatial;
+render_mode unshaded;
+render_mode blend_add;
+
+const float M_2PI = 6.28318530718;
+
+vec2 polar(vec2 dPoint)
+{
+    return vec2(sqrt(dPoint.x * dPoint.x + dPoint.y * dPoint.y), atan(dPoint.y, dPoint.x));
+}
+
+float rand(vec2 co)
+{
+    return fract(sin(dot(co.xy, vec2(12.9898,78.233))) * 43758.5453);
+}
+
+vec2 decart(vec2 pPoint)
+{
+    return vec2(pPoint.x * cos(pPoint.y), pPoint.x * sin(pPoint.y));
+}
+
+void fragment()
+{
+    vec2 screen = VIEWPORT_SIZE.xy;
+    vec2 center = screen / 2.0;
+    vec2 frag = FRAGCOORD.xy - center;
+    vec2 fragPolar = polar(frag);
+    float lenCenter = length(center);
+    
+	const float bandPass = 720.0;
+    const float angleDisp = M_2PI / (bandPass + 1.0);
+    
+    const float particlesCount = 200.0;
+    const float particleLifetime = 10.0;
+    const float particleMaxSize = 10.0;
+    float particleMaxSizeNorm = particleMaxSize / lenCenter;
+    
+    float globTime = TIME / particleLifetime;
+    float timeDelta = bandPass;
+    
+    const float polarRadiusClip = 0.05;
+    const float polarRadiusMax = 0.75;
+    float polarRadiusDelta = polarRadiusMax - polarRadiusClip; 
+    
+    float presence = 0.0;
+    vec2 pPoint;
+    
+    for (float i = 0.0; i < particlesCount; i += 1.0)
+    {
+        float phase = i / particlesCount;
+        
+        float localTime = globTime + timeDelta * (2.0 * phase - 1.0) + phase;
+        float particleTime = fract(localTime);
+        float spaceTransform = pow(particleTime, 8.0);
+        
+        pPoint.x = lenCenter * ((polarRadiusClip + polarRadiusDelta * phase) + spaceTransform);
+        
+        // +30 FPS :)
+        if (abs(pPoint.x - fragPolar.x) > particleMaxSize) continue;
+        
+        pPoint.y = floor(particleTime + bandPass * rand(vec2(floor(localTime), 1))) * angleDisp;
+        
+        vec2 dPoint = decart(pPoint);        
+        float particleSize = particleMaxSize * spaceTransform;
+        float localPresence = particleSize * (1.0 - clamp(length(dPoint - frag), 0.0, 1.0));
+        presence += localPresence;
+    }
+    presence = clamp(presence, 0.0, 1.0);
+    ALBEDO = vec3(presence, presence, presence);
+}"
+
+[sub_resource type="ShaderMaterial" id=55]
+render_priority = 3
+shader = SubResource( 54 )
+
+[sub_resource type="QuadMesh" id=56]
+material = SubResource( 55 )
+
+[sub_resource type="Gradient" id=20]
+offsets = PoolRealArray( 0, 0.995455 )
+colors = PoolColorArray( 0.171875, 0.0980225, 0.0980225, 1, 0.0963414, 0.0279083, 0.121094, 1 )
+
+[sub_resource type="GradientTexture" id=21]
+gradient = SubResource( 20 )
+
+[sub_resource type="SpatialMaterial" id=22]
+flags_unshaded = true
+albedo_texture = SubResource( 21 )
+
+[sub_resource type="PlaneMesh" id=23]
+material = SubResource( 22 )
+
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( 17.8, 1.6, 21.8, -2, 2, 2, 18, 2, 22, 17.8, 1.6, 21.8, -1.8, 1.6, 1.8, -2, 2, 2, -1.8, 1.6, 1.8, -2, 2, -2, -2, 2, 2, -1.8, 1.6, 1.8, -1.8, 1.6, -1.8, -2, 2, -2, -1, 0, -1, 17, 0, 21, 1, 0, -1, -1, 0, -1, -1, 0, 1, 17, 0, 21, 1.8, 1.6, -1.8, 18, 2, 22, 2, 2, -2, 1.8, 1.6, -1.8, 17.8, 1.6, 21.8, 18, 2, 22, -1.8, 1.6, -1.8, 2, 2, -2, -2, 2, -2, -1.8, 1.6, -1.8, 1.8, 1.6, -1.8, 2, 2, -2, -1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, -1, 0, -1, 1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, -1.2, 0.4, -1.2, 1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, -1.4, 0.8, -1.4, 1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, 1.8, 1.6, -1.8, -1.8, 1.6, -1.8, -1.6, 1.2, -1.6, 1.6, 1.2, -1.6, 1.8, 1.6, -1.8, 1, 0, -1, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 1, 0, -1, 17, 0, 21, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 1.2, 0.4, -1.2, 17.2, 0.4, 21.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 1.4, 0.8, -1.4, 17.4, 0.8, 21.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 17.8, 1.6, 21.8, 1.8, 1.6, -1.8, 1.6, 1.2, -1.6, 17.6, 1.2, 21.6, 17.8, 1.6, 21.8, -1, 0, 1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1, 0, 1, -1, 0, -1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.2, 0.4, 1.2, -1.2, 0.4, -1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.4, 0.8, 1.4, -1.4, 0.8, -1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.8, 1.6, -1.8, -1.8, 1.6, 1.8, -1.6, 1.2, 1.6, -1.6, 1.2, -1.6, -1.8, 1.6, -1.8, 17, 0, 21, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, 17, 0, 21, -1, 0, 1, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, 17.2, 0.4, 21.2, -1.2, 0.4, 1.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, 17.4, 0.8, 21.4, -1.4, 0.8, 1.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, -1.8, 1.6, 1.8, 17.8, 1.6, 21.8, 17.6, 1.2, 21.6, -1.6, 1.2, 1.6, -1.8, 1.6, 1.8 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -45, -160, 2.87871e-13 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "loop"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -62, 107, -38 ), Vector3( -62, 467, -38 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -45, -160, 2.87871e-13 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "loop"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -62, 107, -38 ), Vector3( -62, 467, -38 ) ]
+}
+
+[sub_resource type="PhysicsMaterial" id=62]
+rough = true
+bounce = 0.01
+absorbent = true
+
+[sub_resource type="PhysicsMaterial" id=6]
+rough = true
+bounce = 0.01
+absorbent = true
+
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("roam_obj:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("roam_obj:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -6.63823, 3.91476, 0 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "roll"
+length = 20.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("roam_obj:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 20 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 360 ) ]
+}
+tracks/1/type = "transform"
+tracks/1/path = NodePath("roam_obj")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray(  )
+tracks/2/type = "value"
+tracks/2/path = NodePath("roam_obj:translation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 5, 10, 15, 20 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -6, 5, 0 ), Vector3( 3.187, 5.9, 15.168 ), Vector3( 23.658, 5.9, 11.184 ), Vector3( 18.795, 5.9, -7.854 ), Vector3( -6, 5, 0 ) ]
+}
+
+[sub_resource type="Shader" id=57]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float cutoff : hint_range(0.0, 1.0);
+uniform float smooth_size : hint_range(0.0, 1.0);
+uniform sampler2D mask : hint_albedo;
+
+void fragment()
+{
+	float value = texture(mask, UV).r;
+	float alpha = smoothstep(cutoff, cutoff + smooth_size, value);
+	COLOR = vec4(COLOR.rgb, alpha);
+}"
+
+[sub_resource type="ShaderMaterial" id=58]
+shader = SubResource( 57 )
+shader_param/cutoff = 0.0
+shader_param/smooth_size = 0.25
+shader_param/mask = ExtResource( 3 )
+
+[sub_resource type="Animation" id=59]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=60]
+resource_name = "trans01"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=61]
+resource_name = "trans2"
+length = 0.5
+step = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.401 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
 
 [node name="LVLtutorial" type="Spatial"]
+script = ExtResource( 4 )
 
 [node name="HUD" parent="." instance=ExtResource( 1 )]
 
-[node name="lvl" type="Spatial" parent="."]
+[node name="Level" type="Spatial" parent="."]
 
-[node name="GridMap" type="GridMap" parent="lvl"]
-__meta__ = {
-"_editor_clip_": 0
+[node name="GridMap" type="GridMap" parent="Level" groups=["wall"]]
+unique_name_in_owner = true
+mesh_library = ExtResource( 12 )
+collision_layer = 5
+data = {
+"cells": PoolIntArray( 1, 1, 0, 2, 1, 0, 3, 1, 0, 5, 1, 0, 6, 1, 1, 7, 1, 0, 8, 1, 1, 1, 2, 0, 5, 2, 0, 7, 2, 0, 8, 2, 1, 1, 3, 0, 3, 3, 0, 4, 3, 0, 5, 3, 0, 6, 3, 1, 7, 3, 0, 8, 3, 1, 1, 4, 0, 3, 4, 0, 4, 4, 0, 5, 4, 0, 6, 4, 0, 7, 4, 0, 1, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 6, 5, 0, 7, 5, 0, 1, 6, 0, 6, 6, 0, 7, 6, 0, 1, 7, 0, 1, 8, 0, 2, 8, 1, 7, 8, 1, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 12, 0, 9, 65531, 0, 3, 65534, 1 )
 }
+script = ExtResource( 14 )
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 1, 0, 0 )
+}
+
+[node name="Box" type="StaticBody" parent="Level/GridMap" groups=["box"] instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.13893, 9 )
+script = ExtResource( 16 )
+
+[node name="randomasset" type="MeshInstance" parent="Level/GridMap"]
+
+[node name="tree" type="Spatial" parent="Level/GridMap/randomasset" instance=ExtResource( 23 )]
+transform = Transform( 0.830557, 0, 0.556934, 0, 1, 0, -0.556934, 0, 0.830557, 18.9329, 1.00472, -9.14894 )
+
+[node name="BackGround" type="StaticBody" parent="."]
+collision_layer = 5
+
+[node name="Plane" type="MeshInstance" parent="BackGround"]
+mesh = SubResource( 2 )
+skeleton = NodePath("")
+
+[node name="OldDiceCollision_disabled" type="CollisionShape" parent="BackGround"]
+transform = Transform( 6, 0, 0, 0, 3, 0, 0, 0, 11, 9, -1, 7 )
+visible = false
+shape = SubResource( 1 )
+disabled = true
+
+[node name="starfield3" type="MeshInstance" parent="BackGround"]
+transform = Transform( -84.7314, -1.41666e-05, -1.02304e-12, 0, -4.10104e-06, 155, -1.27941e-05, 93.821, 6.77527e-06, -0.385273, 1.00001, 0.569824 )
+mesh = SubResource( 56 )
+
+[node name="gles2" type="MeshInstance" parent="BackGround"]
+transform = Transform( 55, 0, 0, 0, 55, 0, 0, 0, 55, 0, 0, 0 )
+visible = false
+mesh = SubResource( 23 )
+
+[node name="Camera" type="Spatial" parent="."]
+
+[node name="Camera" type="Camera" parent="Camera"]
+transform = Transform( -0.939693, 0.241845, -0.241845, 0, 0.707107, 0.707107, 0.34202, 0.664463, -0.664463, 3, 20, -10 )
+projection = 1
+size = 20.0
+
+[node name="DiceCollisionWall" type="MeshInstance" parent="Camera/Camera"]
+transform = Transform( 14.3937, 1.96529e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.383, 1, -22.397 )
+mesh = ExtResource( 11 )
+skeleton = NodePath("../../..")
+
+[node name="StaticBody" type="StaticBody" parent="Camera/Camera/DiceCollisionWall"]
+transform = Transform( 1, 1.17239e-15, -1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0, 0 )
+collision_layer = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="RayCast" type="RayCast" parent="Camera/Camera"]
+enabled = true
+debug_shape_custom_color = Color( 0.976471, 0.0352941, 0.0352941, 1 )
+debug_shape_thickness = 5
+
+[node name="Indicator" type="Spatial" parent="Camera/Camera" instance=ExtResource( 20 )]
+
+[node name="Control" type="Control" parent="Camera"]
+anchor_right = 1.0
+
+[node name="MeshInstance" type="MeshInstance" parent="Camera/Control"]
+transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332231, -0.332231, 7.93714, 23.681, -1.88451 )
+visible = false
+mesh = ExtResource( 6 )
+skeleton = NodePath("../../Camera")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/Control/MeshInstance"]
+autoplay = "loop"
+anims/RESET = SubResource( 4 )
+anims/loop = SubResource( 5 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Camera/Control"]
+transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332231, -0.332231, 4.17837, 23.681, -0.51643 )
+visible = false
+mesh = ExtResource( 10 )
+skeleton = NodePath("../../Camera")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/Control/MeshInstance2"]
+autoplay = "loop"
+anims/RESET = SubResource( 7 )
+anims/loop = SubResource( 8 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 8.0
+
+[node name="Player" type="StaticBody" parent="." groups=["player"] instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 3 )
+script = ExtResource( 8 )
+
+[node name="ray_move" type="RayCast" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.689412, -0.0650814 )
+debug_shape_custom_color = Color( 0.74902, 0.121569, 0.901961, 1 )
+debug_shape_thickness = 5
+
+[node name="BlueDice" type="RigidBody" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 0 )
+collision_layer = 2
+collision_mask = 4
+mass = 10.0
+physics_material_override = SubResource( 62 )
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 15 )
+
+[node name="RedDice" type="RigidBody" parent="." instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 0 )
+collision_layer = 2
+collision_mask = 4
+mass = 61.71
+physics_material_override = SubResource( 6 )
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 7 )
+
+[node name="roam" type="Spatial" parent="."]
+
+[node name="roam_obj" type="MeshInstance" parent="roam"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.63823, 3.91476, 0 )
+mesh = ExtResource( 9 )
+
+[node name="roam_anim" type="AnimationPlayer" parent="roam"]
+unique_name_in_owner = true
+anims/RESET = SubResource( 18 )
+anims/roll = SubResource( 19 )
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 58 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="anim2" type="AnimationPlayer" parent="ColorRect2"]
+anims/RESET = SubResource( 59 )
+anims/trans01 = SubResource( 60 )
+anims/trans2 = SubResource( 61 )
+
+[node name="bg_song" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -24.0
+pitch_scale = 0.5
+
+[node name="EndGoal" type="Area" parent="." instance=ExtResource( 19 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3, 3 )
+script = ExtResource( 13 )
+
+[connection signal="body_entered" from="BlueDice" to="BlueDice" method="_on_BlueDice_body_entered"]
+[connection signal="body_entered" from="RedDice" to="RedDice" method="_on_RedDice_body_entered"]
+[connection signal="body_entered" from="EndGoal" to="EndGoal" method="_on_EndGoal_body_entered"]
