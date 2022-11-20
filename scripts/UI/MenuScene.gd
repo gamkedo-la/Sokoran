@@ -35,7 +35,7 @@ func _on_btn_new_pressed():
 	$CanvasLayer/ColorRect/anim2.play("trans2")
 	yield($CanvasLayer/ColorRect/anim2,"animation_finished")
 #	var _err = get_tree().change_scene("res://scenes/LVLintro.tscn")
-	var _err = Global.goto_scene(Global.levels[Global.current_level])
+	var _err = Global.goto_scene("res://scenes/LVLstory.tscn")
 
 
 func _on_btn_quit_pressed():
@@ -61,7 +61,7 @@ func _on_btn_resume_mouse_exited():
 
 
 func _on_h2p_pressed():
-	Global.goto_scene(Global.levels[3])
+	Global.goto_scene("res://scenes/instructions.tscn")
 
 
 func _on_h2p_mouse_entered():

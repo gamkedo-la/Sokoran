@@ -1,27 +1,39 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=67 format=2]
 
-[ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
-[ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
-[ext_resource path="res://scripts/Level.gd" type="Script" id=3]
-[ext_resource path="res://scenes/Box.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/BlueDice.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=8]
-[ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
-[ext_resource path="res://music/SokoranV1.mp3" type="AudioStream" id=10]
-[ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=11]
-[ext_resource path="res://scripts/GridMap.gd" type="Script" id=12]
-[ext_resource path="res://scenes/Indicator.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/RedDice.tscn" type="PackedScene" id=14]
-[ext_resource path="res://assets/mesh/D6dicered.mesh" type="ArrayMesh" id=15]
-[ext_resource path="res://assets/noise22.png" type="Texture" id=16]
-[ext_resource path="res://scenes/BoxTile.tscn" type="PackedScene" id=17]
-[ext_resource path="res://assets/mesh/CardBox.mesh" type="ArrayMesh" id=18]
-[ext_resource path="res://scenes/tree.tscn" type="PackedScene" id=19]
+[ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://scripts/RedDice.gd" type="Script" id=2]
+[ext_resource path="res://scripts/UI/HUD.gd" type="Script" id=3]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=4]
+[ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=5]
+[ext_resource path="res://assets/bhcore.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/BoxTile.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/BlueDice.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/RedDice.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/tree.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/Indicator.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/Box.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/noise22.png" type="Texture" id=15]
+[ext_resource path="res://music/SokoranV1.mp3" type="AudioStream" id=16]
+[ext_resource path="res://scripts/EndGoal1.gd" type="Script" id=17]
+[ext_resource path="res://scripts/BlueDice.gd" type="Script" id=18]
+[ext_resource path="res://scripts/Box.gd" type="Script" id=19]
+[ext_resource path="res://scripts/BoxTile.gd" type="Script" id=20]
+[ext_resource path="res://scripts/GridMap.gd" type="Script" id=21]
+[ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=22]
+[ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=23]
+[ext_resource path="res://assets/mesh/CardBox.mesh" type="ArrayMesh" id=24]
+[ext_resource path="res://assets/mesh/D6dicered.mesh" type="ArrayMesh" id=25]
+[ext_resource path="res://scripts/LVLtwo.gd" type="Script" id=26]
+[ext_resource path="res://resources/PortalRingEffect.tres" type="Material" id=27]
+[ext_resource path="res://assets/vortex_cube2.png" type="Texture" id=28]
+[ext_resource path="res://assets/texture/vortex_streak.png" type="Texture" id=29]
+[ext_resource path="res://assets/mesh/vortex.tres" type="Material" id=30]
+[ext_resource path="res://assets/mesh/vortex.obj" type="ArrayMesh" id=31]
 
 [sub_resource type="PlaneMesh" id=2]
-material = ExtResource( 2 )
+material = ExtResource( 22 )
 size = Vector2( 200, 200 )
 
 [sub_resource type="BoxShape" id=1]
@@ -101,7 +113,7 @@ void fragment()
 [sub_resource type="ShaderMaterial" id=10]
 render_priority = 1
 shader = SubResource( 9 )
-shader_param/iChannel0 = ExtResource( 16 )
+shader_param/iChannel0 = ExtResource( 15 )
 
 [sub_resource type="QuadMesh" id=11]
 material = SubResource( 10 )
@@ -316,10 +328,128 @@ tracks/0/keys = {
 "values": [ Vector3( -62, 107, -38 ), Vector3( -62, 467, -38 ) ]
 }
 
+[sub_resource type="PhysicsMaterial" id=58]
+rough = true
+bounce = 0.01
+absorbent = true
+
 [sub_resource type="PhysicsMaterial" id=6]
 rough = true
 bounce = 0.01
 absorbent = true
+
+[sub_resource type="SphereMesh" id=37]
+
+[sub_resource type="Animation" id=38]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=39]
+resource_name = "spin"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 360, 0 ) ]
+}
+
+[sub_resource type="BoxShape" id=62]
+
+[sub_resource type="SpatialMaterial" id=63]
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+albedo_texture = ExtResource( 29 )
+
+[sub_resource type="Shader" id=64]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float cutoff : hint_range(0.0, 1.0);
+uniform float smooth_size : hint_range(0.0, 1.0);
+uniform sampler2D mask : hint_albedo;
+
+void fragment()
+{
+	float value = texture(mask, UV).r;
+	float alpha = smoothstep(cutoff, cutoff + smooth_size, value);
+	COLOR = vec4(COLOR.rgb, alpha);
+}"
+
+[sub_resource type="ShaderMaterial" id=65]
+shader = SubResource( 64 )
+shader_param/cutoff = 0.0
+shader_param/smooth_size = 0.25
+shader_param/mask = ExtResource( 28 )
+
+[sub_resource type="Animation" id=59]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=60]
+resource_name = "trans01"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=61]
+resource_name = "trans2"
+length = 0.5
+step = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.401 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
 
 [sub_resource type="Animation" id=18]
 length = 0.001
@@ -384,43 +514,46 @@ tracks/2/keys = {
 "values": [ Vector3( -6, 5, 0 ), Vector3( 3.187, 5.9, 15.168 ), Vector3( 23.658, 5.9, 11.184 ), Vector3( 18.795, 5.9, -7.854 ), Vector3( -6, 5, 0 ) ]
 }
 
-[node name="LVLintro" type="Spatial"]
-script = ExtResource( 3 )
+[node name="LVLtwo" type="Spatial"]
+script = ExtResource( 26 )
 
-[node name="HUD" parent="." instance=ExtResource( 9 )]
+[node name="HUD" type="CanvasLayer" parent="." instance=ExtResource( 11 )]
+script = ExtResource( 3 )
 
 [node name="Level" type="Spatial" parent="."]
 
 [node name="GridMap" type="GridMap" parent="Level" groups=["wall"]]
 unique_name_in_owner = true
-mesh_library = ExtResource( 1 )
+mesh_library = ExtResource( 5 )
 collision_layer = 5
 data = {
-"cells": PoolIntArray( 5, 0, 0, 7, 0, 0, 65535, 0, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 5, 1, 0, 7, 1, 0, 65535, 1, 0, 1, 2, 0, 3, 2, 0, 5, 2, 0, 7, 2, 0, 65535, 2, 0, 1, 3, 0, 3, 3, 0, 5, 3, 0, 7, 3, 0, 65535, 3, 0, 1, 4, 0, 3, 4, 0, 7, 4, 0, 65535, 4, 0, 1, 5, 0, 3, 5, 0, 7, 5, 0, 65535, 5, 0, 1, 6, 0, 3, 6, 0, 4, 6, 0, 5, 6, 0, 6, 6, 0, 7, 6, 0, 65535, 6, 0, 1, 7, 0, 65535, 7, 0, 1, 8, 0, 65535, 8, 0, 1, 9, 0, 65535, 9, 0, 1, 10, 0, 65535, 10, 0, 1, 11, 0, 65535, 11, 0, 1, 12, 0, 65535, 12, 0, 1, 13, 0, 65535, 13, 0, 1, 14, 0, 65535, 14, 0, 1, 15, 0, 65535, 15, 0, 1, 16, 0, 65535, 16, 0, 1, 17, 0, 65535, 17, 0, 1, 18, 0, 65535, 18, 0, 1, 19, 0, 65535, 19, 0, 1, 20, 0, 7, 65530, 0, 7, 65531, 0, 7, 65532, 0, 7, 65533, 0, 7, 65534, 0, 0, 65535, 0, 1, 65535, 0, 2, 65535, 0, 3, 65535, 0, 4, 65535, 0, 5, 65535, 0, 7, 65535, 0, 65535, 65535, 0 )
+"cells": PoolIntArray( 1, 0, 0, 2, 0, 1, 3, 0, 0, 5, 0, 0, 7, 0, 0, 8, 0, 0, 10, 0, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 5, 1, 0, 7, 1, 0, 8, 1, 0, 10, 1, 0, 5, 2, 0, 10, 2, 0, 0, 3, 0, 1, 3, 0, 2, 3, 0, 3, 3, 0, 4, 3, 0, 6, 3, 0, 7, 3, 0, 8, 3, 0, 9, 3, 0, 10, 3, 0, 0, 4, 0, 5, 4, 0, 0, 5, 0, 2, 5, 0, 3, 5, 0, 5, 5, 0, 7, 5, 0, 8, 5, 0, 9, 5, 0, 0, 6, 0, 2, 6, 0, 3, 6, 0, 5, 6, 0, 7, 6, 0, 8, 6, 1, 9, 6, 0, 0, 7, 0, 5, 7, 0, 7, 7, 0, 8, 7, 0, 9, 7, 0, 0, 8, 0, 1, 8, 0, 2, 8, 0, 3, 8, 0, 4, 8, 0, 5, 8, 0, 5, 65533, 0, 5, 65534, 0, 6, 65534, 0, 7, 65534, 0, 8, 65534, 0, 9, 65534, 0, 10, 65534, 0, 1, 65535, 0, 2, 65535, 0, 3, 65535, 0, 5, 65535, 0, 10, 65535, 0 )
 }
-script = ExtResource( 12 )
+script = ExtResource( 21 )
 __meta__ = {
 "_editor_clip_": 0,
 "_editor_floor_": Vector3( 1, 0, 0 )
 }
 
-[node name="Box" parent="Level/GridMap" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2.13893, 7 )
+[node name="Box" type="StaticBody" parent="Level/GridMap" groups=["box"] instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.13893, 1 )
+script = ExtResource( 19 )
 
 [node name="randomasset" type="MeshInstance" parent="Level/GridMap"]
 
-[node name="tree" parent="Level/GridMap/randomasset" instance=ExtResource( 19 )]
-transform = Transform( 0.830557, 0, 0.556934, 0, 1, 0, -0.556934, 0, 0.830557, 10.9329, 1.00472, 6.85106 )
+[node name="tree" type="Spatial" parent="Level/GridMap/randomasset" instance=ExtResource( 10 )]
+transform = Transform( 0.830557, 0, 0.556934, 0, 1, 0, -0.556934, 0, 0.830557, 16.9329, 3.00472, 12.8511 )
 
 [node name="BackGround" type="StaticBody" parent="."]
 collision_layer = 5
 
 [node name="Plane" type="MeshInstance" parent="BackGround"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 mesh = SubResource( 2 )
 skeleton = NodePath("")
 
 [node name="Plane2" type="MeshInstance" parent="BackGround"]
-transform = Transform( 0.654, -0.066, 0.753, -0.407, 0.809, 0.424, -0.638, -0.584, 0.502, 1.801, 2.21, 13.376 )
+transform = Transform( 0.654, -0.066, 0.753, -0.407, 0.809, 0.424, -0.638, -0.584, 0.502, 1.801, 1.21, 13.376 )
 visible = false
 mesh = SubResource( 2 )
 skeleton = NodePath("")
@@ -457,8 +590,9 @@ projection = 1
 size = 20.0
 
 [node name="DiceCollisionWall" type="MeshInstance" parent="Camera/Camera"]
-transform = Transform( 14.3937, 1.96529e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.383, -1.12132, -24.5183 )
-mesh = ExtResource( 8 )
+transform = Transform( 14.3937, 1.80221e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.383, 1, -22.397 )
+visible = false
+mesh = ExtResource( 23 )
 skeleton = NodePath("../../..")
 
 [node name="StaticBody" type="StaticBody" parent="Camera/Camera/DiceCollisionWall"]
@@ -477,7 +611,7 @@ shape = SubResource( 57 )
 disabled = true
 
 [node name="CollisionShape3" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
-transform = Transform( 4.04618, 1.1242e-14, -3.41061e-13, 1.62576e-13, 0.999999, -1.13687e-12, 9.09495e-13, 0, 5.5749, 2.98023e-08, -0.28503, -4.17233e-07 )
+transform = Transform( 4.04618, 3.59527e-14, 0, 1.34154e-13, 0.999999, -9.09495e-13, 9.09495e-13, 7.10543e-15, 5.5749, 2.98023e-08, -0.57724, -2.98023e-07 )
 shape = SubResource( 57 )
 
 [node name="RayCast" type="RayCast" parent="Camera/Camera"]
@@ -485,7 +619,7 @@ enabled = true
 debug_shape_custom_color = Color( 0.976471, 0.0352941, 0.0352941, 1 )
 debug_shape_thickness = 5
 
-[node name="Indicator" parent="Camera/Camera" instance=ExtResource( 13 )]
+[node name="Indicator" type="Spatial" parent="Camera/Camera" instance=ExtResource( 12 )]
 
 [node name="Control" type="Control" parent="Camera"]
 anchor_right = 1.0
@@ -493,7 +627,7 @@ anchor_right = 1.0
 [node name="MeshInstance" type="MeshInstance" parent="Camera/Control"]
 transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332231, -0.332231, 7.93714, 23.681, -1.88451 )
 visible = false
-mesh = ExtResource( 11 )
+mesh = ExtResource( 1 )
 skeleton = NodePath("../../Camera")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/Control/MeshInstance"]
@@ -504,7 +638,7 @@ anims/loop = SubResource( 5 )
 [node name="MeshInstance2" type="MeshInstance" parent="Camera/Control"]
 transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332231, -0.332231, 4.17837, 23.681, -0.51643 )
 visible = false
-mesh = ExtResource( 15 )
+mesh = ExtResource( 25 )
 skeleton = NodePath("../../Camera")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/Control/MeshInstance2"]
@@ -519,18 +653,26 @@ autostart = true
 [node name="Timer2" type="Timer" parent="."]
 wait_time = 8.0
 
-[node name="Player" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 3 )
+[node name="Player" type="StaticBody" parent="." groups=["player"] instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 17 )
+script = ExtResource( 4 )
 
 [node name="ray_move" type="RayCast" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.689412, -0.0650814 )
 debug_shape_custom_color = Color( 0.74902, 0.121569, 0.901961, 1 )
 debug_shape_thickness = 5
 
-[node name="BlueDice" parent="." instance=ExtResource( 6 )]
+[node name="BlueDice" type="RigidBody" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 0 )
+collision_layer = 2
+collision_mask = 4
+mass = 10.0
+physics_material_override = SubResource( 58 )
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 18 )
 
-[node name="RedDice" parent="." instance=ExtResource( 14 )]
+[node name="RedDice" type="RigidBody" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 0 )
 collision_layer = 2
 collision_mask = 4
@@ -538,31 +680,93 @@ mass = 61.71
 physics_material_override = SubResource( 6 )
 contacts_reported = 1
 contact_monitor = true
+script = ExtResource( 2 )
 
-[node name="EndGoal" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3, 1 )
+[node name="EndGoal" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 3, -5 )
+script = ExtResource( 17 )
+
+[node name="black hole mesh" type="MeshInstance" parent="EndGoal"]
+transform = Transform( 0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0, 0 )
+mesh = SubResource( 37 )
+material/0 = ExtResource( 30 )
+
+[node name="bhcore" type="Spatial" parent="EndGoal/black hole mesh" instance=ExtResource( 6 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+
+[node name="spin" type="AnimationPlayer" parent="EndGoal/black hole mesh"]
+anims/RESET = SubResource( 38 )
+anims/spin = SubResource( 39 )
+
+[node name="CollisionShape" type="CollisionShape" parent="EndGoal"]
+shape = SubResource( 62 )
+
+[node name="Popup" type="Popup" parent="EndGoal"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -175.0
+margin_top = -29.5
+margin_right = 175.0
+margin_bottom = 29.5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EndGoal/Popup"]
+margin_right = 383.0
+margin_bottom = 72.0
+text = "LEVEL COMPLETE 
+TEMPORARY SOLUTION
+USUALY THE PLAYER JUST TRANSITION TO NEXT LVL"
+
+[node name="vortex effect" type="MeshInstance" parent="EndGoal"]
+transform = Transform( -4.37114e-11, -0.001, 0, -0.001, 4.37114e-11, 0, 0, 0, 0.001, 0, 0, 0 )
+material_override = ExtResource( 27 )
+generate_lightmap = false
+mesh = ExtResource( 31 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 63 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ColorRect" type="ColorRect" parent="EndGoal"]
+visible = false
+material = SubResource( 65 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="anim2" type="AnimationPlayer" parent="EndGoal/ColorRect"]
+anims/RESET = SubResource( 59 )
+anims/trans01 = SubResource( 60 )
+anims/trans2 = SubResource( 61 )
 
 [node name="bg_music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
+stream = ExtResource( 16 )
 volume_db = -24.0
 pitch_scale = 0.5
 autoplay = true
 bus = "Background"
 
-[node name="BoxTile" parent="." instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 3, 13 )
-visible = false
+[node name="BoxTile" type="StaticBody" parent="." groups=["box"] instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 3, 9 )
+script = ExtResource( 20 )
 
 [node name="roam" type="Spatial" parent="."]
 
 [node name="roam_obj" type="MeshInstance" parent="roam"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.63823, 3.91476, 0 )
-mesh = ExtResource( 18 )
+mesh = ExtResource( 24 )
 
 [node name="roam_anim" type="AnimationPlayer" parent="roam"]
 unique_name_in_owner = true
 anims/RESET = SubResource( 18 )
 anims/roll = SubResource( 19 )
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
+[connection signal="timeout" from="Timer" to="HUD" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer2" to="HUD" method="_on_Timer2_timeout"]
+[connection signal="body_entered" from="BlueDice" to="BlueDice" method="_on_BlueDice_body_entered"]
+[connection signal="body_entered" from="RedDice" to="RedDice" method="_on_RedDice_body_entered"]
+[connection signal="body_entered" from="EndGoal" to="." method="_on_EndGoal_body_entered"]

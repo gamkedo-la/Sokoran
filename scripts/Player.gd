@@ -45,6 +45,7 @@ func movement(vec:Vector3) -> void:
 		
 		yield($tw_m,"tween_all_completed")
 		if $ray_down.is_colliding() == false:
+			print("colliding")
 			var c= b + Vector3.DOWN * 2
 			$AnimationPlayer.play("fall")
 			$tw_m.interpolate_property(self, "translation", b, c, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)

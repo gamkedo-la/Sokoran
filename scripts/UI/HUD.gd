@@ -115,3 +115,11 @@ func _on_btn_resume_mouse_entered():
 
 func _on_btn_title_mouse_entered():
 	$ui_sound.play(0.0)
+
+
+func _on_Timer_timeout():
+	pass # Replace with function body.
+
+
+func _on_Timer2_timeout():
+	pass # Replace with function body.

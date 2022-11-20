@@ -7,11 +7,9 @@ var show_bar_time = 10
 var running_scene = null
 
 var levels = [
-	"res://scenes/LVLstory.tscn",
 	"res://scenes/LVLintro.tscn",
 	"res://scenes/LVLone.tscn",
-	"res://scenes/instructions.tscn",
-	
+	"res://scenes/LVLtwo.tscn"
 ]
 
 var loading_bar
