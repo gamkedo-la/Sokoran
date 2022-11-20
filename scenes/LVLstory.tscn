@@ -1148,15 +1148,15 @@ margin_right = 221.0
 
 [node name="Control" type="Control" parent="VBoxContainer"]
 margin_right = 442.0
-margin_bottom = 58.0
+margin_bottom = 51.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 62.0
+margin_top = 55.0
 margin_right = 442.0
-margin_bottom = 104.0
+margin_bottom = 97.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 1
 custom_constants/shadow_offset_y = 2
@@ -1168,17 +1168,17 @@ valign = 1
 percent_visible = 0.0
 
 [node name="Control2" type="Control" parent="VBoxContainer"]
-margin_top = 108.0
+margin_top = 101.0
 margin_right = 442.0
-margin_bottom = 166.0
+margin_bottom = 152.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 170.0
+margin_top = 156.0
 margin_right = 442.0
-margin_bottom = 212.0
+margin_bottom = 198.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 1
 custom_constants/shadow_offset_y = 2
@@ -1189,17 +1189,17 @@ valign = 1
 percent_visible = 0.0
 
 [node name="Control3" type="Control" parent="VBoxContainer"]
-margin_top = 216.0
+margin_top = 202.0
 margin_right = 442.0
-margin_bottom = 274.0
+margin_bottom = 253.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label4" type="Label" parent="VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 278.0
+margin_top = 257.0
 margin_right = 442.0
-margin_bottom = 320.0
+margin_bottom = 299.0
 size_flags_vertical = 1
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 1
@@ -1211,17 +1211,17 @@ valign = 1
 percent_visible = 0.0
 
 [node name="Control4" type="Control" parent="VBoxContainer"]
-margin_top = 324.0
+margin_top = 303.0
 margin_right = 442.0
-margin_bottom = 382.0
+margin_bottom = 354.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 386.0
+margin_top = 358.0
 margin_right = 442.0
-margin_bottom = 429.0
+margin_bottom = 444.0
 rect_clip_content = false
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 1
@@ -1232,25 +1232,25 @@ custom_fonts/italics_font = SubResource( 50 )
 custom_fonts/bold_font = SubResource( 50 )
 custom_fonts/normal_font = SubResource( 50 )
 bbcode_enabled = true
-bbcode_text = "[center]IS FIGHTING THE [shake rate=5 level=5]ODDS[/shake][/center]"
+bbcode_text = "[center]IS FIGHTING AGAINST THE [shake rate=5 level=5]ODDS[/shake][/center]"
 visible_characters = 0
 percent_visible = 0.0
-text = "IS FIGHTING THE ODDS"
+text = "IS FIGHTING AGAINST THE ODDS"
 fit_content_height = true
 deselect_on_focus_loss_enabled = false
 
 [node name="Control5" type="Control" parent="VBoxContainer"]
-margin_top = 433.0
+margin_top = 448.0
 margin_right = 442.0
-margin_bottom = 491.0
+margin_bottom = 499.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label6" type="Label" parent="VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 495.0
+margin_top = 503.0
 margin_right = 442.0
-margin_bottom = 537.0
+margin_bottom = 545.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 1
 custom_constants/shadow_offset_y = 2
@@ -1261,7 +1261,7 @@ valign = 1
 percent_visible = 0.0
 
 [node name="Control6" type="Control" parent="VBoxContainer"]
-margin_top = 541.0
+margin_top = 549.0
 margin_right = 442.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
