@@ -61,7 +61,7 @@ func _on_btn_resume_mouse_exited():
 
 
 func _on_h2p_pressed():
-	Global.goto_scene(Global.levels[4])
+	Global.goto_scene(Global.levels[3])
 
 
 func _on_h2p_mouse_entered():

@@ -8,14 +8,9 @@ var running_scene = null
 
 var levels = [
 	"res://scenes/LVLstory.tscn",
-	"res://scenes/LVLtutorial.tscn",
 	"res://scenes/LVLintro.tscn",
 	"res://scenes/LVLone.tscn",
 	"res://scenes/instructions.tscn",
-	"res://scenes/LVLtwo.tscn",
-	"res://scenes/LVLthree.tscn",
-	"res://scenes/LVLfour.tscn",
-	"res://scenes/LVLfive.tscn",
 	
 ]
 

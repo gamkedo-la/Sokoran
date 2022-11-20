@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -251,6 +251,9 @@ material = SubResource( 22 )
 [sub_resource type="ConcavePolygonShape" id=3]
 data = PoolVector3Array( 17.8, 1.6, 21.8, -2, 2, 2, 18, 2, 22, 17.8, 1.6, 21.8, -1.8, 1.6, 1.8, -2, 2, 2, -1.8, 1.6, 1.8, -2, 2, -2, -2, 2, 2, -1.8, 1.6, 1.8, -1.8, 1.6, -1.8, -2, 2, -2, -1, 0, -1, 17, 0, 21, 1, 0, -1, -1, 0, -1, -1, 0, 1, 17, 0, 21, 1.8, 1.6, -1.8, 18, 2, 22, 2, 2, -2, 1.8, 1.6, -1.8, 17.8, 1.6, 21.8, 18, 2, 22, -1.8, 1.6, -1.8, 2, 2, -2, -2, 2, -2, -1.8, 1.6, -1.8, 1.8, 1.6, -1.8, 2, 2, -2, -1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, -1, 0, -1, 1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, -1.2, 0.4, -1.2, 1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, -1.4, 0.8, -1.4, 1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, 1.8, 1.6, -1.8, -1.8, 1.6, -1.8, -1.6, 1.2, -1.6, 1.6, 1.2, -1.6, 1.8, 1.6, -1.8, 1, 0, -1, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 1, 0, -1, 17, 0, 21, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 1.2, 0.4, -1.2, 17.2, 0.4, 21.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 1.4, 0.8, -1.4, 17.4, 0.8, 21.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 17.8, 1.6, 21.8, 1.8, 1.6, -1.8, 1.6, 1.2, -1.6, 17.6, 1.2, 21.6, 17.8, 1.6, 21.8, -1, 0, 1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1, 0, 1, -1, 0, -1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.2, 0.4, 1.2, -1.2, 0.4, -1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.4, 0.8, 1.4, -1.4, 0.8, -1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.8, 1.6, -1.8, -1.8, 1.6, 1.8, -1.6, 1.2, 1.6, -1.6, 1.2, -1.6, -1.8, 1.6, -1.8, 17, 0, 21, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, 17, 0, 21, -1, 0, 1, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, 17.2, 0.4, 21.2, -1.2, 0.4, 1.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, 17.4, 0.8, 21.4, -1.4, 0.8, 1.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, -1.8, 1.6, 1.8, 17.8, 1.6, 21.8, 17.6, 1.2, 21.6, -1.6, 1.2, 1.6, -1.8, 1.6, 1.8 )
 
+[sub_resource type="BoxShape" id=57]
+extents = Vector3( 1, 0.189996, 1 )
+
 [sub_resource type="Animation" id=4]
 length = 0.001
 tracks/0/type = "value"
@@ -393,7 +396,7 @@ unique_name_in_owner = true
 mesh_library = ExtResource( 1 )
 collision_layer = 5
 data = {
-"cells": PoolIntArray( 1, 1, 0, 2, 1, 0, 3, 1, 0, 5, 1, 0, 6, 1, 1, 7, 1, 0, 8, 1, 1, 1, 2, 0, 5, 2, 0, 7, 2, 0, 8, 2, 1, 1, 3, 0, 3, 3, 0, 4, 3, 0, 5, 3, 0, 6, 3, 1, 7, 3, 0, 8, 3, 1, 1, 4, 0, 3, 4, 0, 4, 4, 0, 5, 4, 0, 6, 4, 0, 7, 4, 0, 1, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 6, 5, 0, 7, 5, 0, 1, 6, 0, 6, 6, 0, 7, 6, 0, 1, 7, 0, 1, 8, 0, 2, 8, 1, 7, 8, 1, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 12, 0, 9, 65531, 0, 3, 65534, 1 )
+"cells": PoolIntArray( 5, 0, 0, 7, 0, 0, 65535, 0, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 5, 1, 0, 7, 1, 0, 65535, 1, 0, 1, 2, 0, 3, 2, 0, 5, 2, 0, 7, 2, 0, 65535, 2, 0, 1, 3, 0, 3, 3, 0, 5, 3, 0, 7, 3, 0, 65535, 3, 0, 1, 4, 0, 3, 4, 0, 7, 4, 0, 65535, 4, 0, 1, 5, 0, 3, 5, 0, 7, 5, 0, 65535, 5, 0, 1, 6, 0, 3, 6, 0, 4, 6, 0, 6, 6, 0, 7, 6, 0, 65535, 6, 0, 1, 7, 0, 65535, 7, 0, 1, 8, 0, 65535, 8, 0, 1, 9, 0, 65535, 9, 0, 1, 10, 0, 65535, 10, 0, 1, 11, 0, 65535, 11, 0, 1, 12, 0, 65535, 12, 0, 1, 13, 0, 65535, 13, 0, 1, 14, 0, 65535, 14, 0, 1, 15, 0, 65535, 15, 0, 1, 16, 0, 65535, 16, 0, 1, 17, 0, 65535, 17, 0, 1, 18, 0, 65535, 18, 0, 1, 19, 0, 65535, 19, 0, 1, 20, 0, 7, 65530, 0, 7, 65531, 0, 7, 65532, 0, 7, 65533, 0, 7, 65534, 0, 0, 65535, 0, 1, 65535, 0, 2, 65535, 0, 3, 65535, 0, 4, 65535, 0, 5, 65535, 0, 7, 65535, 0, 65535, 65535, 0 )
 }
 script = ExtResource( 12 )
 __meta__ = {
@@ -402,12 +405,12 @@ __meta__ = {
 }
 
 [node name="Box" parent="Level/GridMap" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.13893, 9 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2.13893, 7 )
 
 [node name="randomasset" type="MeshInstance" parent="Level/GridMap"]
 
 [node name="tree" parent="Level/GridMap/randomasset" instance=ExtResource( 19 )]
-transform = Transform( 0.830557, 0, 0.556934, 0, 1, 0, -0.556934, 0, 0.830557, 18.9329, 1.00472, -9.14894 )
+transform = Transform( 0.830557, 0, 0.556934, 0, 1, 0, -0.556934, 0, 0.830557, 10.9329, 1.00472, 6.85106 )
 
 [node name="BackGround" type="StaticBody" parent="."]
 collision_layer = 5
@@ -454,7 +457,8 @@ projection = 1
 size = 20.0
 
 [node name="DiceCollisionWall" type="MeshInstance" parent="Camera/Camera"]
-transform = Transform( 14.3937, 1.96529e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.383, 1, -22.397 )
+transform = Transform( 14.3937, 1.80221e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.383, 1, -22.397 )
+visible = false
 mesh = ExtResource( 8 )
 skeleton = NodePath("../../..")
 
@@ -463,7 +467,19 @@ transform = Transform( 1, 1.17239e-15, -1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1
 collision_layer = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
+visible = false
 shape = SubResource( 3 )
+disabled = true
+
+[node name="CollisionShape2" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
+transform = Transform( 1, 3.59527e-14, 0, 7.67279e-15, 1, -5.68434e-14, 0, -7.10543e-15, 1, 5.96046e-08, -0.47724, -1.19209e-07 )
+visible = false
+shape = SubResource( 57 )
+disabled = true
+
+[node name="CollisionShape3" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
+transform = Transform( 4.04618, -6.67983e-15, -2.84217e-14, 7.73153e-14, 0.999999, -2.27374e-13, 4.54747e-13, -7.10543e-15, 5.5749, 5.96046e-08, -0.47724, -2.98023e-07 )
+shape = SubResource( 57 )
 
 [node name="RayCast" type="RayCast" parent="Camera/Camera"]
 enabled = true
@@ -525,7 +541,7 @@ contacts_reported = 1
 contact_monitor = true
 
 [node name="EndGoal" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3, 3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3, 1 )
 
 [node name="bg_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
@@ -535,7 +551,7 @@ autoplay = true
 bus = "Background"
 
 [node name="BoxTile" parent="." instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 3, 3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 3, 13 )
 
 [node name="roam" type="Spatial" parent="."]
 
