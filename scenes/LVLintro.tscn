@@ -9,7 +9,7 @@
 [ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=8]
 [ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
-[ext_resource path="res://music/happy_song_narwal.wav" type="AudioStream" id=10]
+[ext_resource path="res://music/SokoranV1.mp3" type="AudioStream" id=10]
 [ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=11]
 [ext_resource path="res://scripts/GridMap.gd" type="Script" id=12]
 [ext_resource path="res://scenes/Indicator.tscn" type="PackedScene" id=13]
@@ -155,7 +155,7 @@ shader_param/mouse_position = null
 [sub_resource type="QuadMesh" id=14]
 material = SubResource( 13 )
 
-[sub_resource type="Shader" id=15]
+[sub_resource type="Shader" id=54]
 code = "shader_type spatial;
 render_mode unshaded;
 render_mode blend_add;
@@ -227,12 +227,12 @@ void fragment()
     ALBEDO = vec3(presence, presence, presence);
 }"
 
-[sub_resource type="ShaderMaterial" id=16]
+[sub_resource type="ShaderMaterial" id=55]
 render_priority = 3
-shader = SubResource( 15 )
+shader = SubResource( 54 )
 
-[sub_resource type="QuadMesh" id=17]
-material = SubResource( 16 )
+[sub_resource type="QuadMesh" id=56]
+material = SubResource( 55 )
 
 [sub_resource type="Gradient" id=20]
 offsets = PoolRealArray( 0, 0.995455 )
@@ -439,7 +439,7 @@ mesh = SubResource( 14 )
 
 [node name="starfield3" type="MeshInstance" parent="BackGround"]
 transform = Transform( -84.7314, -1.41666e-05, -1.02304e-12, 0, -4.10104e-06, 155, -1.27941e-05, 93.821, 6.77527e-06, -0.385273, 1.00001, 0.569824 )
-mesh = SubResource( 17 )
+mesh = SubResource( 56 )
 
 [node name="gles2" type="MeshInstance" parent="BackGround"]
 transform = Transform( 55, 0, 0, 0, 55, 0, 0, 0, 55, 0, 0, 0 )
@@ -529,6 +529,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3, 3 )
 
 [node name="bg_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+volume_db = -24.0
+pitch_scale = 0.5
 autoplay = true
 bus = "Background"
 

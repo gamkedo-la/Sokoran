@@ -52,7 +52,7 @@ flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 albedo_texture = ExtResource( 3 )
 
-[sub_resource type="Shader" id=32]
+[sub_resource type="Shader" id=57]
 code = "shader_type canvas_item;
 render_mode unshaded;
 
@@ -67,13 +67,13 @@ void fragment()
 	COLOR = vec4(COLOR.rgb, alpha);
 }"
 
-[sub_resource type="ShaderMaterial" id=33]
-shader = SubResource( 32 )
+[sub_resource type="ShaderMaterial" id=58]
+shader = SubResource( 57 )
 shader_param/cutoff = 0.0
 shader_param/smooth_size = 0.25
 shader_param/mask = ExtResource( 8 )
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id=59]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/cutoff")
@@ -88,7 +88,7 @@ tracks/0/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=35]
+[sub_resource type="Animation" id=60]
 resource_name = "trans01"
 length = 0.5
 tracks/0/type = "value"
@@ -104,7 +104,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=36]
+[sub_resource type="Animation" id=61]
 resource_name = "trans2"
 length = 0.5
 step = 0.001
@@ -171,15 +171,15 @@ __meta__ = {
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
-material = SubResource( 33 )
+material = SubResource( 58 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
 [node name="anim2" type="AnimationPlayer" parent="ColorRect"]
-anims/RESET = SubResource( 34 )
-anims/trans01 = SubResource( 35 )
-anims/trans2 = SubResource( 36 )
+anims/RESET = SubResource( 59 )
+anims/trans01 = SubResource( 60 )
+anims/trans2 = SubResource( 61 )
 
 [connection signal="body_entered" from="." to="." method="_on_EndGoal_body_entered"]
