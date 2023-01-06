@@ -6,6 +6,7 @@ var mouse_ray_length = 10000 # Ray length for mouse input detection
 var mouse_click_delay = 0.2 # Mouse up and down within this time will count as click
 var z = 10  #
 var tile_removed:= false
+var leaving = false
 
 onready var plop_scene = preload("res://scenes/Plop.tscn")
 onready var dice = preload("res://scenes/BlueDice.tscn")
@@ -205,7 +206,17 @@ func _on_Timer2_timeout(): #enabling the mouse click by turning true ignore_cont
 	ignore_controls=false
 	
 
-
 func _on_Timer3_timeout():
 	$Label/AnimationPlayer.play("modulate")
 	
+
+func _on_EndGoal2_body_entered(body: Node) -> void:
+	if body.is_in_group("box") && !leaving:
+		leaving = true
+		Global.goto_scene(Global.levels[9])
+		
+
+func _on_EndGoal3_body_entered(body: Node) -> void:
+	if body.is_in_group("box") && !leaving:
+		leaving = true
+		Global.goto_scene(Global.levels[9])

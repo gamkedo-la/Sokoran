@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
@@ -20,6 +20,13 @@
 [ext_resource path="res://assets/mesh/CardBox.mesh" type="ArrayMesh" id=18]
 [ext_resource path="res://scenes/tree.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/font/Roboto/Roboto-Medium.ttf" type="DynamicFontData" id=20]
+[ext_resource path="res://assets/bhcore.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scripts/EndGoal.gd" type="Script" id=22]
+[ext_resource path="res://assets/mesh/vortex.obj" type="ArrayMesh" id=23]
+[ext_resource path="res://assets/texture/vortex_streak.png" type="Texture" id=24]
+[ext_resource path="res://resources/PortalRingEffect.tres" type="Material" id=25]
+[ext_resource path="res://assets/vortex_cube2.png" type="Texture" id=26]
+[ext_resource path="res://assets/mesh/vortex.tres" type="Material" id=27]
 
 [sub_resource type="PlaneMesh" id=63]
 material = ExtResource( 2 )
@@ -326,6 +333,119 @@ rough = true
 bounce = 0.01
 absorbent = true
 
+[sub_resource type="SphereMesh" id=37]
+
+[sub_resource type="Animation" id=38]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=39]
+resource_name = "spin"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 360, 0 ) ]
+}
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+albedo_texture = ExtResource( 24 )
+
+[sub_resource type="Shader" id=57]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float cutoff : hint_range(0.0, 1.0);
+uniform float smooth_size : hint_range(0.0, 1.0);
+uniform sampler2D mask : hint_albedo;
+
+void fragment()
+{
+	float value = texture(mask, UV).r;
+	float alpha = smoothstep(cutoff, cutoff + smooth_size, value);
+	COLOR = vec4(COLOR.rgb, alpha);
+}"
+
+[sub_resource type="ShaderMaterial" id=65]
+shader = SubResource( 57 )
+shader_param/cutoff = 0.0
+shader_param/smooth_size = 0.25
+shader_param/mask = ExtResource( 26 )
+
+[sub_resource type="Animation" id=59]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=60]
+resource_name = "trans01"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=61]
+resource_name = "trans2"
+length = 0.5
+step = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.401 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
 [sub_resource type="Animation" id=18]
 length = 0.001
 tracks/0/type = "value"
@@ -389,12 +509,12 @@ tracks/2/keys = {
 "values": [ Vector3( -6, 5, 0 ), Vector3( -8.362, 5.9, 15.168 ), Vector3( 23.658, 5.9, 11.184 ), Vector3( 18.795, 5.9, -7.854 ), Vector3( -6, 5, 0 ) ]
 }
 
-[sub_resource type="DynamicFont" id=61]
+[sub_resource type="DynamicFont" id=66]
 size = 50
 use_mipmaps = true
 font_data = ExtResource( 20 )
 
-[sub_resource type="Animation" id=59]
+[sub_resource type="Animation" id=67]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -409,8 +529,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=60]
-resource_name = "modulate"
+[sub_resource type="Animation" id=68]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -595,11 +714,127 @@ contact_monitor = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 3, 9 )
 visible = false
 
-[node name="EndGoal2" parent="." instance=ExtResource( 7 )]
+[node name="EndGoal2" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 3, 3 )
+script = ExtResource( 22 )
 
-[node name="EndGoal3" parent="." instance=ExtResource( 7 )]
+[node name="black hole mesh" type="MeshInstance" parent="EndGoal2"]
+transform = Transform( 0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0, 0 )
+mesh = SubResource( 37 )
+material/0 = ExtResource( 27 )
+
+[node name="bhcore" parent="EndGoal2/black hole mesh" instance=ExtResource( 21 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+
+[node name="spin" type="AnimationPlayer" parent="EndGoal2/black hole mesh"]
+anims/RESET = SubResource( 38 )
+anims/spin = SubResource( 39 )
+
+[node name="CollisionShape" type="CollisionShape" parent="EndGoal2"]
+shape = SubResource( 1 )
+
+[node name="Popup" type="Popup" parent="EndGoal2"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -175.0
+margin_top = -29.5
+margin_right = 175.0
+margin_bottom = 29.5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EndGoal2/Popup"]
+margin_right = 383.0
+margin_bottom = 72.0
+text = "LEVEL COMPLETE 
+TEMPORARY SOLUTION
+USUALY THE PLAYER JUST TRANSITION TO NEXT LVL"
+
+[node name="vortex effect" type="MeshInstance" parent="EndGoal2"]
+transform = Transform( -4.37114e-11, -0.001, 0, -0.001, 4.37114e-11, 0, 0, 0, 0.001, 0, 0, 0 )
+material_override = ExtResource( 25 )
+generate_lightmap = false
+mesh = ExtResource( 23 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ColorRect" type="ColorRect" parent="EndGoal2"]
+visible = false
+material = SubResource( 65 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="anim2" type="AnimationPlayer" parent="EndGoal2/ColorRect"]
+anims/RESET = SubResource( 59 )
+anims/trans01 = SubResource( 60 )
+anims/trans2 = SubResource( 61 )
+
+[node name="EndGoal3" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 3, 13 )
+script = ExtResource( 22 )
+
+[node name="black hole mesh" type="MeshInstance" parent="EndGoal3"]
+transform = Transform( 0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0, 0 )
+mesh = SubResource( 37 )
+material/0 = ExtResource( 27 )
+
+[node name="bhcore" parent="EndGoal3/black hole mesh" instance=ExtResource( 21 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+
+[node name="spin" type="AnimationPlayer" parent="EndGoal3/black hole mesh"]
+anims/RESET = SubResource( 38 )
+anims/spin = SubResource( 39 )
+
+[node name="CollisionShape" type="CollisionShape" parent="EndGoal3"]
+shape = SubResource( 1 )
+
+[node name="Popup" type="Popup" parent="EndGoal3"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -175.0
+margin_top = -29.5
+margin_right = 175.0
+margin_bottom = 29.5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EndGoal3/Popup"]
+margin_right = 383.0
+margin_bottom = 72.0
+text = "LEVEL COMPLETE 
+TEMPORARY SOLUTION
+USUALY THE PLAYER JUST TRANSITION TO NEXT LVL"
+
+[node name="vortex effect" type="MeshInstance" parent="EndGoal3"]
+transform = Transform( -4.37114e-11, -0.001, 0, -0.001, 4.37114e-11, 0, 0, 0, 0.001, 0, 0, 0 )
+material_override = ExtResource( 25 )
+generate_lightmap = false
+mesh = ExtResource( 23 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ColorRect" type="ColorRect" parent="EndGoal3"]
+visible = false
+material = SubResource( 65 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="anim2" type="AnimationPlayer" parent="EndGoal3/ColorRect"]
+anims/RESET = SubResource( 59 )
+anims/trans01 = SubResource( 60 )
+anims/trans2 = SubResource( 61 )
 
 [node name="bg_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
@@ -639,7 +874,7 @@ margin_right = 512.0
 margin_bottom = 300.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 2
-custom_fonts/font = SubResource( 61 )
+custom_fonts/font = SubResource( 66 )
 text = "YOU ARE NOT ALONE"
 align = 1
 valign = 1
@@ -650,7 +885,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 2
-custom_fonts/normal_font = SubResource( 61 )
+custom_fonts/normal_font = SubResource( 66 )
 bbcode_enabled = true
 bbcode_text = "[center]
 BEWARE OF THE TILES
@@ -665,9 +900,11 @@ one_shot = true
 autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
-anims/RESET = SubResource( 59 )
-anims/modulate = SubResource( 60 )
+anims/RESET = SubResource( 67 )
+anims/modulate = SubResource( 68 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
+[connection signal="body_entered" from="EndGoal2" to="." method="_on_EndGoal2_body_entered"]
+[connection signal="body_entered" from="EndGoal3" to="." method="_on_EndGoal3_body_entered"]
 [connection signal="timeout" from="Label/Timer3" to="." method="_on_Timer3_timeout"]
