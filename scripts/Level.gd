@@ -169,23 +169,23 @@ func _process(_delta: float) -> void:
 	$BackGround/Plane2.translation.y = lerp($BackGround/Plane2.translation.y, water_height,0.1)
 	$Camera/Camera.rotation_degrees.z = lerp($Camera/Camera.rotation_degrees.z, 0.0, 0.15)
 	
-func _react_to_player_move() -> void:
-	
-	var prev_tile_cord = grid_map.world_to_map(PlayerVars.cur_tile)
-	var cell_content = grid_map.get_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z)
-	print("3d point", prev_tile_cord)
-	grid_map.set_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z, -1)
-
-	var temp_block = grid_blocks[cell_content].instance()
-	add_child(temp_block)
-	temp_block.global_transform.origin = grid_map.map_to_world(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z)
-	
-#	call_deferred("add_child", temp_block)
-	var tween = get_tree().create_tween()
-	tween.set_trans(Tween.TRANS_BOUNCE)			
-	tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
-	tween.tween_callback(temp_block, "queue_free").set_delay(2)
-	
+#func _react_to_player_move() -> void:
+#
+#	var prev_tile_cord = grid_map.world_to_map(PlayerVars.cur_tile)
+#	var cell_content = grid_map.get_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z)
+#	print("3d point", prev_tile_cord)
+#	grid_map.set_cell_item(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z, -1)
+#
+#	var temp_block = grid_blocks[cell_content].instance()
+#	add_child(temp_block)
+#	temp_block.global_transform.origin = grid_map.map_to_world(prev_tile_cord.x, prev_tile_cord.y-1, prev_tile_cord.z)
+#
+##	call_deferred("add_child", temp_block)
+#	var tween = get_tree().create_tween()
+#	tween.set_trans(Tween.TRANS_BOUNCE)			
+#	tween.tween_property(temp_block, "scale", Vector3.ZERO, 1.3).from_current()
+#	tween.tween_callback(temp_block, "queue_free").set_delay(2)
+#
 func _on_Timer_timeout():
 	randomize()
 	water_height = rand_range(1,1.5)
@@ -196,4 +196,9 @@ func shake()-> void: #camera shake when you go against a wall/unmoveable ob
 	
 func _on_Timer2_timeout(): #enabling the mouse click by turning true ignore_controls
 	ignore_controls=false
+	
+
+
+func _on_Timer3_timeout():
+	$Label/AnimationPlayer.play("modulate")
 	

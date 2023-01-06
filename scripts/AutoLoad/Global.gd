@@ -8,8 +8,15 @@ var running_scene = null
 
 var levels = [
 	"res://scenes/LVLintro.tscn",
-	"res://scenes/LVLone.tscn",
-	"res://scenes/LVLtwo.tscn"
+	"res://scenes/LVLintroA.tscn",
+	"res://scenes/LVLintroAB.tscn",
+	"res://scenes/LVLintroABC.tscn",
+	"res://scenes/LVL1.tscn",
+	"res://scenes/LVL2.tscn",
+	"res://scenes/LVL1A.tscn",
+	"res://scenes/LVL3.tscn", 
+	"res://scenes/LVL4.tscn", #making this one right now -- move to next when done
+	"res://scenes/MenuScene.tscn"
 ]
 
 var loading_bar

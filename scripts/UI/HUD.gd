@@ -69,7 +69,7 @@ func _input(event):
 	if Input.is_action_just_pressed("reload"):
 		PlayerVars.moves_left = 0
 		PlayerVars.removes_changed = 0
-		var _err = Global.goto_scene(Global.levels[1])
+		var _err = Global.goto_scene(Global.levels[Global.current_level])
 		
 	if Input.is_action_just_pressed("mute"):
 		AudioServer.set_bus_mute(master_bus, true)
@@ -115,11 +115,3 @@ func _on_btn_resume_mouse_entered():
 
 func _on_btn_title_mouse_entered():
 	$ui_sound.play(0.0)
-
-
-func _on_Timer_timeout():
-	pass # Replace with function body.
-
-
-func _on_Timer2_timeout():
-	pass # Replace with function body.

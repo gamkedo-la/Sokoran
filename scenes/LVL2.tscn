@@ -1,0 +1,658 @@
+[gd_scene load_steps=49 format=2]
+
+[ext_resource path="res://resources/Tileset.tres" type="MeshLibrary" id=1]
+[ext_resource path="res://resources/BackGroundMaterial.tres" type="Material" id=2]
+[ext_resource path="res://scripts/LVL2.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Box.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/BlueDice.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/EndGoal.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/mesh/dicecollisionshape_Cube.mesh" type="ArrayMesh" id=8]
+[ext_resource path="res://scenes/UI/HUD.tscn" type="PackedScene" id=9]
+[ext_resource path="res://music/SokoranV1.mp3" type="AudioStream" id=10]
+[ext_resource path="res://assets/mesh/D6diceblue.mesh" type="ArrayMesh" id=11]
+[ext_resource path="res://scripts/GridMap.gd" type="Script" id=12]
+[ext_resource path="res://scenes/Indicator.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/RedDice.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/mesh/D6dicered.mesh" type="ArrayMesh" id=15]
+[ext_resource path="res://assets/noise22.png" type="Texture" id=16]
+[ext_resource path="res://scenes/BoxTile.tscn" type="PackedScene" id=17]
+[ext_resource path="res://assets/mesh/CardBox.mesh" type="ArrayMesh" id=18]
+[ext_resource path="res://scenes/tree.tscn" type="PackedScene" id=19]
+[ext_resource path="res://assets/font/Roboto/Roboto-Medium.ttf" type="DynamicFontData" id=20]
+
+[sub_resource type="PlaneMesh" id=63]
+material = ExtResource( 2 )
+size = Vector2( 200, 200 )
+
+[sub_resource type="PlaneMesh" id=64]
+material = ExtResource( 2 )
+size = Vector2( 200, 200 )
+
+[sub_resource type="BoxShape" id=58]
+extents = Vector3( 3, 1, 2 )
+
+[sub_resource type="Shader" id=9]
+code = "// Interstellar
+// Hazel Quantock
+// This code is licensed under the CC0 license http://creativecommons.org/publicdomain/zero/1.0/
+shader_type spatial;
+render_mode unshaded;
+render_mode blend_add;
+
+uniform sampler2D iChannel0;
+
+const float tau = 6.28318530717958647692;
+const float GAMMA = 2.2 ;
+
+vec3 ToLinear( in vec3 col )
+{
+	// simulate a monitor, converting colour values into light values
+	return pow( col, vec3(GAMMA) );
+}
+
+vec3 ToGamma( in vec3 col )
+{
+	// convert back into colour values, so the correct light will come out of the monitor
+	return pow( col, vec3(1.0/GAMMA) );
+}
+
+vec4 Noise( in ivec2 x )
+{
+	return texture( iChannel0, (vec2(x)+0.5)/256.0, -100.0 );
+}
+
+vec4 Rand( in int x )
+{
+	vec2 uv;
+	uv.x = (float(x)+0.5)/256.0;
+	uv.y = (floor(uv.x)+0.5)/256.0;
+	return texture( iChannel0, uv, -100.0 );
+}
+
+
+void fragment()
+{
+	vec3 ray;
+	ray.xy = 2.0*(FRAGCOORD.xy-VIEWPORT_SIZE.xy*.5)/VIEWPORT_SIZE.x;
+	ray.z = 1.0;
+
+	float offset = TIME*.05;	
+	float speed2 = (cos(offset)+1.0)*2.0;
+	float speed = speed2+.1;
+	offset += sin(offset)*.96;
+	offset *= 2.0;
+	
+	
+	vec3 col = vec3(0);
+	
+	vec3 stp = ray/max(abs(ray.x),abs(ray.y));
+	
+	vec3 pos = 2.0*stp+.5;
+	for ( int i=0; i < 20; i++ )
+	{
+		float z = Noise(ivec2(pos.xy)).x;
+		z = fract(z-offset);
+		float d = 50.0*z-pos.z;
+		float w = pow(max(0.0,1.0-8.0*length(fract(pos.xy)-.5)),2.0);
+		vec3 c = max(vec3(0),vec3(1.0-abs(d+speed2*.5)/speed,1.0-abs(d)/speed,1.0-abs(d-speed2*.5)/speed));
+		col += 1.5*(1.0-z)*c*w;
+		pos += stp;
+	}
+	
+	ALBEDO = vec3(ToGamma(col));
+}"
+
+[sub_resource type="ShaderMaterial" id=10]
+render_priority = 1
+shader = SubResource( 9 )
+shader_param/iChannel0 = ExtResource( 16 )
+
+[sub_resource type="QuadMesh" id=11]
+material = SubResource( 10 )
+
+[sub_resource type="Shader" id=12]
+code = "// V-Drop - Del 19/11/2019 - (Tunnel mix - Enjoy)
+// vertical version: https://www.shadertoy.com/view/tdGXWm
+shader_type spatial;
+render_mode unshaded;
+render_mode blend_add;
+
+uniform vec2 mouse_position;
+
+const float PI = 3.14159;
+
+float vDrop(vec2 uv,float t)
+{
+    uv.x = uv.x*499.0;						// H-Count
+    float dx = fract(uv.x);
+    uv.x = floor(uv.x);
+    uv.y *= 1.9;							// stretch
+    float o=sin(uv.x*215.4);				// offset
+    float s=cos(uv.x*33.1)*.3 +.6;			// speed
+    float trail = mix(95.0,35.0,s);			// trail length
+    float yv = fract(uv.y + t*s + o) * trail;
+    yv = 1.0/yv;
+    yv = smoothstep(0.0,1.0,yv*yv);
+    yv = sin(yv*PI)*(s*5.0);
+    float d2 = sin(dx*PI);
+    return yv*(d2*d2);
+}
+
+void fragment()
+{
+    vec2 p = (FRAGCOORD.xy - 0.5 * VIEWPORT_SIZE.xy) / VIEWPORT_SIZE.y;
+    float d = length(p)+0.1;
+	p = vec2(atan(p.x, p.y) / PI, 2.5 / d);
+//    p.y *= 0.5;
+    float t =  TIME*0.4;
+    vec3 col = vec3(1.55,0.65,.225) * vDrop(p,t);	// red
+    col += vec3(0.55,0.75,1.225) * vDrop(p,t+0.33);	// blue
+    col += vec3(0.45,1.15,0.425) * vDrop(p,t+0.66);	// green
+	ALBEDO = vec3(col*(d*d));
+}"
+
+[sub_resource type="ShaderMaterial" id=13]
+render_priority = 2
+shader = SubResource( 12 )
+shader_param/mouse_position = null
+
+[sub_resource type="QuadMesh" id=14]
+material = SubResource( 13 )
+
+[sub_resource type="Shader" id=54]
+code = "shader_type spatial;
+render_mode unshaded;
+render_mode blend_add;
+
+const float M_2PI = 6.28318530718;
+
+vec2 polar(vec2 dPoint)
+{
+    return vec2(sqrt(dPoint.x * dPoint.x + dPoint.y * dPoint.y), atan(dPoint.y, dPoint.x));
+}
+
+float rand(vec2 co)
+{
+    return fract(sin(dot(co.xy, vec2(12.9898,78.233))) * 43758.5453);
+}
+
+vec2 decart(vec2 pPoint)
+{
+    return vec2(pPoint.x * cos(pPoint.y), pPoint.x * sin(pPoint.y));
+}
+
+void fragment()
+{
+    vec2 screen = VIEWPORT_SIZE.xy;
+    vec2 center = screen / 2.0;
+    vec2 frag = FRAGCOORD.xy - center;
+    vec2 fragPolar = polar(frag);
+    float lenCenter = length(center);
+    
+	const float bandPass = 720.0;
+    const float angleDisp = M_2PI / (bandPass + 1.0);
+    
+    const float particlesCount = 200.0;
+    const float particleLifetime = 10.0;
+    const float particleMaxSize = 10.0;
+    float particleMaxSizeNorm = particleMaxSize / lenCenter;
+    
+    float globTime = TIME / particleLifetime;
+    float timeDelta = bandPass;
+    
+    const float polarRadiusClip = 0.05;
+    const float polarRadiusMax = 0.75;
+    float polarRadiusDelta = polarRadiusMax - polarRadiusClip; 
+    
+    float presence = 0.0;
+    vec2 pPoint;
+    
+    for (float i = 0.0; i < particlesCount; i += 1.0)
+    {
+        float phase = i / particlesCount;
+        
+        float localTime = globTime + timeDelta * (2.0 * phase - 1.0) + phase;
+        float particleTime = fract(localTime);
+        float spaceTransform = pow(particleTime, 8.0);
+        
+        pPoint.x = lenCenter * ((polarRadiusClip + polarRadiusDelta * phase) + spaceTransform);
+        
+        // +30 FPS :)
+        if (abs(pPoint.x - fragPolar.x) > particleMaxSize) continue;
+        
+        pPoint.y = floor(particleTime + bandPass * rand(vec2(floor(localTime), 1))) * angleDisp;
+        
+        vec2 dPoint = decart(pPoint);        
+        float particleSize = particleMaxSize * spaceTransform;
+        float localPresence = particleSize * (1.0 - clamp(length(dPoint - frag), 0.0, 1.0));
+        presence += localPresence;
+    }
+    presence = clamp(presence, 0.0, 1.0);
+    ALBEDO = vec3(presence, presence, presence);
+}"
+
+[sub_resource type="ShaderMaterial" id=55]
+render_priority = 3
+shader = SubResource( 54 )
+
+[sub_resource type="QuadMesh" id=56]
+material = SubResource( 55 )
+
+[sub_resource type="Gradient" id=20]
+offsets = PoolRealArray( 0, 0.995455 )
+colors = PoolColorArray( 0.171875, 0.0980225, 0.0980225, 1, 0.0963414, 0.0279083, 0.121094, 1 )
+
+[sub_resource type="GradientTexture" id=21]
+gradient = SubResource( 20 )
+
+[sub_resource type="SpatialMaterial" id=22]
+flags_unshaded = true
+albedo_texture = SubResource( 21 )
+
+[sub_resource type="PlaneMesh" id=23]
+material = SubResource( 22 )
+
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( 17.8, 1.6, 21.8, -2, 2, 2, 18, 2, 22, 17.8, 1.6, 21.8, -1.8, 1.6, 1.8, -2, 2, 2, -1.8, 1.6, 1.8, -2, 2, -2, -2, 2, 2, -1.8, 1.6, 1.8, -1.8, 1.6, -1.8, -2, 2, -2, -1, 0, -1, 17, 0, 21, 1, 0, -1, -1, 0, -1, -1, 0, 1, 17, 0, 21, 1.8, 1.6, -1.8, 18, 2, 22, 2, 2, -2, 1.8, 1.6, -1.8, 17.8, 1.6, 21.8, 18, 2, 22, -1.8, 1.6, -1.8, 2, 2, -2, -2, 2, -2, -1.8, 1.6, -1.8, 1.8, 1.6, -1.8, 2, 2, -2, -1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, -1, 0, -1, 1, 0, -1, 1.2, 0.4, -1.2, -1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, -1.2, 0.4, -1.2, 1.2, 0.4, -1.2, 1.4, 0.8, -1.4, -1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, -1.4, 0.8, -1.4, 1.4, 0.8, -1.4, 1.6, 1.2, -1.6, -1.6, 1.2, -1.6, 1.8, 1.6, -1.8, -1.8, 1.6, -1.8, -1.6, 1.2, -1.6, 1.6, 1.2, -1.6, 1.8, 1.6, -1.8, 1, 0, -1, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 1, 0, -1, 17, 0, 21, 17.2, 0.4, 21.2, 1.2, 0.4, -1.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 1.2, 0.4, -1.2, 17.2, 0.4, 21.2, 17.4, 0.8, 21.4, 1.4, 0.8, -1.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 1.4, 0.8, -1.4, 17.4, 0.8, 21.4, 17.6, 1.2, 21.6, 1.6, 1.2, -1.6, 17.8, 1.6, 21.8, 1.8, 1.6, -1.8, 1.6, 1.2, -1.6, 17.6, 1.2, 21.6, 17.8, 1.6, 21.8, -1, 0, 1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1, 0, 1, -1, 0, -1, -1.2, 0.4, -1.2, -1.2, 0.4, 1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.2, 0.4, 1.2, -1.2, 0.4, -1.2, -1.4, 0.8, -1.4, -1.4, 0.8, 1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.4, 0.8, 1.4, -1.4, 0.8, -1.4, -1.6, 1.2, -1.6, -1.6, 1.2, 1.6, -1.8, 1.6, -1.8, -1.8, 1.6, 1.8, -1.6, 1.2, 1.6, -1.6, 1.2, -1.6, -1.8, 1.6, -1.8, 17, 0, 21, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, 17, 0, 21, -1, 0, 1, -1.2, 0.4, 1.2, 17.2, 0.4, 21.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, 17.2, 0.4, 21.2, -1.2, 0.4, 1.2, -1.4, 0.8, 1.4, 17.4, 0.8, 21.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, 17.4, 0.8, 21.4, -1.4, 0.8, 1.4, -1.6, 1.2, 1.6, 17.6, 1.2, 21.6, -1.8, 1.6, 1.8, 17.8, 1.6, 21.8, 17.6, 1.2, 21.6, -1.6, 1.2, 1.6, -1.8, 1.6, 1.8 )
+
+[sub_resource type="BoxShape" id=62]
+extents = Vector3( 1, 0.189996, 1 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -45, -160, 2.87871e-13 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "loop"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -62, 107, -38 ), Vector3( -62, 467, -38 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -45, -160, 2.87871e-13 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "loop"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -62, 107, -38 ), Vector3( -62, 467, -38 ) ]
+}
+
+[sub_resource type="PhysicsMaterial" id=6]
+rough = true
+bounce = 0.01
+absorbent = true
+
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("roam_obj:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("roam_obj:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -6.63823, 3.91476, 0 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "roll"
+length = 20.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("roam_obj:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 20 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 360 ) ]
+}
+tracks/1/type = "transform"
+tracks/1/path = NodePath("roam_obj")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray(  )
+tracks/2/type = "value"
+tracks/2/path = NodePath("roam_obj:translation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 5, 10, 15, 20 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -6, 5, 0 ), Vector3( 3.187, 5.9, 15.168 ), Vector3( 23.658, 5.9, 11.184 ), Vector3( 18.795, 5.9, -7.854 ), Vector3( -6, 5, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=61]
+size = 50
+use_mipmaps = true
+font_data = ExtResource( 20 )
+
+[sub_resource type="Animation" id=59]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=60]
+resource_name = "modulate"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="LVL2" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="HUD" parent="." instance=ExtResource( 9 )]
+
+[node name="Level" type="Spatial" parent="."]
+
+[node name="GridMap" type="GridMap" parent="Level" groups=["wall"]]
+unique_name_in_owner = true
+mesh_library = ExtResource( 1 )
+collision_layer = 5
+data = {
+"cells": PoolIntArray( 1, 0, 0, 3, 0, 0, 5, 0, 0, 7, 0, 0, 9, 0, 0, 11, 0, 0, 65535, 0, 0, 0, 1, 0, 2, 1, 0, 4, 1, 0, 6, 1, 0, 13, 1, 0, 65534, 1, 0, 1, 2, 0, 3, 2, 0, 5, 2, 0, 7, 2, 0, 9, 2, 0, 65533, 2, 0, 65535, 2, 0, 0, 3, 0, 2, 3, 0, 4, 3, 0, 6, 3, 0, 8, 3, 0, 10, 3, 0, 65531, 3, 0, 65534, 3, 0, 0, 4, 0, 1, 4, 0, 3, 4, 0, 5, 4, 0, 7, 4, 0, 9, 4, 0, 11, 4, 0, 13, 4, 0, 65533, 4, 0, 65535, 4, 0, 0, 5, 0, 2, 5, 0, 4, 5, 0, 6, 5, 0, 8, 5, 0, 12, 5, 0, 65534, 5, 0, 65535, 5, 0, 1, 6, 0, 3, 6, 0, 5, 6, 0, 7, 6, 0, 8, 6, 0, 9, 6, 0, 13, 6, 0, 65535, 6, 0, 0, 7, 0, 6, 7, 0, 8, 7, 0, 10, 7, 0, 12, 7, 0, 65534, 7, 0, 1, 8, 0, 3, 8, 0, 5, 8, 0, 7, 8, 0, 14, 8, 0, 11, 9, 0, 65534, 9, 0, 0, 10, 0, 3, 10, 0, 5, 10, 0, 1, 12, 0, 65534, 12, 0, 9, 65530, 0, 3, 65532, 0, 5, 65532, 0, 7, 65532, 0, 0, 65533, 0, 2, 65533, 0, 8, 65533, 0, 10, 65533, 0, 65534, 65533, 0, 3, 65534, 0, 5, 65534, 0, 7, 65534, 0, 65533, 65534, 0, 0, 65535, 0, 2, 65535, 0, 4, 65535, 0, 6, 65535, 0, 8, 65535, 0, 10, 65535, 0, 65532, 65535, 0 )
+}
+script = ExtResource( 12 )
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 1, 0, 0 )
+}
+
+[node name="Box" parent="Level/GridMap" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 2.13893, 11 )
+
+[node name="randomasset" type="MeshInstance" parent="Level/GridMap"]
+
+[node name="tree" parent="Level/GridMap/randomasset" instance=ExtResource( 19 )]
+transform = Transform( 0.830557, 0, 0.556934, 0, 1, 0, -0.556934, 0, 0.830557, 8.9329, 1.00472, 2.8511 )
+
+[node name="BackGround" type="StaticBody" parent="."]
+collision_layer = 5
+
+[node name="Plane" type="MeshInstance" parent="BackGround"]
+mesh = SubResource( 63 )
+skeleton = NodePath("")
+
+[node name="Plane2" type="MeshInstance" parent="BackGround"]
+transform = Transform( 0.654, -0.066, 0.753, -0.407, 0.809, 0.424, -0.638, -0.584, 0.502, 1.801, 2.21, 13.376 )
+visible = false
+mesh = SubResource( 64 )
+skeleton = NodePath("")
+
+[node name="OldDiceCollision_disabled" type="CollisionShape" parent="BackGround"]
+transform = Transform( 6, 0, 0, 0, 3, 0, 0, 0, 11, 9, -1, 7 )
+shape = SubResource( 58 )
+disabled = true
+
+[node name="starfield1" type="MeshInstance" parent="BackGround"]
+transform = Transform( 50, 0, 0, 0, -2.18557e-06, 25, 0, -50, -1.09278e-06, 10, 0.729981, 7 )
+visible = false
+mesh = SubResource( 11 )
+
+[node name="starfield2" type="MeshInstance" parent="BackGround"]
+transform = Transform( 100, 0, 0, 0, -4.37114e-06, 50, 0, -100, -2.18557e-06, 0, 0, 0 )
+visible = false
+mesh = SubResource( 14 )
+
+[node name="starfield3" type="MeshInstance" parent="BackGround"]
+transform = Transform( -84.7314, -1.41666e-05, -1.02304e-12, 0, -4.10104e-06, 155, -1.27941e-05, 93.821, 6.77527e-06, -0.385273, 1.00001, 0.569824 )
+mesh = SubResource( 56 )
+
+[node name="gles2" type="MeshInstance" parent="BackGround"]
+transform = Transform( 55, 0, 0, 0, 55, 0, 0, 0, 55, 0, 0, 0 )
+visible = false
+mesh = SubResource( 23 )
+
+[node name="Camera" type="Spatial" parent="."]
+
+[node name="Camera" type="Camera" parent="Camera"]
+transform = Transform( -0.939693, 0.241845, -0.241845, 0, 0.707107, 0.707107, 0.34202, 0.664463, -0.664463, 3, 20, -10 )
+projection = 1
+size = 20.0
+
+[node name="DiceCollisionWall" type="MeshInstance" parent="Camera/Camera"]
+transform = Transform( 14.3937, 1.96529e-06, -3.4202, -3.70443, 7.07107, -6.64463, 3.70443, 7.07107, 6.64464, 3.383, -1.12132, -24.5183 )
+mesh = ExtResource( 8 )
+skeleton = NodePath("../../..")
+
+[node name="StaticBody" type="StaticBody" parent="Camera/Camera/DiceCollisionWall"]
+transform = Transform( 1, 1.17239e-15, -1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0, 0 )
+collision_layer = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
+visible = false
+shape = SubResource( 3 )
+disabled = true
+
+[node name="CollisionShape2" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
+transform = Transform( 1, 3.59527e-14, 0, 7.67279e-15, 1, -5.68434e-14, 0, -7.10543e-15, 1, 5.96046e-08, -0.47724, -1.19209e-07 )
+visible = false
+shape = SubResource( 62 )
+disabled = true
+
+[node name="CollisionShape3" type="CollisionShape" parent="Camera/Camera/DiceCollisionWall/StaticBody"]
+transform = Transform( 4.04618, 1.1242e-14, -3.41061e-13, 1.62576e-13, 0.999999, -1.13687e-12, 9.09495e-13, 0, 5.5749, 2.98023e-08, -0.28503, -4.17233e-07 )
+shape = SubResource( 62 )
+
+[node name="RayCast" type="RayCast" parent="Camera/Camera"]
+enabled = true
+debug_shape_custom_color = Color( 0.976471, 0.0352941, 0.0352941, 1 )
+debug_shape_thickness = 5
+
+[node name="Indicator" parent="Camera/Camera" instance=ExtResource( 13 )]
+
+[node name="Control" type="Control" parent="Camera"]
+anchor_right = 1.0
+
+[node name="MeshInstance" type="MeshInstance" parent="Camera/Control"]
+transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332231, -0.332231, 7.93714, 23.681, -1.88451 )
+visible = false
+mesh = ExtResource( 11 )
+skeleton = NodePath("../../Camera")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/Control/MeshInstance"]
+autoplay = "loop"
+anims/RESET = SubResource( 4 )
+anims/loop = SubResource( 5 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Camera/Control"]
+transform = Transform( -0.469846, 0.120922, -0.120922, 1.77636e-15, 0.353553, 0.353553, 0.17101, 0.332231, -0.332231, 4.17837, 23.681, -0.51643 )
+visible = false
+mesh = ExtResource( 15 )
+skeleton = NodePath("../../Camera")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/Control/MeshInstance2"]
+autoplay = "loop"
+anims/RESET = SubResource( 7 )
+anims/loop = SubResource( 8 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 8.0
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 13 )
+
+[node name="ray_move" type="RayCast" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.689412, -0.0650814 )
+debug_shape_custom_color = Color( 0.74902, 0.121569, 0.901961, 1 )
+debug_shape_thickness = 5
+
+[node name="BlueDice" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 0 )
+
+[node name="RedDice" parent="." instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 0 )
+collision_layer = 2
+collision_mask = 4
+mass = 61.71
+physics_material_override = SubResource( 6 )
+contacts_reported = 1
+contact_monitor = true
+
+[node name="EndGoal" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 3, 15 )
+
+[node name="bg_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -24.0
+pitch_scale = 0.5
+autoplay = true
+bus = "Background"
+
+[node name="BoxTile" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 3, 9 )
+
+[node name="BoxTile2" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3, 9 )
+
+[node name="BoxTile3" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 3, 9 )
+
+[node name="BoxTile4" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3, 9 )
+
+[node name="roam" type="Spatial" parent="."]
+
+[node name="roam_obj" type="MeshInstance" parent="roam"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.63823, 3.91476, 0 )
+mesh = ExtResource( 18 )
+
+[node name="roam_anim" type="AnimationPlayer" parent="roam"]
+unique_name_in_owner = true
+anims/RESET = SubResource( 18 )
+anims/roll = SubResource( 19 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 2
+custom_fonts/font = SubResource( 61 )
+align = 1
+valign = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_fonts/normal_font = SubResource( 61 )
+bbcode_enabled = true
+bbcode_text = "[center]
+BEWARE OF THE TILES
+UNDER YOUR FEET[/center]"
+text = "
+BEWARE OF THE TILES
+UNDER YOUR FEET"
+
+[node name="Timer3" type="Timer" parent="Label"]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
+anims/RESET = SubResource( 59 )
+anims/modulate = SubResource( 60 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
+[connection signal="timeout" from="Label/Timer3" to="." method="_on_Timer3_timeout"]

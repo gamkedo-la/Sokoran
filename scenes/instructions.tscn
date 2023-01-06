@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/font/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/ui/mouse-click.png" type="Texture" id=2]
@@ -31,16 +31,96 @@ size = 24
 outline_color = Color( 0.137255, 0.121569, 0.12549, 1 )
 font_data = ExtResource( 4 )
 
+[sub_resource type="Gradient" id=15]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0, 6.64215e-43, 0.493902, 1 )
+colors = PoolColorArray( 0.976471, 0.301961, 0.796078, 1, 0.886275, 0.133333, 0.133333, 1, 0, 0, 0, 1, 0.737255, 0.164706, 0.941176, 1, 0.133333, 0, 0.12549, 1 )
+
+[sub_resource type="GradientTexture" id=16]
+gradient = SubResource( 15 )
+
+[sub_resource type="OpenSimplexNoise" id=11]
+seed = 785
+octaves = 9
+period = 30.9
+persistence = 0.512
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=12]
+seamless = true
+bump_strength = 30.8
+noise = SubResource( 11 )
+
+[sub_resource type="OpenSimplexNoise" id=9]
+period = 239.6
+persistence = 1.0
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=10]
+flags = 127
+seamless = true
+as_normalmap = true
+noise = SubResource( 9 )
+
+[sub_resource type="OpenSimplexNoise" id=13]
+period = 256.0
+persistence = 0.195
+lacunarity = 0.4
+
+[sub_resource type="NoiseTexture" id=14]
+seamless = true
+noise = SubResource( 13 )
+
+[sub_resource type="SpatialMaterial" id=8]
+render_priority = -22
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 0.556863, 0.917647, 0.0235294, 1 )
+albedo_texture = SubResource( 10 )
+depth_enabled = true
+depth_scale = 15.487
+depth_deep_parallax = true
+depth_min_layers = 8
+depth_max_layers = 32
+depth_flip_tangent = false
+depth_flip_binormal = false
+depth_texture = SubResource( 14 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="SpatialMaterial" id=48]
+resource_local_to_scene = true
+next_pass = SubResource( 8 )
+flags_unshaded = true
+albedo_color = Color( 0.756863, 1, 0, 1 )
+albedo_texture = SubResource( 16 )
+depth_enabled = true
+depth_scale = 0.634
+depth_deep_parallax = true
+depth_min_layers = 64
+depth_max_layers = 64
+depth_flip_tangent = false
+depth_flip_binormal = true
+depth_texture = SubResource( 12 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.5
+
+[sub_resource type="PlaneMesh" id=49]
+resource_local_to_scene = true
+material = SubResource( 48 )
+size = Vector2( 200, 200 )
+
 [node name="instructions" type="Control"]
-anchor_left = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 5 )
 
 [node name="h2p" type="Button" parent="."]
-margin_left = -511.0
-margin_right = -407.0
-margin_bottom = 58.0
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -29.0
+margin_right = 104.0
+margin_bottom = 29.0
 custom_fonts/font = SubResource( 47 )
 custom_styles/hover = SubResource( 31 )
 custom_styles/pressed = SubResource( 31 )
@@ -93,7 +173,7 @@ render_target_v_flip = true
 render_target_update_mode = 3
 
 [node name="Spatial" parent="VBoxContainer/HBoxContainer8/ViewportContainer/Viewport" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.11794, 0.405393, 0.272166 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.11794, 183.066, 0.272166 )
 
 [node name="Control2" type="Control" parent="VBoxContainer/HBoxContainer8"]
 margin_left = 108.0
@@ -135,7 +215,7 @@ render_target_v_flip = true
 render_target_update_mode = 3
 
 [node name="Spatial1" parent="VBoxContainer/HBoxContainer7/ViewportContainer/Viewport" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.9951, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.9951, 202.23, 0 )
 
 [node name="Control2" type="Control" parent="VBoxContainer/HBoxContainer7"]
 margin_left = 108.0
@@ -171,6 +251,7 @@ margin_bottom = 60.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+modulate = Color( 0, 0, 0, 1 )
 margin_left = 61.0
 margin_right = 121.0
 margin_bottom = 60.0
@@ -209,6 +290,7 @@ margin_bottom = 60.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+modulate = Color( 0, 0, 0, 1 )
 margin_left = 61.0
 margin_right = 121.0
 margin_bottom = 60.0
@@ -242,6 +324,7 @@ margin_right = 563.0
 margin_bottom = 478.0
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer3"]
+modulate = Color( 0, 0, 0, 1 )
 margin_right = 180.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 180, 120 )
@@ -283,7 +366,7 @@ margin_bottom = 522.0
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer4"]
 margin_right = 100.0
 margin_bottom = 29.0
-custom_colors/font_color = Color( 0.137255, 0.121569, 0.12549, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "              R"
 
@@ -308,7 +391,7 @@ margin_bottom = 555.0
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer5"]
 margin_right = 105.0
 margin_bottom = 29.0
-custom_colors/font_color = Color( 0.137255, 0.121569, 0.12549, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "              M"
 
@@ -333,7 +416,7 @@ margin_bottom = 588.0
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer6"]
 margin_right = 116.0
 margin_bottom = 29.0
-custom_colors/font_color = Color( 0.137255, 0.121569, 0.12549, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "            ESC"
 
@@ -356,6 +439,13 @@ margin_right = 563.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.147033, 0.989132, 0, -0.989132, 0.147033, -8.40228, 23.0276, -48.4707 )
+
+[node name="Plane" type="MeshInstance" parent="."]
+mesh = SubResource( 49 )
+skeleton = NodePath("")
 
 [connection signal="mouse_entered" from="h2p" to="." method="_on_h2p_mouse_entered"]
 [connection signal="mouse_exited" from="h2p" to="." method="_on_h2p_mouse_exited"]

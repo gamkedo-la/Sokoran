@@ -5,8 +5,12 @@ extends Control
 # var a = 2
 # var b = "text"
 
-
+var mouse_over = false
 # Called when the node enters the scene tree for the first time.
+func _process(_delta):
+	if Input.is_action_pressed("ui_select"):
+		Global.goto_scene(Global.levels[0])
+		
 func _ready():
 	$ColorRect2/anim2.play("trans01")
 	$planet/AnimationPlayer.play("1Action")
@@ -21,7 +25,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	Global.goto_scene(Global.levels[0])
